@@ -18,26 +18,32 @@ abaixo**.
 
 # Ementa
 
-  - **Organização de projetos**
-      - Por que não usar `.RData` e `.Rhistory`
-      - Git e Github
-      - Funções e dependências
-      - Pacotes
-  - **Manipulação de dados**
-      - dplyr avançado: `across()`, `where()` e joins
-      - Manipulação de textos com o pacote `{stringr}`
-      - Manipulação de datas com o pacote `{lubridate}`
-  - **Visualização de dados**
-      - Extensões do pacote `{ggplot2}`
-      - Construindo mapas com o `geom_sf()`
-      - Construindo seu próprio tema no `{ggplot2}`
-  - **Programação funcional**
-      - Listas e list-columns
-      - Introdução ao pacote `{purrr}`
-      - Substituindo for e while pelas funções `map_()`
-  - **Comunicação**
-      - Introdução ao Shiny
-      - A lógica ui/server
-      - Inputs e outputs
-      - Hospedando um aplicativo no
-        [shinyapps.io](https://www.shinyapps.io/)
+  - **Ambientação ao R e ao RStudio**
+      - Vantagens de usarmos programação para analisar dados
+      - O que é e por que usar o RStudio
+      - Escrevendo e rodando códigos
+  - **Introdução à programação em R**
+      - Objetos e vetores
+      - Classes: números, caracteres, lógicos e data frames
+      - Utilizando e criando funções no R
+      - Loopings de programação: `for` e `while`
+      - O operador pipe (`%>%`)
+  - **Importação de bases para dentro do R**
+      - Importando arquivos de texto: `.csv` e `.txt`
+      - Importando arquivos excel: `.xls` e `.xlsx`
+      - Conexão com um servidor SQL
+  - **Manipulação de bases de dados (o pacote `dplyr`)**
+      - Selecionando colunas
+      - Filtrando e ordenando linhas
+      - Modificando e criando colunas
+      - Criando sumarizações
+      - Juntando duas colunas
+  - **Gráficos (o pacote `ggplot2`)**
+      - Gráficos de pontos (dispersão)
+      - Gráficos de barras
+      - Boxplots e histogramas
+      - Customizando gráficos
+  - **Relatórios e dashboards em R Markdown**
+      - Introdução ao `R Markdown`
+      - Construindo relatórios em HTML, PDF e Word
+      - Construindo dashboards com o pacote flexdashboard
