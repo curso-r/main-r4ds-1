@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+knit: pagedown::chrome_print              
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -60,7 +61,7 @@ Curiosidade: o `gg` em `ggplot` vem de *Grammar of Graphics*.
 Para construir um gráfico usando o pacote `ggplot2`, começamos sempre com a função `ggplot()` (sim, sem o 2). Essa função recebe como argumento a nossa base de dados. Rodando apenas isso, percebemos que o R cria a primeira camada do nosso gráfico: uma tela em branco (cinza).
 
 
-```{r}
+```{r ggcanvas}
 imdb %>% ggplot()
 ```
 
@@ -70,7 +71,7 @@ imdb %>% ggplot()
 Podemos fazer um gráfico de dispersão da receita contra o orçamento dos filmes acrescentando a função `geom_point()` ao código anterior.
 
 .tiny[
-```{r}
+```{r ggdispersao}
 imdb %>% 
   ggplot() +
   geom_point(aes(x = orcamento, y = receita))
@@ -107,7 +108,7 @@ Muitos pontos para discutirmos:
 Vamos agora inserir um novo elemento visual ao gráfico: a reta x = y.
 
 .tiny[
-```{r}
+```{r ggreta}
 imdb %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita)) +
@@ -130,7 +131,7 @@ imdb %>%
 Veja como o ggplot realmente é construído por camadas. Agora, colocamos a camada da reta antes da camada dos pontos. Os pontos ficam em cima da reta.
 
 .tiny[
-```{r}
+```{r ggretavermelha}
 imdb %>%
   ggplot() +
   geom_abline(intercept = 0, slope = 1, color = "red") +
@@ -144,7 +145,7 @@ imdb %>%
 Os atributos `x` e `y` são necessários para construirmos um gráfico de pontos. Outros atributos também podem ser mapeados em colunas, como a cor. Como a coluna `lucro` é numérica, um degradê de cores é criado para os pontos, a depender do lucro.
 
 .tiny[
-```{r}
+```{r ggdispersaoazul}
 imdb %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita, color = lucro))
@@ -157,7 +158,7 @@ imdb %>%
 Poderíamos também classificar os filmes entre aqueles que lucraram ou não. Uma cor é atribuída a cada categoria.
 
 .tiny[
-```{r}
+```{r gglucro}
 imdb %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
@@ -180,7 +181,7 @@ A seguir, construímos o gráfico das notas médias dos filmes produzidos em cad
 <br><br>
 
 .tiny[
-```{r, fig.width = 8, fig.height = 4}
+```{r gglinha, fig.width = 8, fig.height = 4}
 imdb %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
@@ -195,7 +196,7 @@ imdb %>%
 Se mapearmos uma coluna à cor das retas, serão construídas uma reta correspondente a cada categoria distinta dessa coluna.
 
 .tiny[
-```{r, fig.width = 8, fig.height = 3}
+```{r gglinhacolorida, fig.width = 8, fig.height = 3}
 imdb %>% 
   filter(!is.na(cor)) %>% 
   group_by(ano, cor) %>% 
@@ -210,7 +211,7 @@ imdb %>%
 
 Podemos colocar pontos e retas no mesmo gráfico. Basta acrescentar os dois `geoms`. O gráfico abaixo mostra nota média anual dos filmes do Robert De Niro.
 
-```{r, fig.width = 8, fig.height = 3}
+```{r ggdeniro, fig.width = 8, fig.height = 3}
 imdb %>% 
   filter(ator_1 == "Robert De Niro") %>% 
   group_by(ano) %>% 
@@ -225,7 +226,7 @@ imdb %>%
 
 Quando precisamos usar o mesmo `aes()` em vários `geoms`, podemos defini-lo dentro da função `ggplot()`. Esse `aes()` será então distribuído para todo `geom` do gráfico. O código anterior pode ser reescrito da seguinte forma.
 
-```{r, fig.width = 8, fig.height = 3}
+```{r gglinhaponto, fig.width = 8, fig.height = 3}
 imdb %>% 
   filter(ator_1 == "Robert De Niro") %>% 
   group_by(ano) %>% 
@@ -241,7 +242,7 @@ imdb %>%
 Se algum `geom` necessitar de um atributo que os outros não precisam, esse atributo pode ser especificado normalmente dentro dele. Abaixo, utilizamos o `geom_label` para colocar as notas médias no gráfico. Além do `x` e `y`, o `geom_label` também precisa do texto que será escrito no gráfico.
 
 .tiny[
-```{r, fig.width = 8, fig.height = 3}
+```{r gglinhalabel, fig.width = 8, fig.height = 3}
 imdb %>% 
   filter(ator_1 == "Robert De Niro") %>% 
   group_by(ano) %>% 
@@ -259,7 +260,7 @@ imdb %>%
 Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construímos um gráfico de barras do número de filmes dos 10 diretores que mais aparecem na nossa base do IMDB.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggbarras, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(diretor) %>%
   top_n(10, n) %>%
@@ -274,13 +275,13 @@ Gráficos de barras também precisam dos atributos `x` e `y`, sendo que o atribu
 
 No gráfico anterior, vemos que o `NA` é considerado uma "opção" de diretor e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
 
-A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é simples: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
+A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
 
 ---
 <br><br>
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggbarracolorida, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -299,7 +300,7 @@ imdb %>%
 Para consertar as labels do eixo `x`, a melhor prática é invertermos os eixos do gráfico, construindo barras horizontais.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggbarracoordflip, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -318,7 +319,7 @@ imdb %>%
 
 Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `diretor`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
 
-Fatores dentro do R nada mais são do que números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
+Fatores dentro do R são números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
 
 Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem dos diretores nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
 
@@ -326,7 +327,7 @@ Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela
 <br><br>
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggbarraforcats, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -347,7 +348,7 @@ imdb %>%
 Por fim, podemos colocar uma label com o número de filmes de cada diretor dentro de cada barra.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggbarralabel, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -371,7 +372,7 @@ O primeiro *warning* nos diz que o eixo x foi dividido em 30 intervalos para a c
 ---
 <br><br>
 
-```{r, fig.width = 7, fig.height = 3.5}
+```{r gghist, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   filter(diretor == "Steven Spielberg") %>%
   ggplot() +
@@ -384,7 +385,7 @@ imdb %>%
 Para definir o tamanho de cada intervalo, podemos utilizar o argumento `bindwidth`.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r gghistbind, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   filter(diretor == "Steven Spielberg") %>%
   ggplot() +
@@ -409,7 +410,7 @@ A seguir, construímos boxplots do lucro dos filmes dos diretores que fizeram ma
 <br><br>
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggboxplot, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   filter(!is.na(diretor)) %>%
   group_by(diretor) %>% 
@@ -425,7 +426,7 @@ imdb %>%
 Também podemos reordenar a ordem dos boxplots utilizando a função `forcats::fct_reorder`.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3.5}
+```{r ggboxplotreorder, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   filter(!is.na(diretor)) %>%
   group_by(diretor) %>% 
@@ -452,7 +453,7 @@ Podemos usar a função `coord_cartesian()` para definir qual porção do gráfi
 Colocando título, subtítulo e mudando as labels.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r gglabs, fig.width = 7, fig.height = 3}
 imdb %>%
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita, color = lucro)) +
@@ -472,7 +473,7 @@ imdb %>%
 Mudando as quebras dos eixos `x` e `y`.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r ggscale, fig.width = 7, fig.height = 3}
 imdb %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
@@ -489,7 +490,7 @@ imdb %>%
 Mudando a escala do gráfico.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r ggcoordcartesian, fig.width = 7, fig.height = 3}
 imdb %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
@@ -517,7 +518,7 @@ Para trocar o nome nas legendas geradas por atributos de cor, utilize as funçõ
 Substituindo as cores padrão do gráfico por um outro conjunto de cores.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r ggfillmanual, fig.width = 7, fig.height = 3}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -538,7 +539,7 @@ imdb %>%
 Também podemos usar códigos hexadecimais.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r ggfillhex, fig.width = 7, fig.height = 3}
 imdb %>% 
   count(diretor) %>%
   filter(!is.na(diretor)) %>% 
@@ -561,7 +562,7 @@ imdb %>%
 Trocando os textos da legenda.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r gglabelslegenda, fig.width = 7, fig.height = 3}
 imdb %>% 
   filter(!is.na(cor)) %>% 
   group_by(ano, cor) %>% 
@@ -582,7 +583,7 @@ Você também pode criar o seu próprio tema utilizando a função `theme()`. Ne
 ---
 <br><br>
 
-```{r}
+```{r ggthememinimal}
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita)) +
@@ -592,7 +593,7 @@ imdb %>%
 ---
 <br><br>
 
-```{r}
+```{r ggthemebw}
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita)) +
@@ -602,7 +603,7 @@ imdb %>%
 ---
 <br><br>
 
-```{r}
+```{r ggthemeclassic}
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita)) +
@@ -612,7 +613,7 @@ imdb %>%
 ---
 <br><br>
 
-```{r}
+```{r ggthemedark}
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita)) +
@@ -625,7 +626,7 @@ imdb %>%
 Criando um próprio tema.
 
 .tiny[
-```{r, fig.width = 7, fig.height = 3}
+```{r ggthemealterado, fig.width = 7, fig.height = 3}
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita), color = "white") +
