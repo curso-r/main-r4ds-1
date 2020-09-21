@@ -6,7 +6,11 @@
     <meta name="author" content="" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,6 +21,11 @@ class: center, middle, inverse, title-slide
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
 
 ---
+
+
+
+
+
 
 
 
@@ -99,7 +108,7 @@ No MacOS, substitua **CTRL** por **command** e **ALT** por **option**.
 
 Uma funcionalidade muito importante do RStudio é a possibilidade de criar **projetos**. 
 
-Um projeto nada mais é do que uma pasta no seu computador. Nessa pasta, estarão todos os arquivos que você usurá ou criará na sua análise. 
+Um projeto é uma pasta no seu computador. Nessa pasta, estarão todos os arquivos que você usurá ou criará na sua análise. 
 
 A principal razão de utilizarmos projetos é **organização**. Com eles, fica muito mais fácil importar bases de dados para dentro do R, criar análises reprodutíveis e compartilhar o nosso trabalho.
 
@@ -114,27 +123,27 @@ Para criar um projeto, clique em `New Project...` no Menu `File`. Na caixa de di
 
 Se você tiver o `Git` instalado, você também pode usar projetos para conectar com repositórios do Github e outras plataformas de desenvolvimento. Para isso, basta clicar em `Version Control`.
 
-Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/RLadies-Git-RStudio-2019/#1) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
+Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
 
 Criando um projeto, o RStudio criará na pasta escolhida um arquivo `nome-do-projeto.Rproj`. Você pode usar esse arquivo para iniciar o RStudio já com o respectivo projeto aberto.
 
 ---
 ## RStudio com um projeto aberto
 
-&lt;img src="img/exemplo-projeto-aberto.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/exemplo-projeto-aberto.png" width="3840" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Navegando entre projetos
 
-&lt;img src="img/exemplo-lista-projetos.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/exemplo-lista-projetos.png" width="3840" style="display: block; margin: auto;" /&gt;
 
 ---
 # Cheatsheets
 
 O RStudio tem à disposição algumas *folhas de cola*, as **cheatsheets**. Elas trazem um resumão de como utilizar diversos pacotes e até o próprio RStudio. 
-Para acessá-las, basta clicar no menu `Help` e então em `Cheatsheets`.
+Para acessá-las, basta clicar no menu `Help` e então em `Cheatsheets`, ou no [site da RStudio](https://rstudio.com/resources/cheatsheets/).
 
-&lt;img src="img/cheatsheet-rstudio.png" width="600" height="370" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/cheatsheet-rstudio-pt.png" width="500" style="display: block; margin: auto;" /&gt;
 
 ---
 class: middle, center
@@ -163,7 +172,7 @@ O papel do **Console** no R é executar os nossos comandos. Ele avalia o código
 
 &gt; Para rodar um código, escreva o código no script e, com o cursor em cima da linha que você quer rodar, use o atalho "CTRL+ENTER". Você não precisa selecionar o código, a não ser que queria rodar várias linhas de uma única vez.
 
-Vamos começar com o exemplo mais simples possível:
+Vamos começar com um exemplo de operação comum:
 
 
 ```r
@@ -222,7 +231,7 @@ Error: unexpected input in "5 % 2"
 ---
 # Objetos
 
-O R te permite salvar valores dentro de um **objeto**. Um objeto é simplesmente um nome que guarda um valor. Para criar um objeto, utilizamos o operador `&lt;-`.
+O R te permite salvar valores dentro de um **objeto**. Um objeto é um nome que guarda um valor. Para criar um objeto, utilizamos o operador `&lt;-`.
 
 No exemplo abaixo, salvamos o valor `1` em `a`. Sempre que avaliarmos o objeto `a`, o R vai devolver o valor 1.
 
@@ -347,7 +356,7 @@ Por exemplo, podemos somar dois números, mas não conseguimos somar duas letras
 ```
 
 ```
-## Error in "a" + "b": non-numeric argument to binary operator
+## Error in "a" + "b": argumento não-numérico para operador binário
 ```
 
 O operador `+` verifica que `"a"` e `"b"` não são números (ou que a classe deles não é numérica) e devolve uma mensagem de erro informando isso.
@@ -650,7 +659,7 @@ Esse comportamento é chamado de **reciclagem**.
 
 Embora contra-intuitiva, a reciclagem é muito útil no R graças a um caso particular muito importante. 
 
-Quando somamos `vetor + 1` no nosso primeiro exemplo, o que o R está fazendo por trás é transformando o `1` em `c(1, 1, 1, 1)` e realizando a soma vetorizada `c(0, 5, 20, -3) + c(1, 1, 1, 1)`. Isso porque o número `1` nada mais é do que um vetor de tamanho 1, isto é, `1` é igual a `c(1)`.
+Quando somamos `vetor + 1` no nosso primeiro exemplo, o que o R está fazendo por trás é transformando o `1` em `c(1, 1, 1, 1)` e realizando a soma vetorizada `c(0, 5, 20, -3) + c(1, 1, 1, 1)`. Isso porque o número `1` é um vetor de tamanho 1, isto é, `1` é igual a `c(1)`.
 
 Usaremos esse comportamento no R o tempo todo. É muito importante a reciclagem para termos certeza de que o R está fazendo exatamente aquilo que gostaríamos que ele fizesse.
 
@@ -669,8 +678,8 @@ vetor1 + vetor2
 ```
 
 ```
-## Warning in vetor1 + vetor2: longer object length is not a multiple of shorter object
-## length
+## Warning in vetor1 + vetor2: comprimento do objeto maior não é múltiplo do comprimento
+## do objeto menor
 ```
 
 ```
@@ -687,7 +696,7 @@ Neste caso, duas coisas aconteceram:
 ---
 # Operações lógicas
 
-Uma operação lógica nada mais é do que um teste que retorna **verdadeiro** ou **falso**. No R (e em outras linguagens de programação), esses valores dois valores recebem uma classe especial: `logical`.
+Uma operação lógica é um teste que retorna **verdadeiro** ou **falso**. No R (e em outras linguagens de programação), esses valores dois valores recebem uma classe especial: `logical`.
 
 O verdadeiro no R vai ser representado pelo valor `TRUE` e o falso pelo valor `FALSE`. Esses nomes no R são **reservados**, isto é, você não pode chamar nenhum objeto de TRUE ou FALSE.
 
@@ -726,7 +735,7 @@ Agora que conhecemos o `TRUE` e `FALSE`, podemos explorar os teste lógicos.
 ---
 ## Igualdades
  
-Começando pelo mais simples: vamos testar se um valor é igual ao outro. Para isso, usamos o operador `==`.
+Começando pela igualdade: vamos testar se um valor é igual ao outro. Para isso, usamos o operador `==`.
 
 .tiny[
 
@@ -946,7 +955,7 @@ Como os operadores lógicos também são vetorizados (fazem operações elemento
 
 A segunda operação traz a grande novidade aqui: podemos usar os valores `TRUE` e `FALSE` para selecionar elementos de um vetor!
 
-A regra é muito simples: **retornar** as posições que receberem `TRUE`, **não retornar** as posições que receberem `FALSE`. 
+A regra é a seguinte: **retornar** as posições que receberem `TRUE`, **não retornar** as posições que receberem `FALSE`. 
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -1191,7 +1200,7 @@ mtcars[mtcars$cyl == 4, ]
 ---
 &lt;br&gt;&lt;br&gt;
 
-O código `mtcars$cyl == 4` nos diz em quais linhas estão os carros com 4 cilindros. Quando usamos o vetor de `TRUE` e `FALSE` resultante dentro do *subsetting* das linhas em `mtcars[mtcars$cyl == 4, ]`, o R nos devolve todos as colunas dos carros com 4 cilindros.  A regra é simples: linha com `TRUE` é retornada, linha com `FALSE` não.
+O código `mtcars$cyl == 4` nos diz em quais linhas estão os carros com 4 cilindros. Quando usamos o vetor de `TRUE` e `FALSE` resultante dentro do *subsetting* das linhas em `mtcars[mtcars$cyl == 4, ]`, o R nos devolve todos as colunas dos carros com 4 cilindros.  A regra é a seguinte: linha com `TRUE` é retornada, linha com `FALSE` não.
 
 Outro exemplo:
 
@@ -1215,7 +1224,7 @@ mtcars[mtcars$mpg &gt; 25, ]
 ---
 # Funções
 
-Enquanto objetos são *nomes* que guardam *valores*, funções no R são *nomes* que guardam um **código de R**. A ideia é muito simples: sempre que você rodar uma função, o código que ela guarda será executado e um resultado nos será devolvido.
+Enquanto objetos são *nomes* que guardam *valores*, funções no R são *nomes* que guardam um **código de R**. A ideia é a seguinte: sempre que você rodar uma função, o código que ela guarda será executado e um resultado nos será devolvido.
 
 Funções são tão comuns e intuitivas (provavelmente você já usou funções no Excel), que mesmo sem definir o que elas são, nós já utilizamos funções nas seções anteriores:
 
@@ -1471,7 +1480,7 @@ resultado
 ---
 # Pacotes
 
-Um pacote no R nada mais é do que um conjunto de funções que visam resolver um problema em específico. O R já vem com alguns pacotes instalados. Geralmente chamamos esses pacotes de *base R*.
+Um pacote no R é um conjunto de funções que visam resolver um problema em específico. O R já vem com alguns pacotes instalados. Geralmente chamamos esses pacotes de *base R*.
 
 Mas a força do R está na gigantesca variedade de pacotes desenvolvidos pela comunidade, em especial, pelos criadores do `tidyverse`.
 
@@ -1502,14 +1511,14 @@ class:: center
 
 <span style="color:#6495ed; font-weight: bold;">Instale uma vez, carregue várias vezes!</span>
 
-![](img/instalar_carregar.png)&lt;!-- --&gt;
+&lt;img src="img/instalar_carregar.png" width="2059" /&gt;
 
 ---
 # Tidyverse
 
 O `tidyverse` é uma coleção de pacotes de R desenvolvidos para Ciência de Dados. 
 
-Os pacotes do `tidyverse` compartilham uma mesma filosia, gramática e estrutura de dados.
+Os pacotes do `tidyverse` compartilham uma mesma filosofia, gramática e estrutura de dados.
 
 Isso significa que:
 

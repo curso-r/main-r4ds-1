@@ -14,6 +14,7 @@ output:
 knit: pagedown::chrome_print            
 ---
 
+
 ```{r, child="00-preamble.Rmd"}
 
 ```
@@ -96,7 +97,7 @@ No MacOS, substitua **CTRL** por **command** e **ALT** por **option**.
 
 Uma funcionalidade muito importante do RStudio é a possibilidade de criar **projetos**. 
 
-Um projeto nada mais é do que uma pasta no seu computador. Nessa pasta, estarão todos os arquivos que você usurá ou criará na sua análise. 
+Um projeto é uma pasta no seu computador. Nessa pasta, estarão todos os arquivos que você usurá ou criará na sua análise. 
 
 A principal razão de utilizarmos projetos é **organização**. Com eles, fica muito mais fácil importar bases de dados para dentro do R, criar análises reprodutíveis e compartilhar o nosso trabalho.
 
@@ -489,7 +490,7 @@ Esse comportamento é chamado de **reciclagem**.
 
 Embora contra-intuitiva, a reciclagem é muito útil no R graças a um caso particular muito importante. 
 
-Quando somamos `vetor + 1` no nosso primeiro exemplo, o que o R está fazendo por trás é transformando o `1` em `c(1, 1, 1, 1)` e realizando a soma vetorizada `c(0, 5, 20, -3) + c(1, 1, 1, 1)`. Isso porque o número `1` nada mais é do que um vetor de tamanho 1, isto é, `1` é igual a `c(1)`.
+Quando somamos `vetor + 1` no nosso primeiro exemplo, o que o R está fazendo por trás é transformando o `1` em `c(1, 1, 1, 1)` e realizando a soma vetorizada `c(0, 5, 20, -3) + c(1, 1, 1, 1)`. Isso porque o número `1` é um vetor de tamanho 1, isto é, `1` é igual a `c(1)`.
 
 Usaremos esse comportamento no R o tempo todo. É muito importante a reciclagem para termos certeza de que o R está fazendo exatamente aquilo que gostaríamos que ele fizesse.
 
@@ -516,7 +517,7 @@ Neste caso, duas coisas aconteceram:
 ---
 # Operações lógicas
 
-Uma operação lógica nada mais é do que um teste que retorna **verdadeiro** ou **falso**. No R (e em outras linguagens de programação), esses valores dois valores recebem uma classe especial: `logical`.
+Uma operação lógica é um teste que retorna **verdadeiro** ou **falso**. No R (e em outras linguagens de programação), esses valores dois valores recebem uma classe especial: `logical`.
 
 O verdadeiro no R vai ser representado pelo valor `TRUE` e o falso pelo valor `FALSE`. Esses nomes no R são **reservados**, isto é, você não pode chamar nenhum objeto de TRUE ou FALSE.
 
@@ -973,7 +974,7 @@ resultado
 ---
 # Pacotes
 
-Um pacote no R nada mais é do que um conjunto de funções que visam resolver um problema em específico. O R já vem com alguns pacotes instalados. Geralmente chamamos esses pacotes de *base R*.
+Um pacote no R é um conjunto de funções que visam resolver um problema em específico. O R já vem com alguns pacotes instalados. Geralmente chamamos esses pacotes de *base R*.
 
 Mas a força do R está na gigantesca variedade de pacotes desenvolvidos pela comunidade, em especial, pelos criadores do `tidyverse`.
 
@@ -1011,7 +1012,7 @@ knitr::include_graphics("img/instalar_carregar.png")
 
 O `tidyverse` é uma coleção de pacotes de R desenvolvidos para Ciência de Dados. 
 
-Os pacotes do `tidyverse` compartilham uma mesma filosia, gramática e estrutura de dados.
+Os pacotes do `tidyverse` compartilham uma mesma filosofia, gramática e estrutura de dados.
 
 Isso significa que:
 
