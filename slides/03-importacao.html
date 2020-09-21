@@ -6,7 +6,11 @@
     <meta name="author" content="" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -23,6 +27,10 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
+
 class: middle, center
 
 # <span style="color:#6495ed; font-weight: bold;">Importação</span>
@@ -32,7 +40,7 @@ class: middle, center
 
 Importar uma base de dados para o R significa levar a informação contida no disco rígido (HD) para a mé moria RAM.
 
-![](img/import.png)&lt;!-- --&gt;
+&lt;img src="img/import.png" width="1284" /&gt;
 
 ---
 # Caminhos
@@ -48,11 +56,11 @@ Antes de falarmos sobre a diferença dos dois, precisamos definir o que é o **d
 ---
 ## Diretório de trabalho
 
-O diretório de trabalho (*working directory*) nada mais é do que a pasta em que o R vai procurar arquivos na hora de ler informações ou gravar arquivos na hora de salvar objetos.
+O diretório de trabalho (*working directory*) é a pasta em que o R vai procurar arquivos na hora de ler informações ou gravar arquivos na hora de salvar objetos.
 
 Se você está usando um projeto, o diretório de trabalho da sua sessão será, por padrão, a pasta raiz do seu projeto (é a pasta que contém o arquivo com extensão `.Rproj`).
 
-Se você não estiver usando um projeto ou simplesmente não souber qual é o seu diretório de trabalho, você pode descobri-lo usando a seguinte função `getwd()`.
+Se você não estiver usando um projeto ou não souber qual é o seu diretório de trabalho, você pode descobri-lo usando a seguinte função `getwd()`.
 
 Ela vai devolver uma string com o caminho do seu diretório de trabalho.
 
@@ -63,7 +71,7 @@ A função `setwd()` pode ser utilizada para mudar o diretório de trabalho. Com
 
 Caminhos absolutos são aqueles que tem início na pasta raiz do seu computador/usuário. Por exemplo:
 
-`/Users/william/Documents/curso-r/intro-programacao-em-r-mestre/slides`
+`D:/GitHub/main-r4ds-1/slides`
 
 Esse é o caminho absoluto para a pasta onde esses slides foram produzidos.
 
@@ -154,7 +162,7 @@ tibble::as_tibble(mtcars)
 ##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
 ##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 ## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-## # … with 22 more rows
+## # ... with 22 more rows
 ```
 ]
 
@@ -218,17 +226,17 @@ imdb_csv
 ## # A tibble: 3,713 x 15
 ##    titulo   ano diretor duracao cor   generos pais  classificacao orcamento receita
 ##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Avata…  2009 James …     178 Color Action… USA   A partir de … 237000000  7.61e8
-##  2 Pirat…  2007 Gore V…     169 Color Action… USA   A partir de … 300000000  3.09e8
-##  3 The D…  2012 Christ…     164 Color Action… USA   A partir de … 250000000  4.48e8
-##  4 John …  2012 Andrew…     132 Color Action… USA   A partir de … 263700000  7.31e7
-##  5 Spide…  2007 Sam Ra…     156 Color Action… USA   A partir de … 258000000  3.37e8
-##  6 Tangl…  2010 Nathan…     100 Color Advent… USA   Livre         260000000  2.01e8
-##  7 Aveng…  2015 Joss W…     141 Color Action… USA   A partir de … 250000000  4.59e8
-##  8 Batma…  2016 Zack S…     183 Color Action… USA   A partir de … 250000000  3.30e8
-##  9 Super…  2006 Bryan …     169 Color Action… USA   A partir de … 209000000  2.00e8
-## 10 Pirat…  2006 Gore V…     151 Color Action… USA   A partir de … 225000000  4.23e8
-## # … with 3,703 more rows, and 5 more variables: nota_imdb &lt;dbl&gt;,
+##  1 Avata~  2009 James ~     178 Color Action~ USA   A partir de ~ 237000000  7.61e8
+##  2 Pirat~  2007 Gore V~     169 Color Action~ USA   A partir de ~ 300000000  3.09e8
+##  3 The D~  2012 Christ~     164 Color Action~ USA   A partir de ~ 250000000  4.48e8
+##  4 John ~  2012 Andrew~     132 Color Action~ USA   A partir de ~ 263700000  7.31e7
+##  5 Spide~  2007 Sam Ra~     156 Color Action~ USA   A partir de ~ 258000000  3.37e8
+##  6 Tangl~  2010 Nathan~     100 Color Advent~ USA   Livre         260000000  2.01e8
+##  7 Aveng~  2015 Joss W~     141 Color Action~ USA   A partir de ~ 250000000  4.59e8
+##  8 Batma~  2016 Zack S~     183 Color Action~ USA   A partir de ~ 250000000  3.30e8
+##  9 Super~  2006 Bryan ~     169 Color Action~ USA   A partir de ~ 209000000  2.00e8
+## 10 Pirat~  2006 Gore V~     151 Color Action~ USA   A partir de ~ 225000000  4.23e8
+## # ... with 3,703 more rows, and 5 more variables: nota_imdb &lt;dbl&gt;,
 ## #   likes_facebook &lt;dbl&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
 ```
 ]
