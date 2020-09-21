@@ -10,6 +10,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+knit: pagedown::chrome_print      
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -286,12 +287,12 @@ library(dplyr)
 library(viridis)
 ```
 
-```{r, eval = FALSE}
+```{r frink, eval = FALSE}
 image_read("https://jeroen.github.io/images/frink.png") %>%
   image_rotate(270) %>%
   image_background("blue", flatten = TRUE) %>%
   image_border("red", "10x10") %>%
-  image_annotate("Linguagens de programação ainda\nsão linguagens!", 
+  image_annotate("Linguagens de programação ainda\nsão linguagens!",
                  color = "white", size = 30)
 ```
 
@@ -306,14 +307,10 @@ image_read("https://jeroen.github.io/images/frink.png") %>%
 
 .pull-right[
 #### Saída
-```{r frink, eval = TRUE, echo = FALSE, out.width=260, out.height=110}
-image_read("https://jeroen.github.io/images/frink.png") %>%
-  image_rotate(270) %>%
-  image_background("blue", flatten = TRUE) %>%
-  image_border("red", "10x10") %>%
-  image_annotate("Linguagens de programação ainda\nsão linguagens!", 
-                 color = "white", size = 30)
+```{r frink-out, ref.label="frink", echo=FALSE}
+
 ```
+
 ]
 
 ---
@@ -338,7 +335,7 @@ class: middle, center
 class: middle, center
 
 # `r blue("Introdução")`
-### Guia do mochileiro
+### Guia da(o) mochileira(o)
 
 ---
 # Pratique
