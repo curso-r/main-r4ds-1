@@ -270,6 +270,7 @@ class: middle, center
 <center>
 <img src="img/copy-paste.png" style="width: 70%">
 </center>
+
 ---
 class: middle, center
 # O código é uma linguagem
@@ -305,7 +306,7 @@ image_read("https://jeroen.github.io/images/frink.png") %>%
 
 .pull-right[
 #### Saída
-```{r, eval = TRUE, echo = FALSE, out.width=260, out.height=110}
+```{r frink, eval = TRUE, echo = FALSE, out.width=260, out.height=110}
 image_read("https://jeroen.github.io/images/frink.png") %>%
   image_rotate(270) %>%
   image_background("blue", flatten = TRUE) %>%
@@ -353,7 +354,7 @@ class: middle, center
 <br>
 
 - Documentação do R
-- Discourse Curso-r
+- [Discourse Curso-r](https://discourse.curso-r.com)
 - Google
 - Stack Overflow
 ]
