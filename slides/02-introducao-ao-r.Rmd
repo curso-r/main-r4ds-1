@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+knit: pagedown::chrome_print            
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -110,7 +111,7 @@ Para criar um projeto, clique em `New Project...` no Menu `File`. Na caixa de di
 
 Se você tiver o `Git` instalado, você também pode usar projetos para conectar com repositórios do Github e outras plataformas de desenvolvimento. Para isso, basta clicar em `Version Control`.
 
-Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/RLadies-Git-RStudio-2019/#1) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
+Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
 
 Criando um projeto, o RStudio criará na pasta escolhida um arquivo `nome-do-projeto.Rproj`. Você pode usar esse arquivo para iniciar o RStudio já com o respectivo projeto aberto.
 
@@ -132,10 +133,10 @@ knitr::include_graphics(rep("img/exemplo-lista-projetos.png"))
 # Cheatsheets
 
 O RStudio tem à disposição algumas *folhas de cola*, as **cheatsheets**. Elas trazem um resumão de como utilizar diversos pacotes e até o próprio RStudio. 
-Para acessá-las, basta clicar no menu `Help` e então em `Cheatsheets`.
+Para acessá-las, basta clicar no menu `Help` e então em `Cheatsheets`, ou no [site da RStudio](https://rstudio.com/resources/cheatsheets/).
 
-```{r echo=FALSE, fig.align='center', out.width=600, out.height=370}
-knitr::include_graphics(rep("img/cheatsheet-rstudio.png"))
+```{r echo=FALSE, fig.align='center', out.width=500}
+knitr::include_graphics("img/cheatsheet-rstudio-pt.png")
 ```
 
 ---
@@ -165,7 +166,7 @@ O papel do **Console** no R é executar os nossos comandos. Ele avalia o código
 
 > Para rodar um código, escreva o código no script e, com o cursor em cima da linha que você quer rodar, use o atalho "CTRL+ENTER". Você não precisa selecionar o código, a não ser que queria rodar várias linhas de uma única vez.
 
-Vamos começar com o exemplo mais simples possível:
+Vamos começar com um exemplo de operação comum:
 
 ```{r}
 1 + 1
@@ -219,7 +220,7 @@ Error: unexpected input in "5 % 2"
 ---
 # Objetos
 
-O R te permite salvar valores dentro de um **objeto**. Um objeto é simplesmente um nome que guarda um valor. Para criar um objeto, utilizamos o operador `<-`.
+O R te permite salvar valores dentro de um **objeto**. Um objeto é um nome que guarda um valor. Para criar um objeto, utilizamos o operador `<-`.
 
 No exemplo abaixo, salvamos o valor `1` em `a`. Sempre que avaliarmos o objeto `a`, o R vai devolver o valor 1.
 
@@ -541,7 +542,7 @@ Agora que conhecemos o `TRUE` e `FALSE`, podemos explorar os teste lógicos.
 ---
 ## Igualdades
  
-Começando pelo mais simples: vamos testar se um valor é igual ao outro. Para isso, usamos o operador `==`.
+Começando pela igualdade: vamos testar se um valor é igual ao outro. Para isso, usamos o operador `==`.
 
 .tiny[
 ```{r}
@@ -638,7 +639,7 @@ Como os operadores lógicos também são vetorizados (fazem operações elemento
 
 A segunda operação traz a grande novidade aqui: podemos usar os valores `TRUE` e `FALSE` para selecionar elementos de um vetor!
 
-A regra é muito simples: **retornar** as posições que receberem `TRUE`, **não retornar** as posições que receberem `FALSE`. 
+A regra é a seguinte: **retornar** as posições que receberem `TRUE`, **não retornar** as posições que receberem `FALSE`. 
 
 ---
 <br><br>
@@ -768,7 +769,7 @@ mtcars[mtcars$cyl == 4, ]
 ---
 <br><br>
 
-O código `mtcars$cyl == 4` nos diz em quais linhas estão os carros com 4 cilindros. Quando usamos o vetor de `TRUE` e `FALSE` resultante dentro do *subsetting* das linhas em `mtcars[mtcars$cyl == 4, ]`, o R nos devolve todos as colunas dos carros com 4 cilindros.  A regra é simples: linha com `TRUE` é retornada, linha com `FALSE` não.
+O código `mtcars$cyl == 4` nos diz em quais linhas estão os carros com 4 cilindros. Quando usamos o vetor de `TRUE` e `FALSE` resultante dentro do *subsetting* das linhas em `mtcars[mtcars$cyl == 4, ]`, o R nos devolve todos as colunas dos carros com 4 cilindros.  A regra é a seguinte: linha com `TRUE` é retornada, linha com `FALSE` não.
 
 Outro exemplo:
 
@@ -781,7 +782,7 @@ mtcars[mtcars$mpg > 25, ]
 ---
 # Funções
 
-Enquanto objetos são *nomes* que guardam *valores*, funções no R são *nomes* que guardam um **código de R**. A ideia é muito simples: sempre que você rodar uma função, o código que ela guarda será executado e um resultado nos será devolvido.
+Enquanto objetos são *nomes* que guardam *valores*, funções no R são *nomes* que guardam um **código de R**. A ideia é a seguinte: sempre que você rodar uma função, o código que ela guarda será executado e um resultado nos será devolvido.
 
 Funções são tão comuns e intuitivas (provavelmente você já usou funções no Excel), que mesmo sem definir o que elas são, nós já utilizamos funções nas seções anteriores:
 
