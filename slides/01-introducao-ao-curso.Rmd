@@ -10,6 +10,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+knit: pagedown::chrome_print      
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -45,6 +46,7 @@ class: middle, center
     <hr style = "background-color: #3bb44a;"/>
     <p><a href = "https://www.curso-r.com/cursos/r4ds-1/">R para Ciência de dados I</a></p>
         <p><a href = "https://www.curso-r.com/cursos/r4ds-2/">R para Ciência de dados II</a></p>
+        <p><a href = "https://www.curso-r.com/cursos/rcpp/">Introdução ao R com C++</a></p>
   </div>
 </div>
 
@@ -54,7 +56,7 @@ class: middle, center
   <div class="card">
     <h2>Modelagem</h2>
     <hr style = "background-color: #996699;"/>
-    <p><a href = "https://www.curso-r.com/cursos/regressao/">Regressão Linear</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/regressao-linear/">Regressão Linear</a></p>
     <p><a href = "https://www.curso-r.com/cursos/intro-machine-learning/">Machine Learning</a></p>
     <p><a href = "https://www.curso-r.com/cursos/xgboost/">XGBoost</a></p>
     <p><a href = "https://www.curso-r.com/cursos/deep-learning/">Deep Learning</a></p>
@@ -68,8 +70,7 @@ class: middle, center
   <div class="card">
     <h2>Extração de dados</h2>
     <hr style = "background-color: #eeba30;"/>
-    <p><a href = "https://www.curso-r.com/cursos/web-scraping-1/">Web scraping I</a></p>
-        <p><a href = "https://www.curso-r.com/cursos/web-scraping-2/">Web scraping II</a></p>
+    <p><a href = "https://www.curso-r.com/cursos/web-scraping/">Web scraping</a></p>
   </div>
 </div>
 
@@ -270,6 +271,7 @@ class: middle, center
 <center>
 <img src="img/copy-paste.png" style="width: 70%">
 </center>
+
 ---
 class: middle, center
 # O código é uma linguagem
@@ -285,12 +287,12 @@ library(dplyr)
 library(viridis)
 ```
 
-```{r, eval = FALSE}
+```{r frink, eval = FALSE}
 image_read("https://jeroen.github.io/images/frink.png") %>%
   image_rotate(270) %>%
   image_background("blue", flatten = TRUE) %>%
   image_border("red", "10x10") %>%
-  image_annotate("Linguagens de programação ainda\nsão linguagens!", 
+  image_annotate("Linguagens de programação ainda\nsão linguagens!",
                  color = "white", size = 30)
 ```
 
@@ -305,14 +307,10 @@ image_read("https://jeroen.github.io/images/frink.png") %>%
 
 .pull-right[
 #### Saída
-```{r, eval = TRUE, echo = FALSE, out.width=260, out.height=110}
-image_read("https://jeroen.github.io/images/frink.png") %>%
-  image_rotate(270) %>%
-  image_background("blue", flatten = TRUE) %>%
-  image_border("red", "10x10") %>%
-  image_annotate("Linguagens de programação ainda\nsão linguagens!", 
-                 color = "white", size = 30)
+```{r frink-out, ref.label="frink", echo=FALSE}
+
 ```
+
 ]
 
 ---
@@ -337,7 +335,7 @@ class: middle, center
 class: middle, center
 
 # `r blue("Introdução")`
-### Guia do mochileiro
+### Guia da(o) mochileira(o)
 
 ---
 # Pratique
@@ -353,7 +351,7 @@ class: middle, center
 <br>
 
 - Documentação do R
-- Discourse Curso-r
+- [Discourse Curso-r](https://discourse.curso-r.com)
 - Google
 - Stack Overflow
 ]

@@ -10,3 +10,12 @@ blue <- function(x) {
 
 options(width = 85)
 ```
+
+```{r include=FALSE}
+# install.packages("devtools")
+# devtools::install_github("gadenbuie/xaringanExtra")
+```
+
+```{r xaringanExtra-clipboard, echo=FALSE}
+xaringanExtra::use_clipboard()
+```

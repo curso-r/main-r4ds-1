@@ -11,6 +11,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+knit: pagedown::chrome_print               
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -169,7 +170,7 @@ Os dois códigos funcionam e levam ao mesmo resultado, mas não são eficientes.
 ---
 <br><br>
 
-A primeira alternativa é ruim de escrever, já que pricisamos escrever primeiro a função que roda por último, e de ler, pois é difícil identificar qual argumento pertence a qual função.
+A primeira alternativa é ruim de escrever, já que precisamos escrever primeiro a função que roda por último, e de ler, pois é difícil identificar qual argumento pertence a qual função.
 
 A segunda alternativa é ruim pois exige a criação de objetos auxiliares. Se quiséssimos aplicar 10 operações na base, precisaríamos criar 9 objetos intermediários.
 
@@ -177,7 +178,7 @@ A solução para aplicar diversas operações de manipulação em uma base de da
 ---
 ## O operador pipe %>% 
 
-A ideia do operador pipe é muito simples: ele vai aplicar a função do lado direito ao objeto do lado esquerdo.
+A ideia do operador pipe é a seguinte: ele vai aplicar a função do lado direito ao objeto do lado esquerdo.
 
 No exemplo a seguir, estamos aplicando a função `sum()` (lado direito) no objeto `vetor` (lado esquerdo).
 
@@ -196,7 +197,7 @@ sum(vetor)
 ---
 <br><br>
 
-Na prática, o pipe coloca o objeto do lado esquerdo no primeiro argumento da função no lado direito. Se precisarmos passar mais argumentos para a função, podemos fazer isso normalmente. É como se estivêssesmo escrevendo a função, omitindo o primeiro argumento.
+Na prática, o pipe coloca o objeto do lado esquerdo no primeiro argumento da função no lado direito. Se precisarmos passar mais argumentos para a função, podemos fazer isso normalmente. É como se estivéssemos escrevendo a função, omitindo o primeiro argumento.
 
 ```{r}
 vetor <- c(1, 2, 3, NA)

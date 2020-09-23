@@ -6,7 +6,11 @@
     <meta name="author" content="" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/custom-intro.css" type="text/css" />
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,6 +21,10 @@ class: center, middle, inverse, title-slide
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
 
 ---
+
+
+
+
 
 
 
@@ -60,7 +68,7 @@ Para construir um gráfico usando o pacote `ggplot2`, começamos sempre com a fu
 imdb %&gt;% ggplot()
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggcanvas-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 # Um gráfico de pontos (dispersão)
@@ -79,7 +87,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-5-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggdispersao-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -124,7 +132,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggreta-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -154,7 +162,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggretavermelha-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -174,7 +182,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggdispersaoazul-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -197,7 +205,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gglucro-1.png" width="360" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -223,10 +231,14 @@ imdb %&gt;%
 ```
 
 ```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gglinha-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -246,10 +258,14 @@ imdb %&gt;%
 ```
 
 ```
+## `summarise()` regrouping output by 'ano' (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 2 row(s) containing missing values (geom_path).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="576" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gglinhacolorida-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -268,7 +284,11 @@ imdb %&gt;%
   geom_point(aes(x = ano, y = nota_media))
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /&gt;
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+&lt;img src="05-ggplot2_files/figure-html/ggdeniro-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -286,7 +306,11 @@ imdb %&gt;%
   geom_point()
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="576" style="display: block; margin: auto;" /&gt;
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+&lt;img src="05-ggplot2_files/figure-html/gglinhaponto-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -306,7 +330,11 @@ imdb %&gt;%
   geom_label(aes(label = nota_media))
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="576" style="display: block; margin: auto;" /&gt;
+```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+&lt;img src="05-ggplot2_files/figure-html/gglinhalabel-1.png" width="576" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -324,7 +352,7 @@ imdb %&gt;%
   geom_col(aes(x = diretor, y = n))
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-15-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggbarras-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 ---
 &lt;br&gt;&lt;br&gt;
@@ -333,7 +361,7 @@ Gráficos de barras também precisam dos atributos `x` e `y`, sendo que o atribu
 
 No gráfico anterior, vemos que o `NA` é considerado uma "opção" de diretor e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
 
-A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é simples: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
+A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -352,7 +380,7 @@ imdb %&gt;%
   )
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggbarracolorida-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -375,7 +403,7 @@ imdb %&gt;%
   coord_flip()
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-17-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggbarracoordflip-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -383,7 +411,7 @@ imdb %&gt;%
 
 Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `diretor`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
 
-Fatores dentro do R nada mais são do que números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
+Fatores dentro do R são números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
 
 Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem dos diretores nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
 
@@ -406,7 +434,7 @@ imdb %&gt;%
   coord_flip()
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggbarraforcats-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -428,7 +456,7 @@ imdb %&gt;%
   coord_flip()
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-19-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggbarralabel-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -458,7 +486,7 @@ imdb %&gt;%
 ## Warning: Removed 1 rows containing non-finite values (stat_bin).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-20-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gghist-1.png" width="504" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -482,7 +510,7 @@ imdb %&gt;%
 ## Warning: Removed 1 rows containing non-finite values (stat_bin).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-21-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gghistbind-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -512,7 +540,7 @@ imdb %&gt;%
 ## Warning: Removed 10 rows containing non-finite values (stat_boxplot).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-22-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggboxplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -537,7 +565,7 @@ imdb %&gt;%
 ## Warning: Removed 10 rows containing non-finite values (stat_boxplot).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-23-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggboxplotreorder-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -573,7 +601,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-24-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gglabs-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -594,10 +622,14 @@ imdb %&gt;%
 ```
 
 ```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-25-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggscale-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -619,10 +651,14 @@ imdb %&gt;%
 ```
 
 ```
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-26-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggcoordcartesian-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -656,7 +692,7 @@ imdb %&gt;%
   scale_fill_manual(values = c("red", "blue", "green", "pink", "purple"))
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-27-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggfillmanual-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -682,7 +718,7 @@ imdb %&gt;%
   )
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-28-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggfillhex-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -703,10 +739,14 @@ imdb %&gt;%
 ```
 
 ```
+## `summarise()` regrouping output by 'ano' (override with `.groups` argument)
+```
+
+```
 ## Warning: Removed 2 row(s) containing missing values (geom_path).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-29-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/gglabelslegenda-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -731,7 +771,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-30-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggthememinimal-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -748,7 +788,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-31-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggthemebw-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -765,7 +805,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-32-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggthemeclassic-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -782,7 +822,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-33-1.png" width="360" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggthemedark-1.png" width="360" style="display: block; margin: auto;" /&gt;
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -809,7 +849,7 @@ imdb %&gt;%
 ## Warning: Removed 720 rows containing missing values (geom_point).
 ```
 
-&lt;img src="05-ggplot2_files/figure-html/unnamed-chunk-34-1.png" width="504" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-ggplot2_files/figure-html/ggthemealterado-1.png" width="504" style="display: block; margin: auto;" /&gt;
 ]
 
 
