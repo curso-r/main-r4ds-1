@@ -46,7 +46,7 @@ A seguir, apresentamos uma lista dos principais marcadores utilizados para forma
 
 ## Chunks: escrevendo nosso código de R
 
-Em um arquivo R Markdown, precisamos escrever nossos códigos dentro dos *chunks*. Para insirir um chunk, utilize o atalho `CTRL + ALT + I`.
+Em um arquivo R Markdown, precisamos escrever nossos códigos dentro dos *chunks*. Para inserir um chunk, utilize o atalho `CTRL + ALT + I`.
 
 Dentro dos chunks você poderá escrever códigos em R como se fosse o nosso script .R tradicional. Por padrão, o código dentro do chunk será colocado no relatório, assim como o resultado da execução desse código (i.e., tudo que seria). Veja o exemplo abaixo:
 
