@@ -7,4 +7,3 @@
 # Importante: repare que, ao contrário da base IMDB que vimos em aula, essa não tem nomes na colunas. 
 # Portanto, os nomes gerados na importação para as colunas serão genéricos (por exemplo, V1, V2, V3, ...).
 
-# Você deve entregar apenas o script em R, não é preciso fazer o upload  do arquivo Excel.

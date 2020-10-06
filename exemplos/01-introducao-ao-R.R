@@ -108,7 +108,7 @@ obj <- "a"
 obj2 <- "masculino"
 
 class(obj)
-class(obs2)
+class(obj2)
 
 # lógicos (logical, booleanos)
 
