@@ -12,10 +12,6 @@ glimpse(imdb)
 names(imdb)
 View(imdb)
 
-# install.packages("skimr")
-library(skimr)
-skim(imdb)
-
 # dplyr: 6 verbos principais
 # select()    # seleciona colunas do data.frame
 # filter()    # filtra linhas do data.frame

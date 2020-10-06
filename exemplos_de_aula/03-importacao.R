@@ -11,7 +11,8 @@ getwd()
 # Caminhos relativos
 "dados/imdb.csv"
 
-# (caro professor, favor lembrar de falar da dica de navegação entre as aspas)
+# (cara(o) professora(o), favor lembrar de falar da dica 
+# de navegação entre as aspas)
 
 # Tibbles -----------------------------------------------------------------
 
@@ -52,8 +53,6 @@ library(readxl)
 
 imdb_excel <- read_excel("dados/imdb.xlsx")
 excel_sheets("dados/imdb.xlsx")
-
-
 
 # Parâmetros úteis --------------------------------------------------------
 

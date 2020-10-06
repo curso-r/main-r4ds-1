@@ -63,7 +63,6 @@ imdb %>%
 ggsave("meu_grafico.png")
 
 
-
 # Filosofia ---------------------------------------------------------------
 
 # Um gráfico estatístico é uma representação visual dos dados 
@@ -248,7 +247,7 @@ diretor_por_filme_de_drama %>%
   geom_col(aes(fill = filme_de_drama), position = position_fill()) +
   geom_text(aes(label = n), position = position_fill(vjust = 0.5)) 
 
-# Ordenar eh um desafio =(
+# Ordenar é um desafio =(
 diretor_por_filme_de_drama %>%
   group_by(diretor) %>%
   mutate(proporcao_de_drama = sum(n[filme_de_drama])/sum(n)) %>%

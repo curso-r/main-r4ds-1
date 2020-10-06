@@ -1,5 +1,3 @@
 exemplos
-exercicios
-gabaritos
 dados
 slides
