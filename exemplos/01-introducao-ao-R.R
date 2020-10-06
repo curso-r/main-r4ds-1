@@ -40,13 +40,13 @@ a
 A
 
 # salvar saída versus apenas executar
-33/11
-resultado <- 33/11
+33 / 11
+resultado <- 33 / 11
 
 # atualizar um objeto
 resultado <- resultado * 5
 
-# Os nomes devem começar com uma letra. 
+# Os nomes devem começar com uma letra.
 # Podem conter letras, números, _ e .
 
 # Permitido
@@ -83,7 +83,7 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 1 + 2
 
 # Não podemos somar duas letras (texto)
-"a" + "b"
+"a"+"b"
 
 ##############################
 # Use aspas para criar texto #
@@ -118,23 +118,11 @@ falso <- FALSE
 class(verdadeiro)
 class(falso)
 
-# Data frames -------------------------------------------------------------
 
-mtcars
-
-# vamos aprender tudo com calma mais pra frente...
-class(mtcars)
-str(iris)
-head(mtcars)
-View(mtcars)
-names(mtcars)
-dim(mtcars)
-nrow(mtcars)
-ncol(mtcars)
 
 # Vetores -----------------------------------------------------------------
 
-# Vetores são conjuntos indexado de valores
+# Vetores são conjuntos de valores
 
 vetor1 <- c(1, 4, 3, 10)
 vetor2 <- c("a", "b", "z")
@@ -142,7 +130,7 @@ vetor2 <- c("a", "b", "z")
 vetor1
 vetor2
 
-# Uma maneira fácil de criar um vetor com uma sequência de números 
+# Uma maneira fácil de criar um vetor com uma sequência de números
 # é utilizar o operador `:`
 
 # Vetor de 1 a 10
@@ -151,10 +139,11 @@ vetor2
 # Vetor de 10 a 1
 10:1
 
-# Vetor de -3 a 3
--3:3
+# Vetor de -3 a 3-3:3
 
-# Quando dizemos que vetores são conjuntos indexados, 
+
+# Vetores são conjuntos indexado de valores
+# Quando dizemos que vetores são conjuntos indexados,
 # isso quer dizer que cada valor dentro de um vetor tem uma posição
 
 vetor <- c("a", "b", "c", "d")
@@ -174,16 +163,16 @@ vetor[5]
 vetor[-1]
 vetor[-c(2, 3)]
 
-# Um vetor só pode guardar um tipo de objeto e ele terá sempre 
+# Um vetor só pode guardar um tipo de objeto e ele terá sempre
 # a mesma classe dos objetos que guarda
 
-vetor1 <- c(1, 5, 3, -10)
+vetor1 <- c(1, 5, 3,-10)
 vetor2 <- c("a", "b", "c")
 
 class(vetor1)
 class(vetor2)
 
-# Se tentarmos misturar duas classes, o R vai apresentar o 
+# Se tentarmos misturar duas classes, o R vai apresentar o
 # comportamento conhecido como coerção
 
 vetor <- c(1, 2, "a")
@@ -200,7 +189,7 @@ as.character(c(TRUE, FALSE, FALSE))
 
 # Naturalmente, podemos fazer operações matemáticas com vetores
 
-vetor <- c(0, 5, 20, -3)
+vetor <- c(0, 5, 20,-3)
 
 vetor + 1
 vetor - 1
@@ -214,7 +203,7 @@ vetor2 <- c(10, 20, 30)
 
 vetor1  + vetor2
 
-# As coisas ficam um pouco confusas quando os dois 
+# As coisas ficam um pouco confusas quando os dois
 # vetores não tem o mesmo tamanho
 
 vetor1 <- c(1, 2)
@@ -232,7 +221,7 @@ vetor1 + vetor2
 
 # Exercícios --------------------------------------------------------------
 
-# a. Guarde em um objeto uma sequência de números que comece 
+# a. Guarde em um objeto uma sequência de números que comece
 # em 0 e termine em 5.
 
 # b. Use subsetting para fazer o R devolver o primeiro número dessa sequência.
@@ -270,7 +259,7 @@ x > 0
 x > 1
 x >= 1
 
-# Menor 
+# Menor
 x < 3
 x < 0
 
@@ -307,15 +296,15 @@ vetor <- c(4, 8, 15, 16, 23, 42)
 
 # Valores especiais -------------------------------------------------------
 
-# Existem valores reservados para representar dados faltantes, 
+# Existem valores reservados para representar dados faltantes,
 # infinitos, e indefinições matemáticas.
 
-NA   # (Not Available) significa dado faltante/indisponível. 
+NA   # (Not Available) significa dado faltante/indisponível.
 
-NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1). 
+NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1).
 # Um NaN é um NA, mas a recíproca não é verdadeira.
 
-Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo, 
+Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo,
 # 1/0 e 10^310. Aceita sinal negativo -Inf.
 
 NULL # representa a ausência de objeto (no R).
@@ -332,73 +321,22 @@ idade_beto == idade_carla
 
 5 == NA
 
-# Use as funções is.na(), is.nan(), is.infinite() e is.null() 
+# Use as funções is.na(), is.nan(), is.infinite() e is.null()
 # para testar se um objeto é um desses valores.
 
 x <- NA
 is.na(x)
 
-0/0 == NaN
-is.nan(0/0)
+0 / 0 == NaN
+is.nan(0 / 0)
 
 
 idades <- c(15, 64, 31, NA, 59)
 is.na(idades)
 
 is.nan(NaN)
-is.infinite(10^309)
+is.infinite(10 ^ 309)
 is.null(NULL)
-
-
-# Data frames, o retorno --------------------------------------------------
-
-mtcars
-
-# Selecionando uma coluna do data frame
-
-mtcars$mpg
-mtcars$disp
-
-mtcars[["mpg"]]
-mtcars[["cyl"]]
-
-mtcars[[1]]
-mtcars[[2]]
-
-mtcars[ , 1]
-mtcars[ , 2]
-
-# A classe data frame tem uma característica especial: dimensão
-
-dim(mtcars)
-
-vetor <- c(1, 2)
-dim(vetor)
-
-# Subsetting em objetos com 2 dimensões
-
-# Sinxtaxe: data_frame[indice_linha, indice_coluna]
-
-mtcars[1,1]
-mtcars[,1]
-mtcars[1,]
-
-# Selecionando colunas
-
-mtcars[, c(1, 2)]
-mtcars[, c("mpg", "am")]
-
-# Filtrando linhas
-
-mtcars$cyl
-mtcars$cyl == 4
-
-mtcars[mtcars$cyl == 4, ]
-mtcars[mtcars$mpg > 25, ]
-
-# Veremos E e OU com mais detalhes na hora do filter() 
-mtcars[mtcars$mpg > 25 | mtcars$cyl == 4, ]
-mtcars[mtcars$mpg > 25 & mtcars$cyl == 4, ]
 
 # Funções -----------------------------------------------------------------
 
@@ -422,7 +360,7 @@ seq(4, 10, 2)
 seq(by = 2, to = 10, from = 4)
 seq(2, 10, 4)
 
-?seq
+? seq
 help(seq)
 
 
@@ -435,6 +373,80 @@ mean(c(1, 2))
 
 mean(c(1, 2, NA))
 mean(c(1, 2, NA), rm = TRUE)
+
+
+# Data frames -------------------------------------------------------------
+
+mtcars
+
+# vamos aprender tudo com calma mais pra frente...
+class(mtcars)
+
+str(iris)
+
+head(mtcars)
+
+View(mtcars)
+
+names(mtcars)
+
+dim(mtcars)
+
+nrow(mtcars)
+
+ncol(mtcars)
+
+# Data frames, o retorno --------------------------------------------------
+
+mtcars
+
+# Selecionando uma coluna do data frame
+
+mtcars$mpg
+mtcars$disp
+
+mtcars[["mpg"]]
+mtcars[["cyl"]]
+
+mtcars[[1]]
+mtcars[[2]]
+
+mtcars[, 1]
+mtcars[, 2]
+
+# A classe data frame tem uma característica especial: dimensão
+
+dim(mtcars)
+
+vetor <- c(1, 2)
+dim(vetor)
+
+# Subsetting em objetos com 2 dimensões
+
+# Sinxtaxe: data_frame[indice_linha, indice_coluna]
+
+mtcars[1, 1]
+mtcars[, 1]
+mtcars[1, ]
+
+# Selecionando colunas
+
+mtcars[, c(1, 2)]
+mtcars[, c("mpg", "am")]
+
+# Filtrando linhas
+
+mtcars$cyl
+mtcars$cyl == 4
+
+mtcars[mtcars$cyl == 4,]
+mtcars[mtcars$mpg > 25,]
+
+# Veremos E e OU com mais detalhes na hora do filter()
+mtcars[mtcars$mpg > 25 | mtcars$cyl == 4,]
+mtcars[mtcars$mpg > 25 & mtcars$cyl == 4,]
+
+# Continuação sobre Funções -------------
 
 cor(mtcars$mpg, mtcars$wt)
 cor(c(1, 3, 2), c(3, NA, 10), na.rm = TRUE)
@@ -452,6 +464,7 @@ mean(mtcars$mpg)
 mean(log(mtcars$mpg))
 
 # Criando funções ------------------------------------------------
+
 # uma f(x) = a + x*b
 f <- function(x) {
   2 + 3 * x
@@ -462,7 +475,6 @@ f(1)
 f(1:10)
 
 minha_soma <- function(x, y) {
-  
   # códigos de R
   # códigos de R
   # códigos de R
@@ -486,7 +498,7 @@ cola_dois_textos("alo", "ola")
 
 # um exemplo com argumento que tem valor pré-definido
 duplica_data_frame <- function(df, quiser_empilhar = FALSE) {
-  if(empilhar) {
+  if (empilhar) {
     rbind(df, df)
   } else {
     cbind(df, df)
@@ -508,9 +520,21 @@ duplica_data_frame(mini_data_frame, empilhar = TRUE)
 # Para instalar pacotes
 
 install.packages("tidyverse")
-install.packages(c("remotes", "rmarkdown", "knitr","skimr", 
-                   "readxl", "writexl", "openxlsx", "haven",
-                   "DBI", "RSQLite", "jsonlite"))
+install.packages(
+  c(
+    "remotes",
+    "rmarkdown",
+    "knitr",
+    "skimr",
+    "readxl",
+    "writexl",
+    "openxlsx",
+    "haven",
+    "DBI",
+    "RSQLite",
+    "jsonlite"
+  )
+)
 
 # Pacotes que não são oficiais
 remotes::install_github("curso-r/CursoR")
@@ -522,4 +546,3 @@ library(dplyr)
 # Também é possível acessar as funções usando ::
 dplyr::filter_at()
 dplyr::transmute()
-
