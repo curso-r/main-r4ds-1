@@ -1,14 +1,35 @@
 # Exercícios - Introdução ao R
 
-
 # objetos -----------------------------------------------------------------
+
 # (a) Crie um vetor com o nome de tres frutas e guarde em um objeto chamado frutas.
 # (b) Use a função length() para contar o tamanho do vetor. Certifique-se que retorna 3.
 # (c) Use [] para retornar a primeira fruta do vetor.
 # (d) Inspecione a saída de 'paste("eu gosto de", frutas)' e responda se o tamanho do vetor mudou.
 
+# vetores e funcoes ---------------------------------------------------------
+
+# 1. Analise as duas linhas de códigos abaixo:
+c(1,2,3) - 1           # código 1
+c(1,2,3) - c(1,1,1)    # código 2
+# Os resultados são iguais? Porquê?
+
+# 2. Considere o vetor booleano abaixo:
+dolar_subiu <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
+
+# Este vetor tem informação de uma semana (7 dias) indicando se o dolar subiu (TRUE)
+# (ou não subiu - FALSE) no respectivo dia. Interprete os números abaixo:
+
+# (a) length(dolar_subiu)
+# (b) dolar_subiu[2]  (ps: a semana começa no domingo)
+# (c) sum(dolar_subiu)
+# (d) mean(dolar_subiu)
+
+# Agora observe a saída de as.numeric(dolar_subiu). O que o R fez?
+
 # data.frames -------------------------------------------------------------
-# Use o data.frame airquality para responder às questões abaixo:
+
+# 1. Use o data.frame airquality para responder às questões abaixo:
 # (a) quantas colunas airquality tem?
 # (b) quantas linhas airquality tem?
 # (c) o que a função head() retorna?
@@ -18,25 +39,8 @@
 # (g) utilizando a resposta da (f), quais são os tipos de
 #     cada coluna da tabela airquality?
 
-# vetores e funcoes ---------------------------------------------------------
-# Analise as duas linhas de códigos abaixo:
-c(1,2,3) - 1           # código 1
-c(1,2,3) - c(1,1,1)    # código 2
-# Os resultados são iguais? Porquê?
 
-# Considere o vetor booleano abaixo:
-dolar_subiu <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
-# este vetor tem informação de uma semana (7 dias) indicando se o dolar subiu (TRUE)
-# (ou não subiu - FALSE) no respectivo dia. Interprete os números abaixo:
-# (a) length(dolar_subiu)
-# (b) dolar_subiu[2]  (ps: a semana começa no domingo)
-# (c) sum(dolar_subiu)
-# (d) mean(dolar_subiu)
-
-# Agora observe a saída de as.numeric(dolar_subiu). O que o R fez?
-
-
-# [desafio] Use o data.frame airquality para responder às questões abaixo:
+# [desafio] 2. Use o data.frame airquality para responder às questões abaixo:
 # Vamos calcular o desvio padrão de Ozone sem usar a função sd().
 # Dica: guarde os resultados de cada item em objetos para poderem ser usados depois.
 # (a) tire a média da coluna Ozone. Dica: use mean(x, na.rm = TRUE).
@@ -47,19 +51,24 @@ dolar_subiu <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
 # (f) compare o resultado com sd(airquality$Ozone)
 
 
-# funcoes proprias ---------------------------------------------------------
-# Crie uma função que receba um número e retorne o quadrado deste
+# Funções proprias ---------------------------------------------------------
+
+# 1. Crie uma função que receba um número e retorne o quadrado deste
 # número.
 
-# [desafio] Crie uma função que recebe 2 números x e y
+
+# 2. Crie uma função que receba dois valores (numéricos) e devolva o maior deles. 
+# - A função deve ter exatamente dois argumentos. 
+# - Você pode escolher qualquer nome para a função e para os argumentos.
+
+# [desafio] 3. Crie uma função que recebe 2 números x e y
 # e devolve a raiz quadrada da soma desses números.
 # Depois teste a função para valores (x=2, y=3).
 # Dica: sqrt() é a função para raiz quadrada.
 
+# Filtro e vetores logicos ------------------------------------------------
 
-# filtro e vetores logicos ------------------------------------------------
-
-# use o vetor numeross abaixo para responder as questoes seguintes.
+# 1. use o vetor numeross abaixo para responder as questoes seguintes.
 numeross <- -4:2
 
 # (a) Escreva um código que devolva apenas valores positivos do vetor numeross.
@@ -70,7 +79,7 @@ numeross <- -4:2
 #     elevados a 2 são menores do que 4.
 
 
-# Use o data.frame airquality para responder às questões abaixo
+# 2. Use o data.frame airquality para responder às questões abaixo
 # (a) conte quantos NAs tem na coluna Solar.R. Dica: use '$', is.na() e sum()
 # (b) filtre a tabela airquality com apenas linhas em que Solar.R é NA.
 # (c) filtre a tabela airquality com apenas linhas em que Solar.R NÃO é NA.

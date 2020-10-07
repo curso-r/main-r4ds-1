@@ -106,4 +106,33 @@ grafico_notas + grafico_lucro
 # facet_wrap() para gerar a mesma figura do item (d)?
 
 
+# -------------------------------------------------------------------------
+
+# 5. Likert
+
+# 5.1 Rode o código abaixo.
+
+# install.packages("likert")
+data("gap", package = "likert")
+gap_long <- gap %>%
+  tidyr::pivot_longer(-StudentId, names_to = "questao", values_to = "resposta")
+
+# PS: pivot_longer() é uma funcao que "derrete" o banco de dados, 
+# empilhando as colunas. Vale a pena estudar o que essa funcao faz.
+# Ela geralmente vai bem com ggplot2().
+
+# Use a base gap_long para fazer os exercícios a seguir.
+
+# 5.2 Crie uma tabela com a contagem de cada resposta para cada questao.
+
+
+# 5.3 Usando a tabela acima, faca um grafico com uma barra horizontal para cada questao e 
+# com as contagens no eixo X. Pinte o preenchimento das barras representando as respostas (fill).
+
+
+# 5.4 [avancado] Mexendo com as categorias e as cores:
+
+# a) transforme a coluna 'resposta' em factor() no mutate().  
+# b) adicione  + scale_fill_brewer(palette = "RdBu") no grafico.
+# c) observe se uma escala indo de azul ao vermelho apareceu.
 
