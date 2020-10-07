@@ -223,12 +223,15 @@ Também temos um blog:
 
 ## Referência
 
-<br>
+Disponível online e gratuitamente em [Inglês](https://r4ds.had.co.nz/) e [Espanhol](https://es.r4ds.hadley.nz/).
+
 <center>
 <a href = "https://r4ds.had.co.nz">
 <img src="img/r4ds.png" width = 40%> 
 </a>
+
 </center>
+
 
 ---
 class: middle, center
@@ -256,7 +259,7 @@ class: middle, center
 
 4. Você pode corrigir problemas e aprimorar a linguagem.
 
-5. Você pode desenvovler suas próprias ferramentas.
+5. Você pode desenvolver suas próprias ferramentas.
 
 6. Possibilita a existência de uma comunidade ativa.
 
