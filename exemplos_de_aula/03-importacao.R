@@ -124,7 +124,7 @@ mtcars$mpg <- as.numeric(mtcars$mpg)
 # Outros formatos ---------------------------------------------------------
 
 library(jsonlite)
-imdb_json <- read_json("dados/imdb.json")
+imdb_json <- read_json("dados/imdb.json", simplifyVector = TRUE)
 
 library(haven)
 imdb_sas <- read_sas("dados/imdb.sas7bdat")
