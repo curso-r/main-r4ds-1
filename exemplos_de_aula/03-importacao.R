@@ -6,7 +6,7 @@ library(tidyverse)
 getwd()
 
 # Caminhos absolutos
-"/home/william/Documents/Curso-R/intro-programacao-em-r-mestre/dados/imdb.csv"
+"/home/william/Documents/Curso-R/main-r4ds-1/dados/imdb.csv"
 
 # Caminhos relativos
 "dados/imdb.csv"
@@ -135,7 +135,7 @@ imdb_spss <- read_spss("dados/imdb.sav")
 # As funções iniciam com 'write'
 
 # CSV
-write_csv(imdb, path = "imdb.csv")
+write_csv(imdb, file = "imdb.csv")
 
 # Excel
 library(writexl)
@@ -147,7 +147,7 @@ write_xlsx(imdb, path = "imdb.xlsx")
 # Você pode salvar qualquer objeto do R em formato .rds
 
 imdb_rds <- readr::read_rds("dados/imdb.rds")
-readr::write_rds(imdb_rds, path = "dados/imdb_rds.rds")
+readr::write_rds(imdb_rds, file = "dados/imdb_rds.rds")
 
 # Conexão com banco de dados e SQL ----------------------------------------
 
