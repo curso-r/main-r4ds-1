@@ -1,4 +1,4 @@
-exemplos_de_aula
+scripts
 dados
 slides
 exercicios
