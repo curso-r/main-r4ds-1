@@ -89,7 +89,8 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 
 # Todo mundo --------------------------------------------------------------
 
-# 1. Multiplique a sua idade por 12 e salve em um objeto chamado "meses".
+# 1. Multiplique a sua idade por 12 e salve em 
+# um objeto chamado "meses".
 
 # -------------------------------------------------------------------------
 
