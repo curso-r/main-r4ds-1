@@ -34,14 +34,6 @@ imdb_txt <- read_delim(file = "dados/imdb.txt", delim = "\t")
 imdb_delim <- read_delim("dados/imdb.csv", delim = ",")
 imdb_delim <- read_delim("dados/imdb2.csv", delim = ";")
 
-# encoding
-# Natação UTF8
-# NataÃo!Â latin1
-tb_candidatura_csv <- read_csv2(
-  file = "dados/imdb2.csv", 
-  locale = locale(encoding = "UTF-8")
-)
-
 # direto da internet
 imdb_csv <- read_csv("https://raw.githubusercontent.com/curso-r/202005-r4ds-1/master/dados/imdb.csv")
 
@@ -53,82 +45,6 @@ library(readxl)
 
 imdb_excel <- read_excel("dados/imdb.xlsx")
 excel_sheets("dados/imdb.xlsx")
-
-# Parâmetros úteis --------------------------------------------------------
-
-# col_types: para definir a classe das colunas
-# skip: para pular linhas
-# na: indica quais strings devem ser interpretadas como NA
-
-# Primeira tentativa
-readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx"
-)
-
-# Lendo aba certa
-readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx",
-  sheet = 2
-)
-
-# Pulando linhas com sujeira
-readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx",
-  sheet = 2,
-  skip = 2
-)
-
-# Especificando NAs
-readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx",
-  sheet = 2,
-  skip = 2,
-  na = c("", "NT")
-)
-
-# Arrumando classe da coluna mpg
-readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx",
-  sheet = 2,
-  skip = 2,
-  na = c("", "NT"),
-  col_types = c(
-    "numeric", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess",
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess", 
-    "guess"
-  )
-)
-
-# Arrumando classe da coluna mpg depois de carregar
-mtcars_cru <- readxl::read_excel(
-  "dados/mtcars_desconfigurado.xlsx",
-  sheet = 2,
-  skip = 2,
-  na = c("", "NT")
-)
-
-mtcars$mpg <- as.numeric(mtcars$mpg)
-
-# as.numeric()
-# as.character()
-# as.Date()
-
-# Outros formatos ---------------------------------------------------------
-
-library(jsonlite)
-imdb_json <- read_json("dados/imdb.json", simplifyVector = TRUE)
-
-library(haven)
-imdb_sas <- read_sas("dados/imdb.sas7bdat")
-imdb_spss <- read_spss("dados/imdb.sav")
 
 # Gravando dados ----------------------------------------------------------
 
@@ -148,31 +64,3 @@ write_xlsx(imdb, path = "imdb.xlsx")
 
 imdb_rds <- readr::read_rds("dados/imdb.rds")
 readr::write_rds(imdb_rds, file = "dados/imdb_rds.rds")
-
-# Conexão com banco de dados e SQL ----------------------------------------
-
-# install.packages("RSQLite")
-library(RSQLite)
-library(dplyr)
-
-# Fazendo conexão com banco de dados
-conexao <- dbConnect(SQLite(), "dados/imdb.sqlite")
-
-dbListTables(conexao)
-
-# Criando uma tabela a partir do banco de dados
-imdb_sqlite <- dplyr::tbl(conexao, "imdb")
-
-# Criando uma tabela usando instruções em SQL
-instrucao <- dplyr::sql("SELECT titulo, ano, diretor FROM imdb")
-imdb_select <- dplyr::tbl(conexao, instrucao)
-
-# Trazer para a memória
-dplyr::collect(imdb_sqlite)
-dplyr::collect(imdb_select)
-
-# Escrevendo
-dbWriteTable(conexao, "mtcars", mtcars)
-dbListTables(conexao)
-
-# Mais informações: db.rstudio.com

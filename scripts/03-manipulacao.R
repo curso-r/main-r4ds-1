@@ -51,15 +51,6 @@ select(imdb, contains("to"))
 
 select(imdb, -starts_with("ator"), -titulo, -ends_with("s"))
 
-
-# Exercícios --------------------------------------------------------------
-
-# 1. Crie uma tabela com apenas as colunas titulo, diretor, 
-# e orcamento. Salve em um objeto chamado imdb_simples.
-
-# 2. Selecione apenas as colunas ator_1, ator_2 e ator_3 usando
-# o ajudante contains().
-
 # arrange -----------------------------------------------------------------
 
 # Ordenando linhas de forma crescente de acordo com 
@@ -81,16 +72,6 @@ arrange(imdb, desc(ano), orcamento)
 df <- tibble(x = c(NA, 2, 1), y = c(1, 2, 3))
 arrange(df, x)
 arrange(df, desc(x))
-  
-
-# Exercícios --------------------------------------------------------------
-
-# 1. Ordene os filmes em ordem crescente de ano e 
-# decrescente de receita e salve em um objeto 
-# chamado filmes_ordenados.
-
-# 2. Selecione apenas as colunas título e orçamento 
-# e então ordene de forma decrescente pelo orçamento.
 
 # Pipe (%>%) --------------------------------------------------------------
 
@@ -140,14 +121,6 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
   esfrie("geladeira", "20min")
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
-
-
-# Exercício ---------------------------------------------------------------
-
-# Refaça o exercício 2 do arrange utilizando o %>%.
-
-# 2. Selecione apenas as colunas título e orçamento 
-# e então ordene de forma decrescente pelo orçamento.
 
 # filter ------------------------------------------------------------------
 
@@ -206,16 +179,6 @@ str_detect(
 ## tenham o gênero ação
 imdb %>% filter(str_detect(generos, "Action"))
 
-# Exercícios --------------------------------------------------------------
-
-# 1. Criar um objeto chamado `filmes_pb` apenas com filmes 
-# preto e branco. (==)
-# dica: use unique(), count(), distinct() ou table() pra descobrir como que "preto e branco" 
-# está representado na tabela.  
-
-# 2. Criar um objeto chamado curtos_legais com filmes 
-# de 90 minutos ou menos de duração e nota no imdb maior do que 8.5.
-
 # mutate ------------------------------------------------------------------
 
 # Modificando uma coluna
@@ -242,19 +205,6 @@ imdb %>% mutate(
   houve_lucro = ifelse(lucro > 0, "Sim", "Não")
 ) %>% 
   View()
-
-
-# Exercícios --------------------------------------------------------------
-
-# 1. Crie uma coluna chamada prejuizo (orcamento - receita)
-# e salve a nova tabela em um objeto chamado imdb_prejuizo.
-# Em seguida, filtre apenas os filmes que deram prejuízo
-# e ordene a tabela por ordem crescente de prejuízo.
-# mutate, filter, arrange
-
-# 2. Crie uma nova coluna que classifique o filme em 
-# "recente" (posterior a 2000) e "antigo" de 2000 para trás.
-# mutate, ifelse
 
 # summarise ---------------------------------------------------------------
 
@@ -314,22 +264,6 @@ imdb %>%
     qtd = n(),
     qtd_diretores = n_distinct(diretor)
   )
-
-# Exercícios --------------------------------------------------------------
-
-# 1. Calcule a duração média e mediana dos filmes 
-# da base.
-# summarise
-
-# 2. Calcule o lucro médio dos filmes com duracao 
-# menor que 60 minutos. 
-# filter, summarise
-
-# 3. Apresente na mesma tabela o lucro médio 
-# dos filmes com duracao menor que 60 minutos
-# e o lucro médio dos filmes com duracao maior 
-# ou igual a 60 minutos.
-# mutate, group by, summarise
 
 # left join ---------------------------------------------------------------
 
@@ -408,16 +342,4 @@ band_instruments %>% left_join(band_members)
 band_instruments %>% right_join(band_members)
 band_instruments %>% inner_join(band_members)
 band_instruments %>% full_join(band_members)
-
-
-# Exercícios --------------------------------------------------------------
-
-# 1. Salve em um novo objeto uma tabela com a 
-# nota média dos filmes de cada diretor. Essa tabela
-# deve conter duas colunas (diretor e nota_imdb_media)
-# e cada linha deve ser um diretor diferente.
-
-# 2. Use o left_join para trazer a coluna 
-# nota_imdb_media da tabela do exercício 1
-# para a tabela imdb original.
 

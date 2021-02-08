@@ -50,7 +50,6 @@ dolar_subiu <- c(TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE)
 # (e) tire a raíz quadrada.
 # (f) compare o resultado com sd(airquality$Ozone)
 
-
 # Funções proprias ---------------------------------------------------------
 
 # 1. Crie uma função que receba um número e retorne o quadrado deste
