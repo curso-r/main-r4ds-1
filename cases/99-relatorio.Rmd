@@ -1,0 +1,187 @@
+---
+title: "Análise IMDB"
+author: "Beatriz Milz e William Amorim"
+date: "10 de fevereiro de 2021"
+output: 
+  prettydoc::html_pretty:
+     theme: cayman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+imdb <- read_rds("../dados/imdb.rds")
+```
+
+
+O objetivo desta análise é responder a pergunta *Qual o melhor ator de comédia?*
+
+## Melhor é ser lucrativo?
+
+```{r}
+tab_lucro <- imdb %>% 
+  filter(str_detect(generos, "Comedy"), !is.na(diretor)) %>% 
+  mutate(lucro = receita - orcamento) %>% 
+  group_by(diretor) %>% 
+  summarise(
+    num_filmes = n(),
+    lucro_medio = mean(lucro, na.rm = TRUE)
+  ) %>% 
+  arrange(desc(num_filmes), desc(lucro_medio))
+```
+
+Como muitos fatores podem influenciar a receita de um filme, consequentemente o seu lucro, a variabilidade sobre essas variáveis pode ser muito grande. Assim, dentre os diretores que mais fizeram filmes de comédia, vamos olhar para aqueles que, em média, lucram mais.
+
+A tabela abaixo mostra os 15 diretores na base que mais fizeram filmes de comédia. Embora Woody Allen seja o diretor com mais filmes (17), em média, ele dá prejuizo. 
+
+```{r, fig.height=10, fig.width=8}
+tab_lucro %>% 
+  top_n(15, num_filmes) %>% 
+  mutate(
+    lucro_medio = lucro_medio / 1000000,
+    diretor = forcats::fct_reorder(diretor, num_filmes)
+  ) %>% 
+  ggplot(aes(x = lucro_medio, y = diretor)) +
+  geom_col(fill = "orange") +
+  geom_label(aes(x = -10, label = num_filmes)) +
+  scale_x_continuous(breaks = c(-5, 0, 50, 100)) +
+  theme_minimal() +
+  theme(panel.grid.minor = element_blank()) +
+  gghighlight::gghighlight(
+    lucro_medio > 100,
+    unhighlighted_params = list(fill = "white", color = "black")
+  ) +
+  labs(x = "Lucro médio", y = "Diretor")
+```
+
+O diretor Jay Roach parece ser uma aposta mais segura, pois tem um lucro médio de 110 milhões de dólares com 7 filmes marcados como comédia na base. 
+
+Jay Roach é o diretor da série *Austin Powers* e *Entrando numa fria*.
+
+```{r}
+imdb %>% 
+  filter(diretor == "Jay Roach", str_detect(generos, "Comedy")) %>% 
+  mutate(
+    lucro = receita - orcamento,
+    orcamento = scales::dollar(
+      orcamento, 
+      big.mark = ".",
+      decimal.mark = ","
+    ),
+    receita = scales::dollar(
+      receita, 
+      big.mark = ".",
+      decimal.mark = ","
+    ),
+    lucro = scales::dollar(
+      lucro, 
+      big.mark = ".",
+      decimal.mark = ","
+    )
+  ) %>% 
+  replace_na(list(orcamento = "Sem informação", lucro = "Sem informação")) %>% 
+  arrange(titulo) %>% 
+  select(
+    Filme = titulo,
+    `Orçamento` = orcamento,
+    Receita = receita,
+    Lucro = lucro,
+    Nota = nota_imdb
+  ) %>% 
+  knitr::kable()
+```
+
+## Melhor é ser bem avaliado?
+
+Embora subjetiva, a nota IMDB é uma boa estimativa da opinião pública sobre um filme, pois é uma média de diversos olhares diferentes. Pelo menos um filme aclamado é um bom indício de que a direção sabe conduzir um filme de sucesso.
+
+A tabela a seguir mostra que o filme marcado como comédia com maior nota na nossa base é Forrest Gump, dirigido por Robert Zemeckis.
+
+```{r, fig.height=10, fig.width=8}
+imdb %>% 
+  filter(str_detect(generos, "Comedy"), !is.na(diretor)) %>%
+  top_n(15, nota_imdb) %>% 
+  arrange(desc(nota_imdb)) %>% 
+  select(
+    Filme = titulo,
+    `Direção` = diretor,
+    `Nota IMDB` = nota_imdb
+  ) %>% 
+  knitr::kable()
+```
+
+Vamos olhar mais atentamente os filmes dirigidos por Robert Zemeckis. Além de Forest Gump, ele é o diretor da consagrada trilogia *De Volta Para o Futuro*.
+
+```{r}
+imdb %>% 
+  filter(diretor == "Robert Zemeckis", str_detect(generos, "Comedy")) %>% 
+  mutate(
+    lucro = receita - orcamento,
+    orcamento = scales::dollar(
+      orcamento, 
+      big.mark = ".",
+      decimal.mark = ","
+    ),
+    receita = scales::dollar(
+      receita, 
+      big.mark = ".",
+      decimal.mark = ","
+    ),
+    lucro = scales::dollar(
+      lucro, 
+      big.mark = ".",
+      decimal.mark = ","
+    )
+  ) %>% 
+  replace_na(list(orcamento = "Sem informação", lucro = "Sem informação")) %>% 
+  arrange(titulo) %>% 
+  select(
+    Filme = titulo,
+    `Orçamento` = orcamento,
+    Receita = receita,
+    Lucro = lucro,
+    Nota = nota_imdb
+  ) %>% 
+  knitr::kable()
+```
+
+
+## Roach ou Zemeckis?
+
+Comparando os dois diretores, percebemos que Robert Zemeckis se destaca nas duas categorias: lucro e nota IMDB. Embora tenha feito menos filmes (o que o deixou de fora na nossa análise do lucro), ele é já dirigiu grandes sucessos de bilheteria e crítica. 
+
+Pelos critérios analisados, indicamos Robert Zemeckis como o melhor diretor de comédia.
+
+```{r}
+imdb %>% 
+  filter(
+    diretor %in% c("Robert Zemeckis", "Jay Roach"), 
+    str_detect(generos, "Comedy")
+  ) %>% 
+  mutate(lucro = receita - orcamento) %>% 
+  group_by(diretor) %>% 
+  summarise(
+    num_filmes = n(),
+    lucro_medio = mean(lucro, na.rm = TRUE),
+    nota_media = mean(nota_imdb, na.rm = TRUE)
+  ) %>% 
+  mutate(
+    lucro_medio = scales::dollar(
+      lucro_medio, 
+      big.mark = ".",
+      decimal.mark = ","
+    ),
+    nota_media = round(nota_media, 2)
+  ) %>% 
+  select(
+    Diretor = diretor,
+    `Nº filmes` = num_filmes,
+    Lucro = lucro_medio,
+    Nota = nota_media
+  ) %>% 
+  knitr::kable()
+```
+
