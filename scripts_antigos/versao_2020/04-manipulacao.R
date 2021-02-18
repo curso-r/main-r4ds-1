@@ -151,6 +151,90 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # filter ------------------------------------------------------------------
 
+# Comparações lógicas
+
+# Valores lógicos
+
+class(TRUE)
+class(FALSE)
+
+# TRUE e FALSE são nomes reservados
+
+TRUE <- 1
+
+
+x <- 1
+# Testes com resultado verdadeiro
+x == 1
+"a" == "a"
+
+# Testes com resultado falso
+x == 2
+"a" == "b"
+
+# Maior
+x > 3
+x > 0
+
+# Maior ou igual
+x > 1
+x >= 1
+
+# Menor
+x < 3
+x < 0
+
+# Menor ou igual
+x < 1
+x <= 1
+
+# Diferente
+x != 1
+x != 2
+
+x %in% c(1, 2, 3)
+"a" %in% c("b", "c")
+
+# NAs
+
+idade_ana <- 30
+idade_beto <- NA
+idade_carla <- NA
+
+idade_ana == idade_beto
+
+idade_beto == idade_carla
+
+5 == NA
+
+# Use as funções is.na(), is.nan(), is.infinite() e is.null()
+# para testar se um objeto é um desses valores.
+
+x <- NA
+is.na(x)
+
+0 / 0 == NaN
+is.nan(0 / 0)
+
+
+idades <- c(15, 64, 31, NA, 59)
+is.na(idades)
+
+is.nan(NaN)
+is.infinite(10 ^ 309)
+is.null(NULL)
+
+# Comprações lógicas serão a base dos filtros!
+
+avaliacao_do_cliente <- c(1, 3, 0, 10, 2, 5, 20)
+estado_de_nascimento <- c("SP", "PB", "PB", "RJ", "MT", "MT")
+
+avaliacao_do_cliente > 3
+estado_de_nascimento %in% c("SP", "MT")
+
+avaliacao_do_cliente[avaliacao_do_cliente > 3]
+avaliacao_do_cliente[estado_de_nascimento %in% c("SP", "MT")]
+
 # Filtrando uma coluna da base
 imdb %>% filter(nota_imdb > 9)
 imdb %>% filter(diretor == "Quentin Tarantino")
