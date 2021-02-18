@@ -90,7 +90,7 @@ select(imdb, titulo, ano, orcamento)
 ---
 <br><br>
 
-Um operador `:` é muito útil para selecionar colunas consecutivas.
+O operador `:` é muito útil para selecionar colunas consecutivas.
 
 .tiny[
 ```{r}

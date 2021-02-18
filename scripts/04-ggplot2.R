@@ -75,13 +75,6 @@ ggsave("meu_grafico.png")
 # um gráfico seria a sobreposição dessas camadas.
 # Hadley Wickham, A layered grammar of graphics 
 
-# Exercícios --------------------------------------------------------------
-
-# a. Crie um gráfico de dispersão da nota do imdb pelo orçamento.
-#dicas: ggplot() aes() geom_point()
-
-# b. Pinte todos os pontos do gráfico de azul. (potencial pegadinha =P)
-
 # Gráfico de linhas -------------------------------------------------------
 
 # Nota média dos filmes ao longo dos anos
@@ -137,11 +130,6 @@ imdb %>%
   geom_line() +
   geom_label(aes(label = nota_media))
 
-
-# Exercício ---------------------------------------------------------------
-
-# Faça um gráfico do orçamento médio dos filmes ao longo dos anos.
-# dicas: group_by() summarise() ggplot() aes() geom_line()
 
 # Gráfico de barras -------------------------------------------------------
 
@@ -207,63 +195,6 @@ top_10_diretores %>%
   geom_label(aes(x = n/2, y = diretor, label = n)) 
 
 
-# Exercícios --------------------------------------------------------------
-
-# a. Transforme o gráfico do exercício anterior em um gráfico de barras.
-
-# b. Refaça o gráfico apenas para filmes de 1989 para cá.]]
-
-
-# [AVANÇADO] Gráfico de barras II: positions e labels ---------------------------------
-
-diretor_por_filme_de_drama <- imdb %>% 
-  mutate(filme_de_drama = str_detect(generos, "Drama")) %>%
-  count(diretor, filme_de_drama) %>%
-  filter(
-    !is.na(diretor), 
-    !is.na(filme_de_drama),
-    diretor %in% top_10_diretores$diretor
-  ) %>%
-  mutate(
-    diretor = forcats::fct_reorder(diretor, n)
-  ) 
-
-# Colocando cor nas barras com outra variável
-# coisas novas: fill = filme_de_drama e position = position_stack(vjust = 0.5)
-diretor_por_filme_de_drama %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
-  geom_col(aes(fill = filme_de_drama)) +
-  geom_label(aes(label = n), position = position_stack(vjust = 0.5)) 
-
-# position dodge (lado a lado)
-diretor_por_filme_de_drama %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
-  geom_col(aes(fill = filme_de_drama), position = position_dodge(width = 1, preserve = "single")) +
-  geom_text(aes(label = n), position = position_dodge(width = 1), hjust = -0.1) 
-
-# position fill (preenchido ate 100%)
-diretor_por_filme_de_drama %>%
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
-  geom_col(aes(fill = filme_de_drama), position = position_fill()) +
-  geom_text(aes(label = n), position = position_fill(vjust = 0.5)) 
-
-# Ordenar é um desafio =(
-diretor_por_filme_de_drama %>%
-  group_by(diretor) %>%
-  mutate(proporcao_de_drama = sum(n[filme_de_drama])/sum(n)) %>%
-  ungroup() %>%
-  mutate(diretor = forcats::fct_reorder(diretor, proporcao_de_drama)) %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
-  geom_col(aes(fill = filme_de_drama), position = position_fill()) +
-  geom_text(aes(label = n), position = position_fill(vjust = 0.5)) 
-
-# Exercícios --------------------------------------------------------------
-
-# a. Faça um gráfico de barras empilhados cruzando cor e classificacao
-# dica: geom_col(position = "fill") 
-
-# b. adicione + scale_fill_brewer(palette = "Set3")  ao grafico
-
 # Histogramas e boxplots --------------------------------------------------
 
 # Histograma do lucro dos filmes do Steven Spielberg 
@@ -302,13 +233,6 @@ imdb %>%
   ggplot() +
   geom_boxplot(aes(x = diretor, y = lucro))
 
-
-# Exercícios --------------------------------------------------------------
-
-#a. Descubra quais são os 5 atores que mais aparecem na coluna ator_1.
-# dica: count() top_n()
-
-#b. Faça um boxplot do lucro dos filmes desses atores.
 
 # Título e labels ---------------------------------------------------------
 
