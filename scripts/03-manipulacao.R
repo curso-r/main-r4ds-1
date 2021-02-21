@@ -122,7 +122,76 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
+# Conceitos importantes para filtros! --------------------------------------
+
+## Comparações lógicas ------------------------------------------------------
+
+
+# Testes com resultado verdadeiro
+x == 1
+"a" == "a"
+
+# Testes com resultado falso
+x == 2
+"a" == "b"
+
+# Maior
+x > 3
+x > 0
+
+# Maior ou igual
+x > 1
+x >= 1
+
+# Menor
+x < 3
+x < 0
+
+# Menor ou igual
+x < 1
+x <= 1
+
+# Diferente
+x != 1
+x != 2
+
+x %in% c(1, 2, 3)
+"a" %in% c("b", "c")
+
+## Operadores lógicos -------------------------------
+
+## & - E - Para ser verdadeiro, os dois lados 
+# precisam resultar em TRUE
+
+x <- 5
+x >= 3 & x <=7
+
+
+y <- 2
+y >= 3 & y <= 7
+
+## | - OU - Para ser verdadeiro, apenas um dos 
+# lados precisa ser verdadeiro
+
+y <- 2
+y >= 3 | y <=7
+
+y <- 1
+y >= 3 | y == 0
+
+
+## ! - Negação - É o "contrário"
+
+!TRUE
+
+!FALSE
+
+
+w <- 5
+(!w < 4)
+
 # filter ------------------------------------------------------------------
+
 
 # Filtrando uma coluna da base
 imdb %>% filter(nota_imdb > 9)
