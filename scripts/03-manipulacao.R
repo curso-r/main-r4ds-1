@@ -122,10 +122,11 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
+
+
 # Conceitos importantes para filtros! --------------------------------------
 
-## Comparações lógicas ------------------------------------------------------
-
+## Comparações lógicas -------------------------------
 
 # Testes com resultado verdadeiro
 x == 1
