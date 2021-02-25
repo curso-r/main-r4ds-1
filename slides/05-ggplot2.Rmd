@@ -142,7 +142,7 @@ imdb %>%
 ---
 <br><br>
 
-Os atributos `x` e `y` são necessários para construirmos um gráfico de pontos. Outros atributos também podem ser mapeados em colunas, como a cor. Como a coluna `lucro` é numérica, um degradê de cores é criado para os pontos, a depender do lucro.
+Os atributos `x` e `y` são necessários para construirmos um gráfico de pontos. Outros atributos também podem ser mapeados em pontos, como a cor. Como a coluna `lucro` é numérica, um degradê de cores é criado para os pontos, a depender do lucro.
 
 .tiny[
 ```{r ggdispersaoazul}
