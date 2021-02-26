@@ -1,25 +1,89 @@
-# Objetivo: analisar dados da SABESP
+# Objetivo: ler a base IMDB e gerar uma tabela 
+# com apenas as colunas filme e ano, ordenada por ano
 
-library(tidyverse)
+library(readxl)
+library(dplyr)
 
-# Apenas mostrar, não explicar
-# Indicar curso de web scraping
-baixar_sabesp <- function(data) {
-  u_sabesp <- paste0("http://mananciais.sabesp.com.br/api/Mananciais/ResumoSistemas/", data)
-  r_sabesp <- httr::GET(u_sabesp)
-  results <- httr::content(r_sabesp, simplifyDataFrame = TRUE)
-  results$ReturnObj$sistemas
-}
+imdb <- read_excel("dados/imdb.xlsx")
 
-baixar_sabesp("2021-01-01")
+imdb
+glimpse(imdb)
 
-ontem <- Sys.Date() - 1
-tab_sabesp <- baixar_sabesp(ontem)
+# crescente
+tab_solicitada <- imdb %>% 
+  select(titulo, ano) %>% 
+  arrange(ano)
 
-tab_volume <- tab_sabesp %>% 
-  select(Nome, VolumePorcentagem) %>% 
-  arrange(desc(VolumePorcentagem))
+writexl::write_xlsx(tab_solicitada, "tab_filmes_ord.xlsx")
 
-tab_volume %>% 
-  mutate(VolumePorcentagem = scales::percent(VolumePorcentagem, scale = 1))
+# decrescente
+tab_solicitada <- imdb %>% 
+  select(titulo, ano) %>% 
+  arrange(desc(ano))
+
+writexl::write_xlsx(tab_solicitada, "tab_filmes_ord_desc.xlsx")
+
+# -------------------------------------------------------------------------
+
+# Objetivo: descobrir qual o peso médio dos 
+# personagens do Star Wars
+
+library(dplyr)
+
+View(starwars)
+
+# Vai retornar NA
+starwars %>% 
+  summarise(peso_medio = mean(mass))
+
+# colocar na.rm = TRUE
+starwars %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+# Peso em quilos ou libras?
+help(starwars)
+
+# Peso por sexo
+starwars %>% 
+  group_by(sex) %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+# Tirando linhas com NA na coluna sexo
+starwars %>% 
+  filter(!is.na(sex)) %>% 
+  group_by(sex) %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+# Categorizando o NA
+starwars %>% 
+  mutate(sex = ifelse(is.na(sex), "sem informação", sex)) %>% 
+  group_by(sex) %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+starwars %>% 
+  mutate(sex = tidyr::replace_na(sex, "sem informação")) %>% 
+  group_by(sex) %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+# Peso por espécie
+starwars %>% 
+  group_by(species) %>% 
+  summarise(peso_medio = mean(mass, na.rm = TRUE))
+
+# Tirando linhas com NA antes
+starwars %>% 
+  filter(!is.na(mass)) %>% 
+  group_by(species) %>% 
+  summarise(peso_medio = mean(mass))
+
+# Pegando as espécies mais pesadas
+starwars %>% 
+  filter(!is.na(mass)) %>% 
+  group_by(species) %>% 
+  summarise(peso_medio = mean(mass)) %>% 
+  top_n(10, peso_medio) %>% 
+  arrange(desc(peso_medio))
+  
+
+
 

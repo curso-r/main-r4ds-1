@@ -1,28 +1,3 @@
-# Objetivo: ler a base IMDB e gerar uma tabela 
-# com apenas as colunas filme e ano, ordenada por ano
-
-library(readxl)
-library(dplyr)
-
-imdb <- read_excel("dados/imdb.xlsx")
-
-imdb
-glimpse(imdb)
-
-# crescente
-tab_solicitada <- imdb %>% 
-  select(titulo, ano) %>% 
-  arrange(ano)
-
-writexl::write_xlsx(tab_solicitada, "tab_filmes_ord.xlsx")
-
-# decrescente
-tab_solicitada <- imdb %>% 
-  select(titulo, ano) %>% 
-  arrange(desc(ano))
-
-writexl::write_xlsx(tab_solicitada, "tab_filmes_ord_desc.xlsx")
-
 # -------------------------------------------------------------------------
 
 # Objetivo: ler a base IMDB separada por ano
