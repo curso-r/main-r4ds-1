@@ -153,6 +153,9 @@ dados_brasil_regiao %>%
 geo_brasil <- geobr::read_state()
 
 
+ibge_brasil_geo <- left_join(dados_brasil_regiao, geo_brasil, by = c("codigo" = "code_state"))
+
+
 
 # Visualização ------
 
@@ -165,3 +168,9 @@ dados_brasil_regiao %>%
   theme_bw() + 
   labs(x = "Unidade Federativa", 
        y = "População estimada em (em milhões de pessoas)")
+
+# Mapa, exemplo do geom_sf ---------
+ibge_brasil_geo %>% 
+  mutate(pop_milhoes = populacao_estimada/1000000) %>% 
+  ggplot() +
+  geom_sf(aes(geometry = geom, fill = pop_milhoes))
