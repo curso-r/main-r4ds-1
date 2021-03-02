@@ -132,6 +132,7 @@ starwars %>%
   group_by(sex) %>% 
   summarise(peso_medio = mean(mass, na.rm = TRUE))
 
+#tidyr::replace_na
 starwars %>% 
   mutate(sex = tidyr::replace_na(sex, "sem informação")) %>% 
   group_by(sex) %>% 
@@ -155,7 +156,18 @@ starwars %>%
   summarise(peso_medio = mean(mass)) %>% 
   top_n(10, peso_medio) %>% 
   arrange(desc(peso_medio))
-  
+
+# Comparando com a altura
+starwars %>% 
+  filter(!is.na(mass), !is.na(height)) %>% 
+  group_by(species) %>% 
+  summarise(
+    peso_medio = mean(mass),
+    altura_media = mean(height)
+  ) %>% 
+  top_n(10, peso_medio) %>% 
+  arrange(desc(peso_medio))
+
 
 
 
