@@ -1,3 +1,4 @@
+# AULA 3 --------------------------------------
 # Exemplo usando dados do IBGE, para o Brasil e Estados
 
 # Download feito no dia 28/02/2021
@@ -88,6 +89,10 @@ dados_brasil_regiao %>%
   slice(1)
 
 
+# Na aula 4 - faltou na aula 3: lembrar de salvar a base gerada até aqui.
+#  Vamos usar na continuacao da aula.
+
+
 # Aula 4, parte 2 sobre manipulação de dados ------------
 
 
@@ -155,9 +160,12 @@ geo_brasil <- geobr::read_state()
 
 ibge_brasil_geo <- left_join(dados_brasil_regiao, geo_brasil, by = c("codigo" = "code_state"))
 
+# salvar a base denovo em um .rds!!! vamos usar depois no relatório
+
+readr::write_rds(ibge_brasil_geo, file = "cases/data-output/ibge_brasil.Rds" )
 
 
-# Visualização ------
+# Visualização (aulas 5 e 6) ------
 
 dados_brasil_regiao %>% 
   mutate(pop_milhoes = populacao_estimada/1000000) %>% 
@@ -174,3 +182,4 @@ ibge_brasil_geo %>%
   mutate(pop_milhoes = populacao_estimada/1000000) %>% 
   ggplot() +
   geom_sf(aes(geometry = geom, fill = pop_milhoes))
+ 
