@@ -71,10 +71,16 @@ dados_brasil <- dados_brasil_arrumando %>%
          "total_veiculos" = total_de_veiculos_veiculos_2018) 
 
 
+# Salvar a base de dados
+
+readr::write_csv2(x = dados_brasil, file = "pratica/dados_brasil.csv")
+
+
+
 # Exemplos com select e arrange
 # Organizar os estados por IDH
 
-dados_brasil %>% 
+dados_brasil %>%  
   select(uf, populacao_estimada) %>% 
   arrange(-populacao_estimada)
 
@@ -101,9 +107,9 @@ dados_brasil_regiao %>%
 dados_brasil_regiao <- dados_brasil %>%
   mutate(
     regiao = case_when(
-      uf %in% c("São Paulo", 
-                "Minas Gerais", 
-                "Rio de Janeiro", 
+      uf %in% c("São Paulo",
+                "Minas Gerais",
+                "Rio de Janeiro",
                 "Espírito Santo") ~ "Sudeste",
       uf %in% c(
         "Acre",
@@ -126,14 +132,14 @@ dados_brasil_regiao <- dados_brasil %>%
         "Rio Grande do Norte",
         "Maranhão"
       ) ~ "Nordeste",
-      uf %in% c("Paraná", "Rio Grande do Sul", 
+      uf %in% c("Paraná", "Rio Grande do Sul",
                 "Santa Catarina") ~ "Sul",
-      uf %in% c("Goiás", "Mato Grosso do Sul", 
-                "Mato Grosso", 
+      uf %in% c("Goiás", "Mato Grosso do Sul",
+                "Mato Grosso",
                 "Distrito Federal") ~ "Centro-Oeste"
       
     )
-  ) %>% 
+  ) %>%
   relocate(regiao, .after = uf)
 
 
@@ -165,7 +171,7 @@ ibge_brasil_geo <- left_join(dados_brasil_regiao, geo_brasil, by = c("codigo" = 
 readr::write_rds(ibge_brasil_geo, file = "cases/data-output/ibge_brasil.Rds" )
 
 
-# Visualização (aulas 5 e 6) ------
+# Visualização (aulas 5 e 6) ------ # 
 
 dados_brasil_regiao %>% 
   mutate(pop_milhoes = populacao_estimada/1000000) %>% 

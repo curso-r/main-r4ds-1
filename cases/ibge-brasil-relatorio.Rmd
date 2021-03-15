@@ -1,0 +1,129 @@
+---
+title: "Estados do Brasil"
+author: "Beatriz Milz e William Amorim"
+date: "15 de março de 2021"
+output: 
+  prettydoc::html_pretty:
+     theme: cayman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Essa análise foi feita utilizando como fonte os dados do IBGE, referente aos estados brasileiros. 
+O download da base de dados foi realizado no dia 28/02/2021, neste endereço: [https://www.ibge.gov.br/cidades-e-estados](https://www.ibge.gov.br/cidades-e-estados).
+
+```{r echo=FALSE, fig.align='center', out.width="50%", fig.cap="Logo do IBGE."}
+knitr::include_graphics("https://www.agenciaconexoes.org/wp-content/uploads/2019/07/ibge.jpg")
+```
+
+```{r include=FALSE}
+# Carregar os pacotes
+library(tidyverse)
+# Carregar a base de dados
+dados_brasil <- readr::read_csv2("https://raw.githubusercontent.com/curso-r/202102-r4ds-1/master/pratica/dados_brasil.csv")
+```
+
+Existem `r nrow(dados_brasil)` estados no Brasil. Os estados são separados em regiões, o que pode ser verificado na tabela abaixo:
+
+
+```{r include=FALSE}
+dados_brasil_regiao <- dados_brasil %>%
+  mutate(
+    regiao = case_when(
+      uf %in% c("São Paulo",
+                "Minas Gerais",
+                "Rio de Janeiro",
+                "Espírito Santo") ~ "Sudeste",
+      uf %in% c(
+        "Acre",
+        "Amapá",
+        "Amazonas",
+        "Pará",
+        "Rondônia",
+        "Roraima",
+        "Tocantins"
+      ) ~ "Norte",
+      uf %in% c(
+        "Alagoas",
+        "Bahia",
+        "Ceará",
+        "Paraíba",
+        "Pernambuco",
+        "Pernambuco",
+        "Piauí",
+        "Sergipe",
+        "Rio Grande do Norte",
+        "Maranhão"
+      ) ~ "Nordeste",
+      uf %in% c("Paraná", "Rio Grande do Sul",
+                "Santa Catarina") ~ "Sul",
+      uf %in% c("Goiás", "Mato Grosso do Sul",
+                "Mato Grosso",
+                "Distrito Federal") ~ "Centro-Oeste"
+      
+    )
+  ) %>%
+  relocate(regiao, .after = uf)
+```
+
+```{r echo=FALSE}
+# Quantos estados temos em cada região do Brasil:
+dados_brasil_regiao %>% 
+  group_by(regiao) %>% 
+  summarise(quantidade = n()) %>% 
+  knitr::kable(col.names = c("Região", "Quantidade de Estados"))
+```
+
+## População
+
+```{r include=FALSE}
+# Maior populacao estimada
+estado_maior_pop <- dados_brasil %>% 
+  select(uf, populacao_estimada) %>% 
+  arrange(desc(populacao_estimada)) %>% 
+  slice(1) 
+
+nome_estado_maior_pop <- estado_maior_pop %>% 
+  pull(uf)
+
+
+numero_estado_maior_pop  <- estado_maior_pop %>% 
+  mutate(populacao_estimada_milhoes = round(populacao_estimada / 1000000, 1)) %>% 
+  pull(populacao_estimada_milhoes)
+
+```
+
+O estado com a maior população estimada é `r nome_estado_maior_pop`, com `r numero_estado_maior_pop` milhões de habitantes. No mapa abaixo é possível verificar essa informação:
+
+```{r include=FALSE}
+# Joins ----------
+geo_brasil <- geobr::read_state()
+ibge_brasil_geo <- left_join(dados_brasil_regiao, geo_brasil, by = c("codigo" = "code_state"))
+```
+
+```{r}
+# Mapa, exemplo do geom_sf ---------
+ibge_brasil_geo %>% 
+  mutate(pop_milhoes = populacao_estimada/1000000) %>% 
+  ggplot() +
+  geom_sf(aes(geometry = geom, fill = pop_milhoes)) +
+  theme_bw() +
+  coord_sf()+
+  labs(fill = "População \n(em milhões)")+
+  scale_fill_viridis_b()
+```
+# IDH 
+
+```{r}
+# Mapa, exemplo do geom_sf ---------
+ibge_brasil_geo %>% 
+  ggplot() +
+  geom_sf(aes(geometry = geom, fill = idh)) +
+  theme_bw() +
+  coord_sf()+
+  labs(fill = "Índice de \nDesenvolvimento \nHumano (IDH)")+
+  scale_fill_viridis_b()
+```
+
