@@ -4,13 +4,12 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
-    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
-    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -40,7 +39,7 @@ class: middle, center
 
 Importar uma base de dados para o R significa levar a informação contida no disco rígido (HD) para a mé moria RAM.
 
-&lt;img src="img/import.png" width="1284" /&gt;
+![](img/import.png)&lt;!-- --&gt;
 
 ---
 # Caminhos
@@ -71,7 +70,7 @@ A função `setwd()` pode ser utilizada para mudar o diretório de trabalho. Com
 
 Caminhos absolutos são aqueles que tem início na pasta raiz do seu computador/usuário. Por exemplo:
 
-`D:/GitHub/main-r4ds-1/slides`
+`/Users/william/Documents/curso-r/main-r4ds-1/slides`
 
 Esse é o caminho absoluto para a pasta onde esses slides foram produzidos.
 
@@ -162,7 +161,7 @@ tibble::as_tibble(mtcars)
 ##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
 ##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 ## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-## # ... with 22 more rows
+## # … with 22 more rows
 ```
 ]
 
@@ -190,7 +189,8 @@ A mensagem devolvida pela função indica qual classe foi atribuída para cada c
 .tiny[
 
 ```
-## Parsed with column specification:
+## 
+## ── Column specification ───────────────────────────────────────────────────
 ## cols(
 ##   titulo = col_character(),
 ##   ano = col_double(),
@@ -224,20 +224,21 @@ imdb_csv
 
 ```
 ## # A tibble: 3,713 x 15
-##    titulo   ano diretor duracao cor   generos pais  classificacao orcamento receita
-##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Avata~  2009 James ~     178 Color Action~ USA   A partir de ~ 237000000  7.61e8
-##  2 Pirat~  2007 Gore V~     169 Color Action~ USA   A partir de ~ 300000000  3.09e8
-##  3 The D~  2012 Christ~     164 Color Action~ USA   A partir de ~ 250000000  4.48e8
-##  4 John ~  2012 Andrew~     132 Color Action~ USA   A partir de ~ 263700000  7.31e7
-##  5 Spide~  2007 Sam Ra~     156 Color Action~ USA   A partir de ~ 258000000  3.37e8
-##  6 Tangl~  2010 Nathan~     100 Color Advent~ USA   Livre         260000000  2.01e8
-##  7 Aveng~  2015 Joss W~     141 Color Action~ USA   A partir de ~ 250000000  4.59e8
-##  8 Batma~  2016 Zack S~     183 Color Action~ USA   A partir de ~ 250000000  3.30e8
-##  9 Super~  2006 Bryan ~     169 Color Action~ USA   A partir de ~ 209000000  2.00e8
-## 10 Pirat~  2006 Gore V~     151 Color Action~ USA   A partir de ~ 225000000  4.23e8
-## # ... with 3,703 more rows, and 5 more variables: nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;dbl&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+##    titulo   ano diretor duracao cor   generos pais  classificacao orcamento
+##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;
+##  1 Avata…  2009 James …     178 Color Action… USA   A partir de … 237000000
+##  2 Pirat…  2007 Gore V…     169 Color Action… USA   A partir de … 300000000
+##  3 The D…  2012 Christ…     164 Color Action… USA   A partir de … 250000000
+##  4 John …  2012 Andrew…     132 Color Action… USA   A partir de … 263700000
+##  5 Spide…  2007 Sam Ra…     156 Color Action… USA   A partir de … 258000000
+##  6 Tangl…  2010 Nathan…     100 Color Advent… USA   Livre         260000000
+##  7 Aveng…  2015 Joss W…     141 Color Action… USA   A partir de … 250000000
+##  8 Batma…  2016 Zack S…     183 Color Action… USA   A partir de … 250000000
+##  9 Super…  2006 Bryan …     169 Color Action… USA   A partir de … 209000000
+## 10 Pirat…  2006 Gore V…     151 Color Action… USA   A partir de … 225000000
+## # … with 3,703 more rows, and 6 more variables: receita &lt;dbl&gt;,
+## #   nota_imdb &lt;dbl&gt;, likes_facebook &lt;dbl&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;,
+## #   ator_3 &lt;chr&gt;
 ```
 ]
 

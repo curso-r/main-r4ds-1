@@ -5,7 +5,7 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: ""
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: ["css/xaringan-themer.css"]
     lib_dir: libs
     nature:
       highlightStyle: github

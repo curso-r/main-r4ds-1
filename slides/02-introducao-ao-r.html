@@ -4,13 +4,12 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
-    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
-    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -91,9 +90,9 @@ Conhecer os atalhos do teclado ajuda bastante quando estamos programando no RStu
 
 - **CTRL+ENTER**: avalia/roda a linha selecionada no script. O atalho mais utilizado.
 
-- **ALT+-**: cria no script um sinal de atribuição (&lt;-). Você o usará o tempo todo.
+- **ALT+-**: cria no script um sinal de atribuição (`&lt;-`). Você o usará o tempo todo.
 
-- **CTRL+SHIFT+M**: (%&gt;%) operador *pipe*. Guarde esse atalho, será bastante utilizado.
+- **CTRL+SHIFT+M**: (`%&gt;%` ou `|&gt;`) operador *pipe*. Guarde esse atalho, será bastante utilizado.
 
 - **CTRL+1**: altera cursor para o script.
 
@@ -123,19 +122,19 @@ Para criar um projeto, clique em `New Project...` no Menu `File`. Na caixa de di
 
 Se você tiver o `Git` instalado, você também pode usar projetos para conectar com repositórios do Github e outras plataformas de desenvolvimento. Para isso, basta clicar em `Version Control`.
 
-Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
+Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da [Beatriz Milz](https://twitter.com/BeaMilz) ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
 
 Criando um projeto, o RStudio criará na pasta escolhida um arquivo `nome-do-projeto.Rproj`. Você pode usar esse arquivo para iniciar o RStudio já com o respectivo projeto aberto.
 
 ---
 ## RStudio com um projeto aberto
 
-&lt;img src="img/exemplo-projeto-aberto.png" width="3840" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/exemplo-projeto-aberto.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Navegando entre projetos
 
-&lt;img src="img/exemplo-lista-projetos.png" width="3840" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/exemplo-lista-projetos.png" style="display: block; margin: auto;" /&gt;
 
 ---
 # Cheatsheets
@@ -356,7 +355,7 @@ Por exemplo, podemos somar dois números, mas não conseguimos somar duas letras
 ```
 
 ```
-## Error in "a" + "b": argumento não-numérico para operador binário
+## Error in "a" + "b": non-numeric argument to binary operator
 ```
 
 O operador `+` verifica que `"a"` e `"b"` não são números (ou que a classe deles não é numérica) e devolve uma mensagem de erro informando isso.
@@ -678,8 +677,8 @@ vetor1 + vetor2
 ```
 
 ```
-## Warning in vetor1 + vetor2: comprimento do objeto maior não é múltiplo do comprimento
-## do objeto menor
+## Warning in vetor1 + vetor2: longer object length is not a multiple of shorter
+## object length
 ```
 
 ```
@@ -1016,8 +1015,9 @@ mtcars$mpg
 ```
 
 ```
-##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4 10.4
-## [17] 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4
+##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4
 ```
 
 ```r
@@ -1033,9 +1033,9 @@ mtcars$wt
 ```
 
 ```
-##  [1] 2.620 2.875 2.320 3.215 3.440 3.460 3.570 3.190 3.150 3.440 3.440 4.070 3.730
-## [14] 3.780 5.250 5.424 5.345 2.200 1.615 1.835 2.465 3.520 3.435 3.840 3.845 1.935
-## [27] 2.140 1.513 3.170 2.770 3.570 2.780
+##  [1] 2.620 2.875 2.320 3.215 3.440 3.460 3.570 3.190 3.150 3.440 3.440 4.070
+## [13] 3.730 3.780 5.250 5.424 5.345 2.200 1.615 1.835 2.465 3.520 3.435 3.840
+## [25] 3.845 1.935 2.140 1.513 3.170 2.770 3.570 2.780
 ```
 ]
 
@@ -1092,8 +1092,9 @@ mtcars[,1]
 ```
 
 ```
-##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4 10.4
-## [17] 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4
+##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2 10.4
+## [16] 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7
+## [31] 15.0 21.4
 ```
 
 ```r
@@ -1161,9 +1162,9 @@ mtcars[, c("mpg", "am")]
 
 Nos dois exemplos, exibimos apenas as 5 primeiras linhas do *data frame*.
 ---
-## Filtrando linhas
+## Filtrando colunas
 
-Também podemos usar o *subsetting* para filtrar linhas:
+Também podemos usar o *subsetting* para filtrar colunas:
 
 .tiny[
 
@@ -1172,9 +1173,9 @@ mtcars$cyl == 4
 ```
 
 ```
-##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE
-## [14] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE
-## [27]  TRUE  TRUE FALSE FALSE FALSE  TRUE
+##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE
+## [13] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+## [25] FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE
 ```
 
 ```r
@@ -1511,7 +1512,7 @@ class:: center
 
 <span style="color:#6495ed; font-weight: bold;">Instale uma vez, carregue várias vezes!</span>
 
-&lt;img src="img/instalar_carregar.png" width="2059" /&gt;
+![](img/instalar_carregar.png)&lt;!-- --&gt;
 
 ---
 # Tidyverse
@@ -1527,6 +1528,8 @@ Isso significa que:
 - As funções do mesmo pacote e de pacotes diferente se comunicam umas com as outras.
 
 - Existe uma versão retrabalhada do *data frame* e todos os pacotes giram em torno dessa nova classe.
+
+ 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -17,7 +17,6 @@
 # potência
 4 ^ 2
 
-
 # Objetos -----------------------------------------------------------------
 
 # As bases de dados serão o nosso objeto de trabalho 
@@ -31,69 +30,8 @@ pi
 letters
 LETTERS
 
-# No dia-a-dia, a gente vai precisar criar os 
-# nossos próprios objetos
-
-# Salvando o valor 1 no objeto "obj"
-obj <- 1
-obj
-
-# Também dizemos 'guardando as saídas'
-soma <- 2 + 2
-soma
-
-# ATALHO para a <- : ALT - (alt menos)
-
-# Nas próximas aulas vamos aprender a 
-nossa_base <- codigo_que_carrega_uma_base
-
-# O erro "object not found" significa que 
-# você pediu para o R avaliar um objeto que
-# não existe.
-
-# Dicas:
-# - sempre leia as mensagens de erro
-# - verifique no Environment se um objeto existe
-
-# salvar saída versus apenas executar
-33 / 11
-resultado <- 33 / 11
-
-# atualizar um objeto
-resultado <- resultado * 5
-
-# Os nomes devem começar com uma letra.
-# Podem conter letras, números, _ e .
-
-# Permitido
-
-x <- 1
-x1 <- 2
-objeto <- 3
-meu_objeto <- 4
-meu.objeto <- 5
-
-# Não permitido
-
-1x <- 1
-_objeto <- 2
-meu-objeto <- 3
-
-# Estilo de nomes
-
-eu_uso_snake_case
-outrasPessoasUsamCamelCase
-algumas.pessoas.usam.pontos
-E_algumasPoucas.Pessoas_RENUNCIAMconvenções
-
-
-# Todo mundo --------------------------------------------------------------
-
-# 1. Multiplique a sua idade por 12 e salve em 
-# um objeto chamado "meses".
-
-# -------------------------------------------------------------------------
-
+# Na prática, vamos precisar trazer nossas bases
+# para dentro do R. Como faremos isso?
 
 # Funções -----------------------------------------------------------------
 
@@ -117,14 +55,90 @@ View(mtcars)
 sum(1, 2)
 sum(2, 3, 4)
 
-# Nas próximas aulas vamos aprender a 
-nossa_base <- funcao_que_carrega_uma_base()
-nossa_base_filtrada <- funcao_que_filtra_bases(nossa_base)
+# Existem funções para ler bases de dados
+
+read.csv("dados/imdb.csv")
+
+# Como "salvar" a base dentro do R?
+
+# Criando objetos ---------------------------------------------------------
+
+# No dia-a-dia, a gente vai precisar criar os 
+# nossos próprios objetos
+
+# Salvando o valor 1 no objeto "obj"
+obj <- 1
+obj
+
+# Também dizemos 'guardando as saídas'
+soma <- 2 + 2
+soma
+
+# ATALHO para a <- : ALT - (alt menos)
+
+# Em geral, começaremos a nossa análise com:
+nossa_base <- funcao_que_carrega_uma_base("caminho/ate/arquivo")
+
+# O erro "could not find function" significa que 
+# você pediu para o R avaliar uma função que
+# não existe. O mesmo vale para objetos:
+
+nossa_base
+
+# Dicas:
+# - sempre leia as mensagens de erro
+# - verifique no Environment se um objeto existe
+
+# No nosso caso:
+imdb <- read.csv("dados/imdb.csv")
+
+# salvar saída versus apenas executar
+33 / 11
+resultado <- 33 / 11
+
+# atualizar um objeto
+resultado <- resultado * 5
+
+# A nossa base imdb só será alterada quando salvarmos
+# uma operação em cima do objeto imdb
+
+na.exclude(imdb)
+imdb <- na.exclude(imdb)
+
+# Os nomes devem começar com uma letra.
+# Podem conter letras, números, _ e .
+
+# Permitido
+
+x <- 1
+x1 <- 2
+objeto <- 3
+meu_objeto <- 4
+meu.objeto <- 5
+
+# Não permitido
+
+1x <- 1
+_objeto <- 2
+meu-objeto <- 3
+
+# Estilo de nomes
+
+eu_uso_snake_case
+outrasPessoasUsamCamelCase
+algumas.pessoas.usam.pontos.mas.nao.deviam
+E_algumasPoucas.Pessoas_RENUNCIAMconvenções
+
+
+# checkpoint --------------------------------------------------------------
+
+# 1. Escrevam (não copiem e colem) o código que lê a base e 
+# a salva num objeto imdb. Rodem o código e observem 
+# na aba environment se o objeto imdb apareceu.
 
 # Classes -----------------------------------------------------------------
 
-mtcars
-warpbreaks
+imdb
 
 # Cada coluna da base representa uma variável
 # Cada variável pode ser de um tipo (classe) diferente
@@ -171,11 +185,10 @@ class(falso)
 # Data frames
 
 class(mtcars)
-class(mtcars$mpg)
-class(warpbreaks$wool)
+class(imdb)
 
-# O operador $ pode ser utilizado para selecionar
-# uma coluna da base
+# Como vemos a classe de uma coluna?
+# Como acessar as colunas de uma base?
 
 # Vetores -----------------------------------------------------------------
 
@@ -199,10 +212,20 @@ vetor2
 # Vetor de -3 a 3
 -3:3
 
+# As colunas de data.frames são vetores
+mtcars$mpg
+imdb$titulo
+
+class(mtcars$mpg)
+class(imdb$titulo)
+
+# O operador $ pode ser utilizado para selecionar
+# uma coluna da base
+
 # Um vetor só pode guardar um tipo de objeto e ele terá sempre
 # a mesma classe dos objetos que guarda
 
-vetor1 <- c(1, 5, 3,-10)
+vetor1 <- c(1, 5, 3, -10)
 vetor2 <- c("a", "b", "c")
 
 class(vetor1)
@@ -221,6 +244,9 @@ class(vetor)
 # coerções forçadas por você
 as.numeric(c(TRUE, FALSE, FALSE))
 as.character(c(TRUE, FALSE, FALSE))
+
+# Por consquência, cada coluna de uma base 
+# guarda valores de apenas uma classe.
 
 # Naturalmente, podemos fazer operações matemáticas com vetores
 

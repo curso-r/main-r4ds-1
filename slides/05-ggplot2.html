@@ -4,13 +4,12 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
-    <link href="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.css" rel="stylesheet" />
-    <script src="libs/xaringanExtra-clipboard-0.2.3/xaringanExtra-clipboard.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
-    <link rel="stylesheet" href="css\custom-intro.css" type="text/css" />
+    <link rel="stylesheet" href="css/xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -168,7 +167,7 @@ imdb %&gt;%
 ---
 &lt;br&gt;&lt;br&gt;
 
-Os atributos `x` e `y` são necessários para construirmos um gráfico de pontos. Outros atributos também podem ser mapeados em colunas, como a cor. Como a coluna `lucro` é numérica, um degradê de cores é criado para os pontos, a depender do lucro.
+Os atributos `x` e `y` são necessários para construirmos um gráfico de pontos. Outros atributos também podem ser mapeados em pontos, como a cor. Como a coluna `lucro` é numérica, um degradê de cores é criado para os pontos, a depender do lucro.
 
 .tiny[
 
@@ -231,10 +230,6 @@ imdb %&gt;%
 ```
 
 ```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```
 ## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
@@ -258,7 +253,7 @@ imdb %&gt;%
 ```
 
 ```
-## `summarise()` regrouping output by 'ano' (override with `.groups` argument)
+## `summarise()` has grouped output by 'ano'. You can override using the `.groups` argument.
 ```
 
 ```
@@ -284,10 +279,6 @@ imdb %&gt;%
   geom_point(aes(x = ano, y = nota_media))
 ```
 
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
 &lt;img src="05-ggplot2_files/figure-html/ggdeniro-1.png" width="576" style="display: block; margin: auto;" /&gt;
 
 ---
@@ -304,10 +295,6 @@ imdb %&gt;%
   ggplot(aes(x = ano, y = nota_media)) +
   geom_line() +
   geom_point()
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglinhaponto-1.png" width="576" style="display: block; margin: auto;" /&gt;
@@ -328,10 +315,6 @@ imdb %&gt;%
   ggplot(aes(x = ano, y = nota_media)) +
   geom_line() +
   geom_label(aes(label = nota_media))
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglinhalabel-1.png" width="576" style="display: block; margin: auto;" /&gt;
@@ -622,10 +605,6 @@ imdb %&gt;%
 ```
 
 ```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```
 ## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
@@ -648,10 +627,6 @@ imdb %&gt;%
   scale_x_continuous(breaks = seq(1916, 2016, 10)) +
   scale_y_continuous(breaks = seq(0, 10, 2)) +
   coord_cartesian(ylim = c(0, 10))
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -739,7 +714,7 @@ imdb %&gt;%
 ```
 
 ```
-## `summarise()` regrouping output by 'ano' (override with `.groups` argument)
+## `summarise()` has grouped output by 'ano'. You can override using the `.groups` argument.
 ```
 
 ```
@@ -859,6 +834,10 @@ imdb %&gt;%
 - Extensões do ggplot2: [https://exts.ggplot2.tidyverse.org/](https://exts.ggplot2.tidyverse.org/)
 
 - Seção de gráficos do R cookbook (ótima folha de cola): [http://www.cookbook-r.com/Graphs/](http://www.cookbook-r.com/Graphs/)
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

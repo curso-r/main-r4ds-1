@@ -5,13 +5,13 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: ""
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: ["css/xaringan-themer.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-knit: pagedown::chrome_print            
+knit: pagedown::chrome_print
 ---
 
 
@@ -80,9 +80,9 @@ Conhecer os atalhos do teclado ajuda bastante quando estamos programando no RStu
 
 - **CTRL+ENTER**: avalia/roda a linha selecionada no script. O atalho mais utilizado.
 
-- **ALT+-**: cria no script um sinal de atribuição (<-). Você o usará o tempo todo.
+- **ALT+-**: cria no script um sinal de atribuição (`<-`). Você o usará o tempo todo.
 
-- **CTRL+SHIFT+M**: (%>%) operador *pipe*. Guarde esse atalho, será bastante utilizado.
+- **CTRL+SHIFT+M**: (`%>%` ou `|>`) operador *pipe*. Guarde esse atalho, será bastante utilizado.
 
 - **CTRL+1**: altera cursor para o script.
 
@@ -112,7 +112,7 @@ Para criar um projeto, clique em `New Project...` no Menu `File`. Na caixa de di
 
 Se você tiver o `Git` instalado, você também pode usar projetos para conectar com repositórios do Github e outras plataformas de desenvolvimento. Para isso, basta clicar em `Version Control`.
 
-Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da maravilhosa [Beatriz Milz](https://twitter.com/BeaMilz), ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
+Se você não sabe o que é Git, Github ou versionamento, veja [este material](https://beatrizmilz.github.io/slidesR/git_rstudio.html) da [Beatriz Milz](https://twitter.com/BeaMilz) ou [este post](https://www.curso-r.com/blog/2019-07-23-zen-do-r-4/) no nosso blog.
 
 Criando um projeto, o RStudio criará na pasta escolhida um arquivo `nome-do-projeto.Rproj`. Você pode usar esse arquivo para iniciar o RStudio já com o respectivo projeto aberto.
 
@@ -756,9 +756,9 @@ head(mtcars[, c("mpg", "am")], 10)
 
 Nos dois exemplos, exibimos apenas as 5 primeiras linhas do *data frame*.
 ---
-## Filtrando linhas
+## Filtrando colunas
 
-Também podemos usar o *subsetting* para filtrar linhas:
+Também podemos usar o *subsetting* para filtrar colunas:
 
 .tiny[
 ```{r}

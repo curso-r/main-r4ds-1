@@ -5,13 +5,13 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: ""
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: ["css/xaringan-themer.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-knit: pagedown::chrome_print               
+knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -325,7 +325,7 @@ imdb %>% filter(str_detect(generos, "Action"))
 ]
 
 ---
-# Modificando e criando novas colunas
+# Criando novas colunas
 
 Para modificar uma coluna existente ou criar uma nova coluna, utilizamos a função `mutate()`. O código abaixo divide os valores da coluna duração por 60, mudando a unidade de medida dessa variável de minutos para horas.
 
@@ -423,7 +423,7 @@ imdb %>% group_by(cor)
 ]
 
 ---
-# Juntando bases a patir de uma chave
+# Juntando bases
 
 Podemos juntar duas tabelas a partir de uma (coluna) chave utilizando a função `left_join()`. Como exempo, vamos inicialmente calcular o lucro médio dos filmes de cada diretor e salvar no objeto `tab_lucro_diretor`.
 

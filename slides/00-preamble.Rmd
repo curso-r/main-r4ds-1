@@ -8,7 +8,7 @@ blue <- function(x) {
     htmltools::HTML()
 }
 
-options(width = 85)
+options(width = 75)
 ```
 
 ```{r include=FALSE}
