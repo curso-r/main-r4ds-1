@@ -4,13 +4,13 @@ author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5
 date: ""
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom-intro.css"]
+    css: ["css/xaringan-themer.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-knit: pagedown::chrome_print
+#knit: pagedown::chrome_print
 ---
 
 ```{r, child="00-preamble.Rmd"}
@@ -53,9 +53,11 @@ knitr::include_graphics("img/produtos.png")
 
 ## Nossos cursos
 
+.smaller[
 ```{r, echo = FALSE}
 templatesR6::criar_slide_nossos_cursos()
 ```
+]
 
 ---
 class: middle, center
@@ -120,6 +122,30 @@ Disponível online e gratuitamente em [Inglês](https://r4ds.had.co.nz/) e [Espa
 </center>
 
 ---
+## Dinâmica do curso
+
+- As aulas terão uma seção teórica, de exposição de conceitos, e prática, de aplicação de conceitos.
+
+- Teremos diversos exercícios para serem feitos "em casa".
+
+- O objetivo dos exercícios é gerar dúvidas. **Com exceção do trabalho final, nenhum exercício precisa ser entregue**.
+
+- O certificado será emitido mediante um **trabalho final**. O prazo da entrega final será de pelo menos 2 semanas após a última aula.
+
+- Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
+
+---
+## Dinâmica das aulas
+
+- Mande dúvidas e comentários no chat em qualquer momento.
+
+- Para falar, levante a mão.
+
+- Algumas dúvidas serão respondidas na hora. Outras serão respondidas mais tarde na própria aula ou em aulas futuras.
+
+- Só interrompa quem estiver falando em caso de emergência.
+
+---
 class: middle, center
 
 # `r blue("Como estudar?")`
@@ -141,57 +167,48 @@ class: middle, center
 [Nahurhodo 205 - Powerpoint é útil para a aprendizagem?](https://www.b9.com.br/shows/naruhodo/naruhodo-205-powerpoint-e-util-para-a-aprendizagem/)
 
 ---
-# Tirando dúvidas
+# Tire suas dúvidas
 
- - **Não existe dúvida idiota**.
+- **Não existe dúvida idiota**.
  
- - Nem sempre é trivial fazer a pergunta certa para que outra pessoa esclareça a sua dúvida. Neste curso, **vamos mostrar melhores práticas na hora de fazer perguntas sobre programação**.
- 
- - Fora do horário de aula ou monitoria:
-     - perguntas gerais sobre o curso deverão ser feitas no Classroom.
+- Fora do horário de aula ou monitoria:
+    - envie suas perguntas gerais sobre o curso no Classroom.
      
-     - perguntas sobre R, principalmente as que envolverem código, deverão ser enviadas no [nosso discourse](https://discourse.curso-r.com/).
+    - envie preferencialmente suas perguntas sobre R, principalmente as que envolverem código, no [nosso discourse](https://discourse.curso-r.com/).
 
 - [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
 
----
-# Por que usar o discourse?
+### Por que usar o discourse?
 
 - Muito melhor para escrever textos que possuem códigos. Com ele, podemos usar o pacote `{reprex}`!
 
-- Saber pesquisar sobre erros e fazer a pergunta certa é essencial para aprender e resolver problemas de programação.
-
-- No discourse, teremos mais pessoas acompanhando e respondendo as dúvidas.
+- Mais pessoas acompanhando e respondendo as dúvidas.
 
 - Em um ambiente aberto, as suas dúvidas vão contribuir com a comunidade.
 
-<br>
-
-<center>
-<a href = "https://discourse.curso-r.com/">
-<h2 style = "color: #6495ed">https://discourse.curso-r.com/</h2>
-</a>
-</center>
-
 ---
-# Regras, boas práticas e estilo
+# Abrace o seu sotaque
 
-<br>
+Assim como quando estamos aprendendo um novo idioma, **sempre levamos um pouco de nós para a linguagem de programação** e escrevemos códigos com o nosso *sotaque*.
 
-Na grande maioria das vezes, você poderá resolver uma tarefa de diversas maneiras. Isso porque, apesar de existirem várias **regras**, linguagens de programação também possuem **boas práticas** e **estilos**.
+Normalmente, existem várias formas de resolver um problema. Não existe o *código certo* e, principalmente no começo, não se preocupe em achar o código mais rápido, curto ou elegante.
 
-- Regras: devem ser seguidas para o código funcionar (sintaxe, vocabulário)
+No dia-a-dia, o melhor código é aquele que funciona. A eficiência e a elegância aparecem naturalmente com a experiência.
 
-- Boas práticas: recomenda-se seguir para a criação de códigos legíveis (espaçamento, nomes, organização)
+Dito isso, atente-se à diferença entre **regras**, **boas práticas** e **estilos**.
 
-- Estilo: cada um pode escolher aquele com o qual se sentir mais à vontade (tipos de indentação, formatação)
+- **Regras**: devem ser seguidas para o código funcionar (sintaxe, vocabulário).
+
+- **Boas práticas**: recomenda-se seguir para a criação de códigos legíveis (espaçamento, nomes, organização).
+
+- **Estilo**: cada um pode escolher aquele com o qual se sentir mais à vontade (tipos de indentação, formatação).
 
 ---
 class: middle, center
 
 # `r blue("Introdução")`
 
-### Por que analisar dados usando linguagens de programação
+### Por que analisar dados usando linguagens de programação?
 
 ---
 # Vantagens evidentes
@@ -291,19 +308,6 @@ image_read("https://jeroen.github.io/images/frink.png") %>%
 <a href = "https://benubah.github.io/r-community-explorer/rladies.html">
 <img src = "img/r-ladies.png" width = "40%">
 </a>
-</center>
-
----
-class: middle, center
-# É fácil pedir ajuda: o código é texto!
-
---
-
-### Podemos copiar e colar
-
-<br>
-<center>
-<img src="img/copy-paste.png" style="width: 70%">
 </center>
 
 ---
