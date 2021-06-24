@@ -275,9 +275,8 @@ imdb %>%
   filter(!is.na(diretor)) %>% 
   top_n(5, n) %>%
   ggplot() +
-  geom_bar(
+  geom_col(
     aes(x = n, y = diretor, fill = diretor), 
-    stat = "identity",
     show.legend = FALSE
   ) +
   scale_fill_manual(values = c("orange", "royalblue", "purple", "salmon", "darkred"))
@@ -289,16 +288,13 @@ imdb %>%
   filter(!is.na(diretor)) %>% 
   top_n(5, n) %>%
   ggplot() +
-  geom_bar(
+  geom_col(
     aes(x = n, y = diretor, fill = diretor), 
-    stat = "identity",
     show.legend = FALSE
   ) +
   scale_fill_manual(
     values = c("#ff4500", "#268b07", "#ff7400", "#abefaf", "#33baba")
   )
-
-
 
 # Mudando textos da legenda
 imdb %>% 

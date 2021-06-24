@@ -122,8 +122,6 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
-
-
 # Conceitos importantes para filtros! --------------------------------------
 
 ## Comparações lógicas -------------------------------
@@ -193,7 +191,6 @@ w <- 5
 
 # filter ------------------------------------------------------------------
 
-
 # Filtrando uma coluna da base
 imdb %>% filter(nota_imdb > 9)
 imdb %>% filter(diretor == "Quentin Tarantino")
@@ -223,7 +220,6 @@ imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
 # Negação
 imdb %>% filter(diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
 imdb %>% filter(!diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
-
 
 # O que acontece com o NA?
 df <- tibble(x = c(1, NA, 3))
@@ -349,48 +345,6 @@ band_instruments %>% left_join(band_members)
 
 # o argumento 'by'
 band_members %>% left_join(band_instruments, by = "name")
-
-# De volta ao imdb...
-
-# Vamos calcular a média do lucro e o lucro máximo dos filmes
-# por diretor.
-tab_lucro_diretor <- imdb %>% 
-  mutate(lucro = receita - orcamento) %>% 
-  group_by(diretor) %>% 
-  summarise(
-    lucro_medio = mean(lucro, na.rm = TRUE),
-    lucro_maximo = max(lucro, na.rm = TRUE),
-  )
-
-# E se quisermos colocar essa informação na base
-# original? Para sabermos, por exemplo, o quanto
-# o lucro de cada filme se afasta do lucro médio
-# do diretor que o dirigiu.
-
-# Usamos a funçõa left join para trazer a
-# coluna lucro_medio para a base imdb, associando
-# cada valor de lucro_medio ao respectivo diretor
-left_join(imdb, tab_lucro_diretor, by = "diretor")
-
-# Salvando em um objeto
-imdb_com_lucro_medio <- imdb %>% 
-  left_join(tab_lucro_diretor, by = "diretor")
-
-# Calculando o lucro relativo. Vamos usar a
-# função scales::percent() para formatar o
-# nosso resultado.
-
-scales::percent(0.05)
-scales::percent(0.5)
-scales::percent(1)
-
-imdb_com_lucro_medio %>% 
-  mutate(
-    lucro = receita - orcamento,
-    lucro_relativo = (lucro - lucro_medio)/lucro_medio,
-    lucro_relativo = scales::percent(lucro_relativo)
-  ) %>% 
-  View()
 
 # Fazendo de-para
 

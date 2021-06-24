@@ -2,9 +2,6 @@ library(tidyverse)
 
 # Caminhos até o arquivo --------------------------------------------------
 
-# Diretório de trabalho
-getwd()
-
 # Caminhos absolutos
 "/home/william/Documents/Curso-R/main-r4ds-1/dados/imdb.csv"
 
@@ -46,7 +43,7 @@ library(readxl)
 imdb_excel <- read_excel("dados/imdb.xlsx")
 excel_sheets("dados/imdb.xlsx")
 
-# Gravando dados ----------------------------------------------------------
+# Salvando dados ----------------------------------------------------------
 
 # As funções iniciam com 'write'
 
