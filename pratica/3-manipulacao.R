@@ -168,6 +168,3 @@ starwars %>%
   top_n(10, peso_medio) %>% 
   arrange(desc(peso_medio))
 
-
-
-
