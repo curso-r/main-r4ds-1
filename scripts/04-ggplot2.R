@@ -245,7 +245,8 @@ imdb %>%
     y = "Receita ($)",
     color = "Lucro ($)",
     title = "Gráfico de dispersão",
-    subtitle = "Receita vs Orçamento"
+    subtitle = "Receita vs Orçamento",
+    caption = "Fonte: imdb.com"
   )
 
 # Escalas
