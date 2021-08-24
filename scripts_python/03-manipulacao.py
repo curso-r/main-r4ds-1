@@ -31,8 +31,8 @@ imdb.dtypes
 
 # pandas: 6 métodos principais
 # filter(axis = 1)    # seleciona colunas do data.frame
-# filter(axis = 0)    # filtra linhas do data.frame
-# sort_**()   # reordena as linhas do data.frame
+# query()    # filtra linhas do data.frame
+# sort_value()   # reordena as linhas do data.frame
 # assign()    # cria novas colunas no data.frame (ou atualiza as colunas existentes)
 # agg() + group_by() # sumariza o data.frame
 # join   # junta dois data.frames
@@ -43,7 +43,12 @@ imdb.dtypes
 
 # Selcionando uma coluna da base
 
-select(imdb, titulo)
+imdb.filter(['titulo'], axis = 1)
+imdb.filter(items = ['titulo'])
+
+# não funciona:
+
+imdb.filter('titulo', axis = 1)
 
 # A operação NÃO MODIFICA O OBJETO imdb
 
@@ -51,101 +56,45 @@ imdb
 
 # Selecionando várias colunas
 
-select(imdb, titulo, ano, orcamento)
-
-select(imdb, titulo:cor)
+imdb.filter(['titulo', 'ano', 'orcamento'], axis = 1)
 
 # Funções auxiliares
 
-select(imdb, starts_with("ator"))
-select(imdb, contains("to"))
-
-# Principais funções auxiliares
-
-# starts_with(): para colunas que começam com um texto padrão
-# ends_with(): para colunas que terminam com um texto padrão
-# contains():  para colunas que contêm um texto padrão
-
-# Selecionando colunas por exclusão
-
-select(imdb, -starts_with("ator"), -titulo, -ends_with("s"))
+imdb.filter(regex = "^ator", axis = 1)
+imdb.filter(like = "to", axis = 1)
 
 # arrange -----------------------------------------------------------------
 
 # Ordenando linhas de forma crescente de acordo com 
 # os valores de uma coluna
 
-arrange(imdb, orcamento)
+imdb.sort_values('orcamento')
 
 # Agora de forma decrescente
 
-arrange(imdb, desc(orcamento))
+imdb.sort_values('orcamento', ascending=False)
 
 # Ordenando de acordo com os valores 
 # de duas colunas
 
-arrange(imdb, desc(ano), orcamento)
+imdb.sort_values(['ano', 'orcamento'], ascending=[False, True]).filter(['ano', 'orcamento'], axis = 1)
 
 # O que acontece com o NA?
 
-df <- tibble(x = c(NA, 2, 1), y = c(1, 2, 3))
-arrange(df, x)
-arrange(df, desc(x))
+df = pd.DataFrame({'x':[1,np.nan, 3], 'y':[1,2,3]}, columns=['x','y'])
 
-# Pipe (%>%) --------------------------------------------------------------
+df
 
-# Transforma funçõe aninhadas em funções
-# sequenciais
-
-# g(f(x)) = x %>% f() %>% g()
-
-x %>% f() %>% g()   # CERTO
-x %>% f(x) %>% g(x) # ERRADO
-
-# Receita de bolo sem pipe. 
-# Tente entender o que é preciso fazer.
-
-esfrie(
-  asse(
-    coloque(
-      bata(
-        acrescente(
-          recipiente(
-            rep(
-              "farinha", 
-              2
-            ), 
-            "água", "fermento", "leite", "óleo"
-          ), 
-          "farinha", até = "macio"
-        ), 
-        duração = "3min"
-      ), 
-      lugar = "forma", tipo = "grande", untada = TRUE
-    ), 
-    duração = "50min"
-  ), 
-  "geladeira", "20min"
-)
-
-# Veja como o código acima pode ser reescrito 
-# utilizando-se o pipe. 
-# Agora realmente se parece com uma receita de bolo.
-
-recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
-  acrescente("farinha", até = "macio") %>%
-  bata(duração = "3min") %>%
-  coloque(lugar = "forma", tipo = "grande", untada = TRUE) %>%
-  asse(duração = "50min") %>%
-  esfrie("geladeira", "20min")
-
-# ATALHO DO %>%: CTRL (command) + SHIFT + M
-
+df.sort_values('x')
+df.sort_values('x', ascending=False)
+df.sort_values('x', ascending=False, na_position='first')
 
 
 # Conceitos importantes para filtros! --------------------------------------
 
 ## Comparações lógicas -------------------------------
+
+x = 1
 
 # Testes com resultado verdadeiro
 x == 1
@@ -175,184 +124,191 @@ x <= 1
 x != 1
 x != 2
 
-x %in% c(1, 2, 3)
-"a" %in% c("b", "c")
+x in [1, 2, 3]
+"a" in ["b", "c"]
+
+1 in ["a", "b"]
+
+# erros
+x > "a"
+
+"a"+x>1
+
+
 
 ## Operadores lógicos -------------------------------
 
 ## & - E - Para ser verdadeiro, os dois lados 
 # precisam resultar em TRUE
 
-x <- 5
+x = 5
 x >= 3 & x <=7
 
 
-y <- 2
+y = 2
 y >= 3 & y <= 7
 
 ## | - OU - Para ser verdadeiro, apenas um dos 
 # lados precisa ser verdadeiro
 
-y <- 2
+y = 2
 y >= 3 | y <=7
 
-y <- 1
+y = 1
 y >= 3 | y == 0
 
 
 ## ! - Negação - É o "contrário"
 
-!TRUE
+not True
 
-!FALSE
+not False
 
 
-w <- 5
-(!w < 4)
+w = 5
+(not w < 4)
 
 # filter ------------------------------------------------------------------
 
 
 # Filtrando uma coluna da base
-imdb %>% filter(nota_imdb > 9)
-imdb %>% filter(diretor == "Quentin Tarantino")
+imdb.query('nota_imdb > 9')
+imdb.query('diretor == "Quentin Tarantino"')
 
 # Vendo categorias de uma variável
-unique(imdb$cor) # saída é um vetor
-imdb %>% distinct(cor) # saída é uma tibble
+
+imdb['cor'].unique()
+
+imdb['cor'].unique() # saída é um vetor
+imdb.drop_duplicates('cor') # saída é um pandas DataFrame
 
 # Filtrando duas colunas da base
 
 ## Recentes e com nota alta
-imdb %>% filter(ano > 2010, nota_imdb > 8.5)
-imdb %>% filter(ano > 2010 & nota_imdb > 8.5)
+imdb.query('ano > 2010 & nota_imdb > 8.5')
 
 ## Gastaram menos de 100 mil, faturaram mais de 1 milhão
-imdb %>% filter(orcamento < 100000, receita > 1000000)
+imdb.query('orcamento < 100000 & receita > 1000000')
 
 ## Lucraram
-imdb %>% filter(receita - orcamento > 0)
+imdb.query('receita - orcamento > 0')
 
 ## Lucraram mais de 500 milhões OU têm nota muito alta
-imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
+imdb.query('receita - orcamento > 500000000 | nota_imdb > 9')
 
 # O operador %in%
-imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
+imdb.query('ator_1 in ["Angelina Jolie Pitt", "Brad Pitt"]')
 
 # Negação
-imdb %>% filter(diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
-imdb %>% filter(!diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
+imdb.query('diretor in ["Quentin Tarantino", "Steven Spielberg"]')
+imdb.query('~(diretor in ["Quentin Tarantino", "Steven Spielberg"])')
 
 
-# O que acontece com o NA?
-df <- tibble(x = c(1, NA, 3))
+# O que acontece com valores faltantes?
+df = pd.DataFrame({'x': ['a', 'b', None], 'y': [4, 5, None]})
+df
+# Todo valor fantante é declarado como None, mas dentro do y vira NaN
 
-filter(df, x > 1)
-filter(df, is.na(x) | x > 1)
+df.query("x == 'a'")
+
+# o None sumiu
+
+df.query("y > 4")
+
+# o None (que virou NaN) sumiu aqui também
+
+df.query("@pd.isna(x) | x == 'a'")
 
 # Filtrando texto sem correspondência exata
-# A função str_detect()
-textos <- c("a", "aa","abc", "bc", "A", NA)
+# O método "contains"
 
-str_detect(textos, pattern = "a")
+imdb.query("titulo.str.contains('Pirate')")
 
 ## Pegando os seis primeiros valores da coluna "generos"
-imdb$generos[1:6]
+imdb['generos'].unique()[1:6]
 
-str_detect(
-  string = imdb$generos[1:6],
-  pattern = "Action"
-)
-
-## Pegando apenas os filmes que 
-## tenham o gênero ação
-imdb %>% filter(str_detect(generos, "Action"))
+imdb.query("generos.str.contains('Action')")
 
 # mutate ------------------------------------------------------------------
 
 # Modificando uma coluna
 
-imdb %>% 
-  mutate(duracao = duracao/60) %>% 
-  View()
+imdb.assign(receita=lambda x: x.receita+1)
+imdb.assign(receita=imdb.receita+1)
 
 # Criando uma nova coluna
 
-imdb %>% 
-  mutate(duracao_horas = duracao/60) %>% 
-  View()
+imdb.assign(
+  duracao_horas = imdb.duracao/60
+)
 
-imdb %>% 
-  mutate(lucro = receita - orcamento) %>% 
-  View()
+imdb.assign(
+  lucro = imdb.receita - imdb.orcamento)
+
+# tem alguns NaN aqui
 
 # A função ifelse é uma ótima ferramenta
 # para fazermos classificação binária
 
-imdb %>% mutate(
-  lucro = receita - orcamento,
-  houve_lucro = ifelse(lucro > 0, "Sim", "Não")
-) %>% 
-  View()
+imdb.assign(
+  lucro = imdb.receita - imdb.orcamento,
+  duracao_horas = imdb.duracao/60
+).assign(
+  teve_lucro = lambda x: x.lucro.apply(lambda y: "Sim" if y > 0 else "Não") 
+)
 
 # summarise ---------------------------------------------------------------
 
 # Sumarizando uma coluna
 
-imdb %>% summarise(media_orcamento = mean(orcamento, na.rm = TRUE))
+sumarios = imdb.agg({'orcamento': ['min', 'mean', 'max']})
+# repare que a saída ainda também é um pandas DataFrame
 
-# repare que a saída ainda é uma tibble
-
-
-# Sumarizando várias colunas
-imdb %>% summarise(
-  media_orcamento = mean(orcamento, na.rm = TRUE),
-  media_receita = mean(receita, na.rm = TRUE),
-  media_lucro = mean(receita - orcamento, na.rm = TRUE)
-)
+imdb.agg({'orcamento': ['mean'],
+          'receita': ['mean']})
 
 # Diversas sumarizações da mesma coluna
-imdb %>% summarise(
-  media_orcamento = mean(orcamento, na.rm = TRUE),
-  mediana_orcamento = median(orcamento, na.rm = TRUE),
-  variancia_orcamento = var(orcamento, na.rm = TRUE)
-)
+imdb.agg({
+  'orcamento': ['mean', 'var', 'median']
+})
 
-# Tabela descritiva
-imdb %>% summarise(
-  media_orcamento = mean(orcamento, na.rm = TRUE),
-  media_receita = mean(receita, na.rm = TRUE),
-  qtd = n(),
-  qtd_diretores = n_distinct(diretor)
-)
+imdb.agg({
+  'orcamento': ['mean', 'count'],
+  'receita': ['mean', 'count'],
+  'diretor': 'count'
+})
+
+imdb.count()
 
 
-# funcoes que transformam -> N valores
-log(1:10)
-sqrt()
-str_detect()
+# funcoes que sumarizam suportadas:
+'mean', 'count', 'var', 'median'
 
-# funcoes que sumarizam -> 1 valor
-mean(c(1, NA, 2))
-mean(c(1, NA, 2), na.rm = TRUE)
-n_distinct()
 
 
 # group_by + summarise ----------------------------------------------------
 
 # Agrupando a base por uma variável.
 
-imdb %>% group_by(cor)
+imdb.group_by('cor')
 
-# Agrupando e sumarizando
-imdb %>% 
-  group_by(cor) %>% 
-  summarise(
-    media_orcamento = mean(orcamento, na.rm = TRUE),
-    media_receita = mean(receita, na.rm = TRUE),
-    qtd = n(),
-    qtd_diretores = n_distinct(diretor)
-  )
+# pra usar essa notação em que vc pode renomear a saída vc precisa usar o 
+# .agg
+imdb.groupby('cor').agg(max_duration=('orcamento', 'mean'))
+
+# Sumarizando várias colunas
+imdb.groupby('cor').agg(
+  media_orcamento = ('orcamento', 'mean'),
+  media_receita = ('receita', 'mean')#,
+  #media_lucro = ('receita - orcamento', 'mean')
+)
+
+imdb.groupby("cor").agg(
+  media_orcamento = ('orcamento', 'mean'),
+  media_receita = ('receita', 'mean'),
+  qtd = ('titulo', 'count'),
+  qtd_diretores = ('diretor', 'count')
+)
 
 # left join ---------------------------------------------------------------
 
@@ -360,26 +316,38 @@ imdb %>%
 # tabelas a partir de uma chave. 
 # Vamos ver um exemplo bem simples.
 
-band_members
-band_instruments
+df_um = pd.DataFrame(
+  {"A": ["A0", "A1", "A2"],
+  "B": ["K0", "B1", "B2"]},
+  index=["K0", "K1", "K2"])
+  
+df_dois = pd.DataFrame(
+   {"C": ["C0", "C2", "C3"],
+   "D": ["K0", "D2", "D3"]},
+   index=["K0", "K2", "K3"])
 
-band_members %>% left_join(band_instruments)
-band_instruments %>% left_join(band_members)
+df_um.join(df_dois)
+df_dois.join(df_um)
 
-# o argumento 'by'
-band_members %>% left_join(band_instruments, by = "name")
+# sem nenhum parâmetro adicional, o join é feito considerando a propriedade
+# "index"
+
+# o argumento 'on' permite fazer um join de uma coluna à esquerda com o 
+# index à direita
+
+df_um.join(df_dois, on=['B'])
+
+# se não houver index, a coluna do 'on' será usada como se fosse um index
 
 # De volta ao imdb...
 
 # Vamos calcular a média do lucro e o lucro máximo dos filmes
 # por diretor.
-tab_lucro_diretor <- imdb %>% 
-  mutate(lucro = receita - orcamento) %>% 
-  group_by(diretor) %>% 
-  summarise(
-    lucro_medio = mean(lucro, na.rm = TRUE),
-    lucro_maximo = max(lucro, na.rm = TRUE),
-  )
+lucro_por_diretor = imdb.assign(lucro=lambda x: x.receita-x.orcamento).groupby('diretor').agg(
+  media_lucro = ('lucro', 'mean'),
+  maximo_lucro = ('lucro', 'max'),
+  qtd_filmes = ('titulo', 'count')
+)
 
 # E se quisermos colocar essa informação na base
 # original? Para sabermos, por exemplo, o quanto
@@ -389,46 +357,8 @@ tab_lucro_diretor <- imdb %>%
 # Usamos a funçõa left join para trazer a
 # coluna lucro_medio para a base imdb, associando
 # cada valor de lucro_medio ao respectivo diretor
-left_join(imdb, tab_lucro_diretor, by = "diretor")
+imdb.join(lucro_por_diretor, on = "diretor")
 
 # Salvando em um objeto
-imdb_com_lucro_medio <- imdb %>% 
-  left_join(tab_lucro_diretor, by = "diretor")
-
-# Calculando o lucro relativo. Vamos usar a
-# função scales::percent() para formatar o
-# nosso resultado.
-
-scales::percent(0.05)
-scales::percent(0.5)
-scales::percent(1)
-
-imdb_com_lucro_medio %>% 
-  mutate(
-    lucro = receita - orcamento,
-    lucro_relativo = (lucro - lucro_medio)/lucro_medio,
-    lucro_relativo = scales::percent(lucro_relativo)
-  ) %>% 
-  View()
-
-# Fazendo de-para
-
-depara_cores <- tibble(
-  cor = c("Color", "Black and White"),
-  cor_em_ptBR = c("colorido", "preto e branco")
-)
-
-left_join(imdb, depara_cores, by = c("cor")) 
-
-imdb %>% 
-  left_join(depara_cores, by = c("cor")) %>% 
-  select(cor, cor_em_ptBR) %>% 
-  View()
-
-# OBS: existe uma família de joins
-
-band_instruments %>% left_join(band_members)
-band_instruments %>% right_join(band_members)
-band_instruments %>% inner_join(band_members)
-band_instruments %>% full_join(band_members)
+imdb_com_lucro_medio = imdb.join(lucro_por_diretor, on = "diretor")
 
