@@ -20,7 +20,7 @@ Inscreva-se no curso: https://www.curso-r.com/cursos/r4ds-1/
 **Acesse o material completo do curso escolhendo uma das turmas abaixo**.
 
 ```{r, echo = FALSE}
-knitr::kable(CursoR:::listar_turmas_recentes("r4ds-1"))
+knitr::kable(CursoRutils:::listar_turmas_recentes("r4ds-1"))
 ```
 
 ## Plano de aula atual
