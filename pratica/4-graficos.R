@@ -1,23 +1,53 @@
-# -------------------------------------------------------------------------
+# Exemplo 1: Star Wars --------------------------------------------------------
 # Objetivo: analisar a relação "peso vs altura" dos personagens
 # Star Wars
 # contar a historia do will pra contextualizar de onde surgiu essa curiosidade!
 
 library(tidyverse)
 
-starwars %>% 
+starwars %>%
   ggplot(aes(x = mass, y = height)) +
   geom_point()
 
-starwars %>% 
-  filter(mass < 500) %>% 
+starwars %>%
+  filter(mass < 500) %>%
   ggplot(aes(x = mass, y = height)) +
   geom_point()
+
+# Exemplo 2: Mananciais -------------------------------
+# Objetivo: Visualizar o nível dos reservatórios ao 
+# longo do ano.
+
+library(readr)
+library(magrittr)
+library(ggplot2)
+library(dplyr)
+
+mananciais <-
+  read_delim(
+    "https://github.com/beatrizmilz/mananciais/raw/master/inst/extdata/mananciais.csv",
+    ";",
+    escape_double = FALSE,
+    col_types = cols(data = col_date(format = "%Y-%m-%d")),
+    locale = locale(decimal_mark = ",", grouping_mark = "."),
+    trim_ws = TRUE
+  )
+View(mananciais)
+
+# nivel dos reservatorios
+mananciais %>%
+  mutate(ano = lubridate::year(data)) %>%
+  filter(ano == 2021) %>%
+  ggplot() +
+  geom_line(aes(x = data, y = volume_porcentagem, color = sistema)) #+
+  #scale_y_continuous(breaks = c(-25, 0, 25, 50, 75, 100)) +
+  #theme_bw() +
+  #labs(x = "Anos", y = "Volume operacional (%)")
 
 
 # -------------------------------------------------------------------------
 # Objetivo: avaliar se as tempestades tropicais estão
-# ficando mais fortes (com relação à velocidade do vento) 
+# ficando mais fortes (com relação à velocidade do vento)
 
 library(tidyverse)
 
@@ -25,42 +55,21 @@ help(storms)
 
 View(storms)
 
-storms %>% 
-  group_by(year) %>% 
-  summarise(vv_media = mean(wind, na.rm = TRUE)) %>% 
+storms %>%
+  group_by(year) %>%
+  summarise(vv_media = mean(wind, na.rm = TRUE)) %>%
   ggplot(aes(x = year, y = vv_media)) +
   geom_line()
 
-storms %>% 
-  mutate(data = lubridate::make_date(year, month, day)) %>% 
-  group_by(name) %>% 
-  summarise(
-    vv_media = mean(wind, na.rm = TRUE),
-    data = first(data)
-  ) %>% 
+storms %>%
+  mutate(data = lubridate::make_date(year, month, day)) %>%
+  group_by(name) %>%
+  summarise(vv_media = mean(wind, na.rm = TRUE),
+            data = first(data)) %>%
   ggplot(aes(x = data, y = vv_media)) +
   geom_point() +
   geom_smooth()
-  
 
-## outro exemplo com manancias - grafico de linhas
-
-library(readr)
-mananciais <- read_delim("https://github.com/beatrizmilz/mananciais/raw/master/inst/extdata/mananciais.csv", 
-                         ";", escape_double = FALSE, col_types = cols(data = col_date(format = "%Y-%m-%d")), 
-                         locale = locale(decimal_mark = ",", grouping_mark = "."), 
-                         trim_ws = TRUE)
-View(mananciais)
-
-# nivel dos reservatorios 
-mananciais %>%
-  dplyr::mutate(ano = lubridate::year(data)) %>%
-  dplyr::filter(ano == 2021) %>%
-  ggplot() +
-  geom_line(aes(x = data, y = volume_porcentagem, color = sistema)) +
-  scale_y_continuous(breaks = c(-25, 0, 25, 50, 75, 100)) +
-  theme_bw() +
-  labs(x = "Anos", y = "Volume operacional (%)")
 
 # FINAL DA PARTE DA AULA 1
 
@@ -247,7 +256,7 @@ imdb %>%
 # Objetivo: criar o tema "Star Wars" para o gráfico do comeco da pratica
 library(tidyverse)
 
-starwars %>% 
+starwars %>%
   ggplot(aes(x = mass, y = height)) +
   geom_point(color = "yellow") +
   coord_cartesian(xlim = c(0, 200)) +
@@ -261,14 +270,14 @@ starwars %>%
     panel.grid.minor.x = element_blank(),
     panel.grid = element_line(color = "grey"),
     plot.title = element_text(
-      color = "yellow", 
-      size = 30, 
+      color = "yellow",
+      size = 30,
       hjust = 0.5,
       family = "Star Jedi"
     ),
     plot.subtitle = element_text(
-      color = "yellow", 
-      size = 10, 
+      color = "yellow",
+      size = 10,
       hjust = 0.5,
       family = "Star Jedi"
     )
