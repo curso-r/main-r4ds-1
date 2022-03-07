@@ -30,13 +30,13 @@ diretores <- c(
 )
 
 imdb %>% 
-  filter(diretor %in% diretores) %>% 
-  group_by(ano, diretor) %>% 
+  filter(direcao %in% diretores) %>% 
+  group_by(ano, direcao) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot(aes(x = ano, y = nota_media)) +
   geom_point() +
   geom_line() +
-  facet_wrap(vars(diretor))
+  facet_wrap(vars(direcao))
 
 # a) Analisando o gráfico gerado, 
 # descreva o que a função facet_wrap() faz.

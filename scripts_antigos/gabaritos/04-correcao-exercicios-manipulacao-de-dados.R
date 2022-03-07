@@ -24,20 +24,20 @@ unique(imdb$cor)
 imdb %>% 
   filter(cor == "Color", ano < 1950)
 
-# 1.2. filmes dos diretores "Woody Allen" ou do "Wes Anderson";
+# 1.2. filmes dirigidos por "Woody Allen" ou do "Wes Anderson";
 
 imdb %>% 
-  filter(diretor %in% c("Woody Allen", "Wes Anderson")) %>% 
+  filter(direcao %in% c("Woody Allen", "Wes Anderson")) %>% 
   View()
 
 imdb %>% 
-  filter(diretor == "Woody Allen" | diretor == "Wes Anderson")
+  filter(direcao == "Woody Allen" | direcao == "Wes Anderson")
 
 # 1.3. filmes do "Steven Spielberg" ordenados de forma decrescente por 
 # ano, mostrando apenas as colunas "titulo" e "ano";
 
 imdb %>% 
-  filter(diretor == "Steven Spielberg") %>% 
+  filter(direcao == "Steven Spielberg") %>% 
   arrange(desc(ano)) %>% 
   select(titulo, ano)
 
@@ -108,20 +108,19 @@ imdb %>%
 # mean(c(NA), na.rm = TRUE)
 # median(c(NA), na.rm = TRUE)
 
-# 2.3. apenas o nome dos diretores com mais de 10 filmes.
-
+# 2.3. apenas o nome pessoas que dirigiram mais de 10 filmes.
 imdb %>% 
-  filter(!is.na(diretor)) %>% 
-  group_by(diretor) %>% 
+  filter(!is.na(direcao)) %>% 
+  group_by(direcao) %>% 
   summarise(num_filmes = n()) %>% 
   filter(num_filmes > 10) %>% 
-  select(diretor)
+  select(direcao)
 
 imdb %>% 
-  filter(!is.na(diretor)) %>% 
-  count(diretor, name = "num_filmes") %>% 
+  filter(!is.na(direcao)) %>% 
+  count(direcao, name = "num_filmes") %>% 
   filter(num_filmes > 10) %>% 
-  select(diretor)
+  select(direcao)
 
 
 # 2.4. colunas título e ano, ordenada por ano em ordem decrescente.

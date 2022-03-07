@@ -1,6 +1,6 @@
 library(tidyverse)
 
-col_names = c("titulo", "ano", "diretor", "duracao", 
+col_names = c("titulo", "ano", "direcao", "duracao", 
               "cor", "genero", "pais", "idade", "receita", 
               "orcamento", "nota", "fb_likes", "ator1", "ator2", "ator3")
 

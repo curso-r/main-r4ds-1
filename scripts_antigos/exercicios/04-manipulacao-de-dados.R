@@ -40,7 +40,7 @@
 
 # 2.2. a receita média e mediana dos filmes por ano.
 
-# 2.3. apenas o nome dos diretores com mais de 10 filmes.
+# 2.3. apenas o nome das pessoas que dirigiram mais de 10 filmes.
 
 # 2.4. colunas título e ano, ordenada por ano em ordem decrescente.
 
