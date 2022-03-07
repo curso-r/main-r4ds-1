@@ -62,7 +62,7 @@ imdb %>%
 # vamos criar a imdb_anos_2000
 
 imdb_anos_2000 <- imdb %>% 
-  filter(ano %in% 2000:2009)
+  filter(ano %in% 2000:2009, num_avaliacoes > 1000)
 
 ## Filme mais lucrativo ##
 imdb_anos_2000 %>% 
@@ -83,7 +83,7 @@ imdb_anos_2000 %>%
 ## Fazendo para todas as décadas ##
 
 imdb %>% 
-  dplyr::filter(!is.na(ano)) %>% 
+  dplyr::filter(!is.na(ano), num_avaliacoes > 1000) %>% 
   mutate(
     decada = floor(ano / 10) * 10
   ) %>% 
@@ -100,70 +100,70 @@ imdb %>%
 # Objetivo: descobrir qual o peso médio dos 
 # personagens do Star Wars
 
-library(dplyr)
+library(dados)
 
-View(starwars)
+starwars <- dados::dados_starwars
 
 # Vai retornar NA
 starwars %>% 
-  summarise(peso_medio = mean(mass))
+  summarise(peso_medio = mean(massa))
 
 # colocar na.rm = TRUE
 starwars %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 # Peso em quilos ou libras?
-help(starwars)
+help(dados_starwars)
 
 # Peso por sexo
 starwars %>% 
-  group_by(sex) %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  group_by(sexo_biologico) %>% 
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 # Tirando linhas com NA na coluna sexo
 starwars %>% 
-  filter(!is.na(sex)) %>% 
-  group_by(sex) %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  filter(!is.na(sexo_biologico)) %>% 
+  group_by(sexo_biologico) %>% 
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 # Categorizando o NA
 starwars %>% 
-  mutate(sex = ifelse(is.na(sex), "sem informação", sex)) %>% 
-  group_by(sex) %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  mutate(sexo_biologico = ifelse(is.na(sexo_biologico), "sem informação", sexo_biologico)) %>% 
+  group_by(sexo_biologico) %>% 
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 #tidyr::replace_na
 starwars %>% 
-  mutate(sex = tidyr::replace_na(sex, "sem informação")) %>% 
-  group_by(sex) %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  mutate(sexo_biologico = tidyr::replace_na(sexo_biologico, "sem informação")) %>% 
+  group_by(sexo_biologico) %>% 
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 # Peso por espécie
 starwars %>% 
-  group_by(species) %>% 
-  summarise(peso_medio = mean(mass, na.rm = TRUE))
+  group_by(especie) %>% 
+  summarise(peso_medio = mean(massa, na.rm = TRUE))
 
 # Tirando linhas com NA antes
 starwars %>% 
-  filter(!is.na(mass)) %>% 
-  group_by(species) %>% 
-  summarise(peso_medio = mean(mass))
+  filter(!is.na(massa)) %>% 
+  group_by(especie) %>% 
+  summarise(peso_medio = mean(massa))
 
 # Pegando as espécies mais pesadas
 starwars %>% 
-  filter(!is.na(mass)) %>% 
-  group_by(species) %>% 
-  summarise(peso_medio = mean(mass)) %>% 
+  filter(!is.na(massa)) %>% 
+  group_by(especie) %>% 
+  summarise(peso_medio = mean(massa)) %>% 
   top_n(10, peso_medio) %>% 
   arrange(desc(peso_medio))
 
 # Comparando com a altura
 starwars %>% 
-  filter(!is.na(mass), !is.na(height)) %>% 
-  group_by(species) %>% 
+  filter(!is.na(massa), !is.na(altura)) %>% 
+  group_by(especie) %>% 
   summarise(
-    peso_medio = mean(mass),
-    altura_media = mean(height)
+    peso_medio = mean(massa),
+    altura_media = mean(altura)
   ) %>% 
   top_n(10, peso_medio) %>% 
   arrange(desc(peso_medio))

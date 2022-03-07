@@ -38,17 +38,17 @@ imdb$titulo[receitas > media_receita]
 
 # Estudando a variável cor
 
-class(imdb$cor)
-table(imdb$cor)
+class(imdb$pais)
+table(imdb$pais)
 
-# Podemos ver a receita média para filmes coloridos 
-# versus a média para filmes preto e branco
+# Podemos ver a receita média para filmes feitos depois dos
+# anos 2000 versus os filmes feito antes dos anos 2000:
 
-filmes_coloridos <- imdb[imdb$cor == "Color",]
-filmes_pb <- imdb[imdb$cor == "Black and White",]
+filmes_depois_2000 <- imdb[imdb$ano >= 2000,]
+filmes_antes_2000 <- imdb[imdb$ano < 2000,]
 
-mean(filmes_coloridos$receita, na.rm = TRUE)
-mean(filmes_pb$receita, na.rm = TRUE)
+mean(filmes_depois_2000$receita, na.rm = TRUE)
+mean(filmes_antes_2000$receita, na.rm = TRUE)
 
 # Gráfico de dispersão entre as duas variáveis
 

@@ -168,7 +168,7 @@ ibge_brasil_geo <- left_join(dados_brasil_regiao, geo_brasil, by = c("codigo" = 
 
 # salvar a base denovo em um .rds!!! vamos usar depois no relatório
 
-readr::write_rds(ibge_brasil_geo, file = "cases/data-output/ibge_brasil.Rds" )
+readr::write_rds(ibge_brasil_geo, file = "pratica/data-output/ibge_brasil.Rds" )
 
 
 # Visualização (aulas 5 e 6) ------ # 

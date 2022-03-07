@@ -118,7 +118,7 @@ View(mananciais)
 
 data_de_hoje <- format(Sys.Date(), "%d/%m/%Y")
 
-mananciais %>% 
+grafico_mananciais <- mananciais %>% 
   dplyr::filter(data == Sys.Date()) %>% 
   dplyr::select(sistema, volume_porcentagem) %>% 
   mutate(sistema = forcats::fct_reorder(sistema, volume_porcentagem)) %>% 
@@ -129,41 +129,43 @@ mananciais %>%
        title = paste0("Volume operacional dos Sistemas que abastecem a RMSP \n em ", data_de_hoje),
        caption = "Fonte: Dados de SABESP") + 
   #scale_fill_viridis_d() + # color blind friendly
-  scale_fill_brewer(palette = "Set2") +
-  ggsave(filename = "mananciais.png", width = 10, height = 10, units = "cm")
+  scale_fill_brewer(palette = "Set2")
+
+ 
+ggsave(plot = grafico_mananciais, filename = "mananciais.png")
 
 
 
 # -------------------------------------------------------------------------
 # Objetivo: fazer um gráfico de barras empilhadas fct
-# mostrando a proporção de filmes de drama dos 10 diretores
-# que mais fizeram filmes na base
+# mostrando a proporção de filmes de drama das 10 pessoas
+# que mais dirigiram filmes na  base
 
 library(tidyverse)
 
 imdb <- readr::read_rds("dados/imdb.rds")
 
-top_10_diretores <- imdb %>% 
-  filter(!is.na(diretor)) %>% 
-  count(diretor) %>% 
+top_10_direcao <- imdb %>% 
+  filter(!is.na(direcao)) %>% 
+  count(direcao) %>% 
   top_n(10, n) %>% 
-  pull(diretor)
+  pull(direcao)
   
 
-diretor_por_filme_de_drama <- imdb %>% 
-  filter(diretor %in% top_10_diretores) %>% 
+direcao_por_filme_de_drama <- imdb %>% 
+  filter(direcao %in% top_10_direcao) %>% 
   mutate(filme_de_drama = str_detect(generos, "Drama")) %>%
-  count(diretor, filme_de_drama)
+  count(direcao, filme_de_drama)
 
 # Valor absoluto  
-diretor_por_filme_de_drama %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
+direcao_por_filme_de_drama %>% 
+  ggplot(aes(x = n, y = direcao, group = filme_de_drama)) +
   geom_col(aes(fill = filme_de_drama)) +
   geom_label(aes(label = n), position = position_stack(vjust = 0.5)) 
 
 # Valor absoluto (dodge)
-diretor_por_filme_de_drama %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
+direcao_por_filme_de_drama %>% 
+  ggplot(aes(x = n, y = direcao, group = filme_de_drama)) +
   geom_col(
     aes(fill = filme_de_drama), 
     position = position_dodge(width = 1)
@@ -175,17 +177,17 @@ diretor_por_filme_de_drama %>%
   ) 
 
 # position fill (preenchido ate 100%)
-diretor_por_filme_de_drama %>%
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
+direcao_por_filme_de_drama %>%
+  ggplot(aes(x = n, y = direcao, group = filme_de_drama)) +
   geom_col(aes(fill = filme_de_drama), position = position_fill())
 
 # Ordenar é um desafio =(
-diretor_por_filme_de_drama %>%
-  group_by(diretor) %>%
+direcao_por_filme_de_drama %>%
+  group_by(direcao) %>%
   mutate(proporcao_de_drama = sum(n[filme_de_drama])/sum(n)) %>%
   ungroup() %>%
-  mutate(diretor = forcats::fct_reorder(diretor, proporcao_de_drama)) %>% 
-  ggplot(aes(x = n, y = diretor, group = filme_de_drama)) +
+  mutate(direcao = forcats::fct_reorder(direcao, proporcao_de_drama)) %>% 
+  ggplot(aes(x = n, y = direcao, group = filme_de_drama)) +
   geom_col(aes(fill = filme_de_drama), position = position_fill())
 
 # --------------
@@ -211,9 +213,8 @@ paleta_de_cores_definida <- c("#40E0D0",
 
 prismatic::color(paleta_de_cores_definida)
 
-
-
 imdb %>%
+  drop_na(duracao) %>% 
   mutate(
     duracao_filme = case_when(
       duracao < 60 ~ "Muito curto",
@@ -223,12 +224,10 @@ imdb %>%
         duracao < 120 ~ "Normal",
       duracao >= 120 &
         duracao < 200 ~ "Longo",
-      duracao >= 200 ~ "Muito longo",
-      TRUE ~ "Não sei"
+      duracao >= 200 ~ "Muito longo"
     )
   ) %>%
   relocate(duracao_filme, .after = duracao) %>%
-  count(duracao_filme, name = "frequencia") %>%
   mutate(duracao_filme = forcats::fct_relevel(
     # util para variaveis ordinais
     duracao_filme,
@@ -237,10 +236,10 @@ imdb %>%
       "Curto",
       "Normal",
       "Longo",
-      "Muito longo",
-      "Não sei"
+      "Muito longo"
     )
   )) %>%
+  count(duracao_filme, name = "frequencia") %>%
   ggplot() +
   geom_col(aes(x = duracao_filme, y = frequencia, fill = duracao_filme),
            show.legend = FALSE) +

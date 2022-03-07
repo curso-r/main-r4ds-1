@@ -12,7 +12,7 @@ arquivos <- list.files("dados/por_ano/", full.names = TRUE)
 
 purrr::map(arquivos, read_rds)
 
-imdb <- purrr::map_dfr(arquivos, read_rds)
+imdb_varios_anos <- purrr::map_dfr(arquivos, read_rds)
 
 # -------------------------------------------------------------------------
 
@@ -99,8 +99,8 @@ planilha_asia <- read_sheet(url_planilha, sheet = "Asia")
 
 
 library(readxl)
-url <- "http://orcamento.sf.prefeitura.sp.gov.br/orcamento/uploads/2021/basedadosexecucao2021.xlsx"
-destfile <- "basedadosexecucao2021.xlsx"
+url <- "http://orcamento.sf.prefeitura.sp.gov.br/orcamento/uploads/2022/basedadosexecucao2022.xlsx"
+destfile <- "basedadosexecucao2022.xlsx"
 curl::curl_download(url, destfile)
-basedadosexecucao2021 <- read_excel(destfile)
-View(basedadosexecucao2021)
+basedadosexecucao2022 <- read_excel(destfile)
+View(basedadosexecucao2022)
