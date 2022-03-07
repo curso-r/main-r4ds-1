@@ -103,7 +103,7 @@ resultado <- resultado * 5
 # uma operação em cima do objeto imdb
 
 na.exclude(imdb)
-imdb <- na.exclude(imdb)
+imdb_sem_na <- na.exclude(imdb)
 
 # Os nomes devem começar com uma letra.
 # Podem conter letras, números, _ e .

@@ -32,7 +32,8 @@ imdb_delim <- read_delim("dados/imdb.csv", delim = ",")
 imdb_delim <- read_delim("dados/imdb2.csv", delim = ";")
 
 # direto da internet
-imdb_csv <- read_csv("https://raw.githubusercontent.com/curso-r/202005-r4ds-1/master/dados/imdb.csv")
+imdb_csv_url <- read_csv("https://raw.githubusercontent.com/curso-r/main-r4ds-1/master/dados/imdb.csv")
+
 
 # Interface point and click do RStudio também é útil!
 
@@ -46,6 +47,8 @@ excel_sheets("dados/imdb.xlsx")
 # Salvando dados ----------------------------------------------------------
 
 # As funções iniciam com 'write'
+
+imdb <- imdb_csv
 
 # CSV
 write_csv(imdb, file = "imdb.csv")

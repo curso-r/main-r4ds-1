@@ -8,43 +8,50 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, dpi= 300)
 ```
 
 ```{r}
 library(tidyverse)
-imdb <- read_rds("../dados/imdb.rds")
+imdb <- read_rds("../dados/imdb.rds") %>% 
+  filter(pais == "USA")
 ```
 
 
-O objetivo desta análise é responder a pergunta *Qual o melhor ator de comédia?*
+O objetivo desta análise é responder a pergunta *Quem é a melhor pessoa para dirigir filmes de comédia, produzido nos Estados Unidos?*
 
 ## Melhor é ser lucrativo?
 
 ```{r}
 tab_lucro <- imdb %>% 
-  filter(str_detect(generos, "Comedy"), !is.na(diretor)) %>% 
+  filter(ano > 1990) %>% 
   mutate(lucro = receita - orcamento) %>% 
-  group_by(diretor) %>% 
+  filter(str_detect(generos, "Comedy"), !is.na(direcao), !is.na(lucro)) %>% 
+  group_by(direcao) %>% 
   summarise(
     num_filmes = n(),
     lucro_medio = mean(lucro, na.rm = TRUE)
   ) %>% 
   arrange(desc(num_filmes), desc(lucro_medio))
+
+n_filmes_woody <- tab_lucro %>% 
+  filter(direcao == "Woody Allen") %>% 
+  pull(num_filmes)
+
 ```
 
-Como muitos fatores podem influenciar a receita de um filme, consequentemente o seu lucro, a variabilidade sobre essas variáveis pode ser muito grande. Assim, dentre os diretores que mais fizeram filmes de comédia, vamos olhar para aqueles que, em média, lucram mais.
+Como muitos fatores podem influenciar a receita de um filme, consequentemente o seu lucro, a variabilidade sobre essas variáveis pode ser muito grande. Assim, dentre as pessoas que mais dirigiram filmes de comédia, vamos olhar para aqueles que, em média, lucram mais.
 
-A tabela abaixo mostra os 15 diretores na base que mais fizeram filmes de comédia. Embora Woody Allen seja o diretor com mais filmes (17), em média, ele dá prejuizo. 
+A tabela abaixo mostra as 15 pessoas na base que mais dirigiram filmes de comédia. Embora Woody Allen seja o diretor com mais filmes (`r n_filmes_woody`), em média, ele dá menos lucro. 
 
 ```{r, fig.height=10, fig.width=8}
 tab_lucro %>% 
   top_n(15, num_filmes) %>% 
   mutate(
     lucro_medio = lucro_medio / 1000000,
-    diretor = forcats::fct_reorder(diretor, num_filmes)
+    direcao = forcats::fct_reorder(direcao, num_filmes)
   ) %>% 
-  ggplot(aes(x = lucro_medio, y = diretor)) +
+  ggplot(aes(x = lucro_medio, y = direcao)) +
   geom_col(fill = "orange") +
   geom_label(aes(x = -10, label = num_filmes)) +
   scale_x_continuous(breaks = c(-5, 0, 50, 100)) +
@@ -54,16 +61,28 @@ tab_lucro %>%
     lucro_medio > 100,
     unhighlighted_params = list(fill = "white", color = "black")
   ) +
-  labs(x = "Lucro médio", y = "Diretor")
+  labs(x = "Lucro médio", y = "Direção")
+```
+```{r}
+n_filmes_jay <- tab_lucro %>% 
+  filter(direcao == "Jay Roach") %>% 
+  pull(num_filmes)
+
+lucro_medio_jay <- tab_lucro %>% 
+  filter(direcao == "Jay Roach") %>% 
+  pull(lucro_medio) / 1000000
+
+
 ```
 
-O diretor Jay Roach parece ser uma aposta mais segura, pois tem um lucro médio de 110 milhões de dólares com 7 filmes marcados como comédia na base. 
+
+O diretor Jay Roach parece ser uma aposta mais segura, pois tem um lucro médio de `r round(lucro_medio_jay)` milhões de dólares com `r n_filmes_jay` filmes marcados como comédia na base. 
 
 Jay Roach é o diretor da série *Austin Powers* e *Entrando numa fria*.
 
 ```{r}
 imdb %>% 
-  filter(diretor == "Jay Roach", str_detect(generos, "Comedy")) %>% 
+  filter(direcao == "Jay Roach", str_detect(generos, "Comedy")) %>% 
   mutate(
     lucro = receita - orcamento,
     orcamento = scales::dollar(
@@ -98,16 +117,19 @@ imdb %>%
 
 Embora subjetiva, a nota IMDB é uma boa estimativa da opinião pública sobre um filme, pois é uma média de diversos olhares diferentes. Pelo menos um filme aclamado é um bom indício de que a direção sabe conduzir um filme de sucesso.
 
-A tabela a seguir mostra que o filme marcado como comédia com maior nota na nossa base é Forrest Gump, dirigido por Robert Zemeckis.
+A tabela a seguir mostra que o filme marcado como comédia com maior nota na nossa base é dirigido por Robert Zemeckis.
 
 ```{r, fig.height=10, fig.width=8}
 imdb %>% 
-  filter(str_detect(generos, "Comedy"), !is.na(diretor)) %>%
+  filter(str_detect(generos, "Comedy"), 
+         !is.na(direcao),
+         num_avaliacoes > 5000,
+         ano > 1980) %>%
   top_n(15, nota_imdb) %>% 
   arrange(desc(nota_imdb)) %>% 
   select(
     Filme = titulo,
-    `Direção` = diretor,
+    `Direção` = direcao,
     `Nota IMDB` = nota_imdb
   ) %>% 
   knitr::kable()
@@ -117,7 +139,7 @@ Vamos olhar mais atentamente os filmes dirigidos por Robert Zemeckis. Além de F
 
 ```{r}
 imdb %>% 
-  filter(diretor == "Robert Zemeckis", str_detect(generos, "Comedy")) %>% 
+  filter(direcao == "Robert Zemeckis") %>% 
   mutate(
     lucro = receita - orcamento,
     orcamento = scales::dollar(
@@ -137,7 +159,7 @@ imdb %>%
     )
   ) %>% 
   replace_na(list(orcamento = "Sem informação", lucro = "Sem informação")) %>% 
-  arrange(titulo) %>% 
+  arrange(desc(nota_imdb)) %>% 
   select(
     Filme = titulo,
     `Orçamento` = orcamento,
@@ -151,18 +173,18 @@ imdb %>%
 
 ## Roach ou Zemeckis?
 
-Comparando os dois diretores, percebemos que Robert Zemeckis se destaca nas duas categorias: lucro e nota IMDB. Embora tenha feito menos filmes (o que o deixou de fora na nossa análise do lucro), ele é já dirigiu grandes sucessos de bilheteria e crítica. 
+Comparando os dois diretores, percebemos que Robert Zemeckis se destaca na categoria nota IMDB. Ele já dirigiu grandes sucessos de bilheteria e crítica. 
 
 Pelos critérios analisados, indicamos Robert Zemeckis como o melhor diretor de comédia.
 
 ```{r}
 imdb %>% 
   filter(
-    diretor %in% c("Robert Zemeckis", "Jay Roach"), 
+    direcao %in% c("Robert Zemeckis", "Jay Roach"), 
     str_detect(generos, "Comedy")
   ) %>% 
   mutate(lucro = receita - orcamento) %>% 
-  group_by(diretor) %>% 
+  group_by(direcao) %>% 
   summarise(
     num_filmes = n(),
     lucro_medio = mean(lucro, na.rm = TRUE),
@@ -177,7 +199,7 @@ imdb %>%
     nota_media = round(nota_media, 2)
   ) %>% 
   select(
-    Diretor = diretor,
+    `Direção` = direcao,
     `Nº filmes` = num_filmes,
     Lucro = lucro_medio,
     Nota = nota_media

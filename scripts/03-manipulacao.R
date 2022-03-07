@@ -34,12 +34,12 @@ imdb
 
 select(imdb, titulo, ano, orcamento)
 
-select(imdb, titulo:cor)
+select(imdb, titulo:genero)
 
 # Funções auxiliares
 
-select(imdb, starts_with("ator"))
-select(imdb, contains("to"))
+select(imdb, starts_with("num"))
+select(imdb, contains("cri"))
 
 # Principais funções auxiliares
 
@@ -49,7 +49,9 @@ select(imdb, contains("to"))
 
 # Selecionando colunas por exclusão
 
-select(imdb, -starts_with("ator"), -titulo, -ends_with("s"))
+select(imdb, -titulo)
+
+select(imdb, -starts_with("num"), -titulo, -ends_with("ao"))
 
 # arrange -----------------------------------------------------------------
 
@@ -126,6 +128,8 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 ## Comparações lógicas -------------------------------
 
+x <- 1 
+
 # Testes com resultado verdadeiro
 x == 1
 "a" == "a"
@@ -192,16 +196,21 @@ w <- 5
 # filter ------------------------------------------------------------------
 
 # Filtrando uma coluna da base
+
+imdb %>% filter(direcao == "Quentin Tarantino")
+
 imdb %>% filter(nota_imdb > 9)
-imdb %>% filter(diretor == "Quentin Tarantino")
+imdb %>% filter(num_avaliacoes > 10000)
+
 
 # Vendo categorias de uma variável
-unique(imdb$cor) # saída é um vetor
-imdb %>% distinct(cor) # saída é uma tibble
+unique(imdb$pais) # saída é um vetor
+imdb %>% distinct(pais) # saída é uma tibble
 
 # Filtrando duas colunas da base
 
 ## Recentes e com nota alta
+imdb %>% filter(nota_imdb > 9, num_avaliacoes > 10000)
 imdb %>% filter(ano > 2010, nota_imdb > 8.5)
 imdb %>% filter(ano > 2010 & nota_imdb > 8.5)
 
@@ -215,11 +224,11 @@ imdb %>% filter(receita - orcamento > 0)
 imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
 
 # O operador %in%
-imdb %>% filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
+imdb %>% filter(direcao %in% c('Matt Reeves', "Christopher Nolan"))
 
 # Negação
-imdb %>% filter(diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
-imdb %>% filter(!diretor %in% c("Quentin Tarantino", "Steven Spielberg"))
+imdb %>% filter(direcao %in% c("Quentin Tarantino", "Steven Spielberg"))
+imdb %>% filter(!direcao %in% c("Quentin Tarantino", "Steven Spielberg"))
 
 # O que acontece com o NA?
 df <- tibble(x = c(1, NA, 3))
@@ -238,12 +247,12 @@ imdb$generos[1:6]
 
 str_detect(
   string = imdb$generos[1:6],
-  pattern = "Action"
+  pattern = "Drama"
 )
 
 ## Pegando apenas os filmes que 
 ## tenham o gênero ação
-imdb %>% filter(str_detect(generos, "Action"))
+imdb %>% filter(str_detect(generos, "Action")) 
 
 # mutate ------------------------------------------------------------------
 
@@ -276,7 +285,8 @@ imdb %>% mutate(
 
 # Sumarizando uma coluna
 
-imdb %>% summarise(media_orcamento = mean(orcamento, na.rm = TRUE))
+imdb %>% 
+  summarise(media_orcamento = mean(orcamento, na.rm = TRUE))
 
 # repare que a saída ainda é uma tibble
 
@@ -300,7 +310,7 @@ imdb %>% summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   media_receita = mean(receita, na.rm = TRUE),
   qtd = n(),
-  qtd_diretores = n_distinct(diretor)
+  qtd_direcao = n_distinct(direcao)
 )
 
 
@@ -319,18 +329,20 @@ n_distinct()
 
 # Agrupando a base por uma variável.
 
-imdb %>% group_by(cor)
+imdb %>% group_by(producao)
 
 # Agrupando e sumarizando
 imdb %>% 
-  group_by(cor) %>% 
+  group_by(producao) %>% 
   summarise(
     media_orcamento = mean(orcamento, na.rm = TRUE),
     media_receita = mean(receita, na.rm = TRUE),
     qtd = n(),
-    qtd_diretores = n_distinct(diretor)
-  )
-
+    qtd_direcao = n_distinct(direcao)
+  ) %>%
+  arrange(desc(qtd)) 
+  
+  
 # left join ---------------------------------------------------------------
 
 # A função left join serve para juntarmos duas
@@ -346,24 +358,20 @@ band_instruments %>% left_join(band_members)
 # o argumento 'by'
 band_members %>% left_join(band_instruments, by = "name")
 
-# Fazendo de-para
-
-depara_cores <- tibble(
-  cor = c("Color", "Black and White"),
-  cor_em_ptBR = c("colorido", "preto e branco")
-)
-
-left_join(imdb, depara_cores, by = c("cor")) 
-
-imdb %>% 
-  left_join(depara_cores, by = c("cor")) %>% 
-  select(cor, cor_em_ptBR) %>% 
-  View()
-
 # OBS: existe uma família de joins
 
 band_instruments %>% left_join(band_members)
 band_instruments %>% right_join(band_members)
 band_instruments %>% inner_join(band_members)
 band_instruments %>% full_join(band_members)
+
+
+# Um exemplo usando a outra base do imdb
+
+imdb <- read_rds("dados/imdb.rds")
+imdb_avaliacoes <- read_rds("dados/imdb_avaliacoes.rds")
+
+imdb %>% 
+  left_join(imdb_avaliacoes, by = "id_filme") %>%
+  View()
 

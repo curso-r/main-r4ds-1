@@ -7,7 +7,8 @@ library(tidyverse)
 
 imdb <- read_rds("dados/imdb.rds")
 
-imdb <- imdb %>% mutate(lucro = receita - orcamento)
+imdb <- imdb %>%
+  mutate(lucro = receita - orcamento)
 
 
 # Gráfico de pontos (dispersão) -------------------------------------------
@@ -85,18 +86,18 @@ imdb %>%
   ggplot() +
   geom_line(aes(x = ano, y = nota_media))
 
-# Número de filmes coloridos e preto e branco por ano 
+# Número de filmes por ano 
 
 imdb %>% 
-  filter(!is.na(cor)) %>% 
-  group_by(ano, cor) %>% 
+  filter(!is.na(ano), ano != 2020) %>% 
+  group_by(ano) %>% 
   summarise(num_filmes = n()) %>% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor))
+  geom_line(aes(x = ano, y = num_filmes)) 
 
 # Nota média do Robert De Niro por ano
-imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+imdb %>%
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
@@ -104,7 +105,7 @@ imdb %>%
 
 # Colocando pontos no gráfico
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
@@ -113,7 +114,7 @@ imdb %>%
 
 # Reescrevendo de uma forma mais agradável
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot(aes(x = ano, y = nota_media)) +
@@ -122,7 +123,7 @@ imdb %>%
 
 # Colocando as notas no gráfico
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   mutate(nota_media = round(nota_media, 1)) %>% 
@@ -133,79 +134,79 @@ imdb %>%
 
 # Gráfico de barras -------------------------------------------------------
 
-# Número de filmes dos diretores da base
+# Número de filmes das pessoas que dirigiram filmes na base
 imdb %>% 
-  count(diretor) %>%
+  count(direcao) %>%
   top_n(10, n) %>%
   ggplot() +
-  geom_col(aes(x = diretor, y = n))
+  geom_col(aes(x = direcao, y = n))
 
 # Tirando NA e pintando as barras
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   )
 
 # Invertendo as coordenadas
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor),
+    aes(x = n, y = direcao, fill = direcao),
     show.legend = FALSE
   ) 
   
 
 # Ordenando as barras
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
   mutate(
-    diretor = forcats::fct_reorder(diretor, n)
+    direcao = forcats::fct_reorder(direcao, n)
   ) %>% 
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor, fill = diretor),
+    aes(x = n, y = direcao, fill = direcao),
     show.legend = FALSE
   ) 
 
 # Colocando label nas barras
-top_10_diretores <- imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+top_10_direcao <- imdb %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) 
 
-top_10_diretores %>%
+top_10_direcao %>%
   mutate(
-    diretor = forcats::fct_reorder(diretor, n)
+    direcao = forcats::fct_reorder(direcao, n)
   ) %>% 
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor),
+    aes(x = n, y = direcao, fill = direcao),
     show.legend = FALSE
   ) +
-  geom_label(aes(x = n/2, y = diretor, label = n)) 
+  geom_label(aes(x = n/2, y = direcao, label = n)) 
 
 
 # Histogramas e boxplots --------------------------------------------------
 
 # Histograma do lucro dos filmes do Steven Spielberg 
 imdb %>% 
-  filter(diretor == "Steven Spielberg") %>%
+  filter(direcao == "Steven Spielberg") %>%
   ggplot() +
   geom_histogram(aes(x = lucro))
 
 # Arrumando o tamanho das bases
 imdb %>% 
-  filter(diretor == "Steven Spielberg") %>%
+  filter(direcao == "Steven Spielberg") %>%
   ggplot() +
   geom_histogram(
     aes(x = lucro), 
@@ -213,25 +214,30 @@ imdb %>%
     color = "white"
   )
 
-# Boxplot do lucro dos filmes dos diretores
-# fizeram mais de 15 filmes
+# Boxplot do lucro dos filmes das pessoas que dirigiram
+# mais de 15 filmes
+direcao_mais_15_filmes <- imdb %>% 
+  filter(!is.na(direcao), !is.na(lucro) ) %>%
+  group_by(direcao) %>% 
+  count(direcao, sort = TRUE) %>% 
+  filter(n >= 15)
+
+direcao_mais_15_filmes$direcao
+
 imdb %>% 
-  filter(!is.na(diretor)) %>%
-  group_by(diretor) %>% 
-  filter(n() >= 15) %>% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 
 # Ordenando pela mediana
 
 imdb %>% 
-  filter(!is.na(diretor)) %>%
-  group_by(diretor) %>% 
-  filter(n() >= 15) %>% 
-  ungroup() %>% 
-  mutate(diretor = forcats::fct_reorder(diretor, lucro, na.rm = TRUE)) %>% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
+  mutate(direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)) %>% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 
 
 # Título e labels ---------------------------------------------------------
@@ -255,7 +261,7 @@ imdb %>%
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
   geom_line(aes(x = ano, y = nota_media)) +
-  scale_x_continuous(breaks = seq(1916, 2016, 10)) +
+  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
   scale_y_continuous(breaks = seq(0, 10, 2))
 
 # Visão do gráfico
@@ -264,7 +270,7 @@ imdb %>%
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
   geom_line(aes(x = ano, y = nota_media)) +
-  scale_x_continuous(breaks = seq(1916, 2016, 10)) +
+  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
   scale_y_continuous(breaks = seq(0, 10, 2)) +
   coord_cartesian(ylim = c(0, 10))
 
@@ -272,12 +278,12 @@ imdb %>%
 
 # Escolhendo cores pelo nome
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(5, n) %>%
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor, fill = diretor), 
+    aes(x = n, y = direcao, fill = direcao), 
     show.legend = FALSE
   ) +
   scale_fill_manual(values = c("orange", "royalblue", "purple", "salmon", "darkred"))
@@ -285,12 +291,12 @@ imdb %>%
 
 # Escolhendo pelo hexadecimal
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(5, n) %>%
   ggplot() +
   geom_col(
-    aes(x = n, y = diretor, fill = diretor), 
+    aes(x = n, y = direcao, fill = direcao), 
     show.legend = FALSE
   ) +
   scale_fill_manual(
@@ -299,12 +305,13 @@ imdb %>%
 
 # Mudando textos da legenda
 imdb %>% 
-  filter(!is.na(cor)) %>% 
-  group_by(ano, cor) %>% 
+  mutate(sucesso_nota = case_when(nota_imdb >= 7 ~ "sucesso_nota_imbd",
+                                  TRUE ~ "sem_sucesso_nota_imdb")) %>%
+  group_by(ano, sucesso_nota) %>% 
   summarise(num_filmes = n()) %>% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor)) +
-  scale_color_discrete(labels = c("Preto e branco", "Colorido"))
+  geom_line(aes(x = ano, y = num_filmes, color = sucesso_nota)) +
+  scale_color_discrete(labels = c("Nota menor que 7", "Nota maior ou igual à 7"))
 
 # Definiando cores das formas geométricas
 imdb %>% 
@@ -334,3 +341,7 @@ imdb %>%
     plot.title = element_text(hjust = 0.5),
     plot.subtitle = element_text(hjust = 0.5)
   )
+
+# Mais conteúdo sobre a função theme() no curso de
+# visualizacao de dados
+# https://loja.curso-r.com/visualizac-o-de-dados.html
