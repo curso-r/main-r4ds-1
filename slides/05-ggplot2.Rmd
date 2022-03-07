@@ -198,11 +198,14 @@ Se mapearmos uma coluna à cor das retas, serão construídas uma reta correspon
 .tiny[
 ```{r gglinhacolorida, fig.width = 8, fig.height = 3}
 imdb %>% 
-  filter(!is.na(cor)) %>% 
-  group_by(ano, cor) %>% 
+  filter(!is.na(idioma)) %>% 
+  mutate(idioma_ingles = case_when(idioma == "English" ~ "Apenas Inglês",
+                                   str_detect(idioma, "English") ~ "Inglês e outros idiomas",
+                                   TRUE ~ "Outros idiomas")) %>%
+  group_by(ano, idioma_ingles) %>% 
   summarise(num_filmes = n()) %>% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor))
+  geom_line(aes(x = ano, y = num_filmes, color = idioma_ingles))
 ```
 ]
 
@@ -213,7 +216,7 @@ Podemos colocar pontos e retas no mesmo gráfico. Basta acrescentar os dois `geo
 
 ```{r ggdeniro, fig.width = 8, fig.height = 3}
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
@@ -228,7 +231,7 @@ Quando precisamos usar o mesmo `aes()` em vários `geoms`, podemos defini-lo den
 
 ```{r gglinhaponto, fig.width = 8, fig.height = 3}
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot(aes(x = ano, y = nota_media)) +
@@ -244,7 +247,7 @@ Se algum `geom` necessitar de um atributo que os outros não precisam, esse atri
 .tiny[
 ```{r gglinhalabel, fig.width = 8, fig.height = 3}
 imdb %>% 
-  filter(ator_1 == "Robert De Niro") %>% 
+  filter(str_detect(elenco, "Robert De Niro")) %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   mutate(nota_media = round(nota_media, 1)) %>% 
@@ -257,15 +260,15 @@ imdb %>%
 ---
 # Gráfico de barras
 
-Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construímos um gráfico de barras do número de filmes dos 10 diretores que mais aparecem na nossa base do IMDB.
+Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construímos um gráfico de barras do número de filmes das 10 pessoas que mais dirigiram filmes na nossa base do IMDB.
 
 .tiny[
 ```{r ggbarras, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  count(diretor) %>%
+  count(direcao) %>%
   top_n(10, n) %>%
   ggplot() +
-  geom_col(aes(x = diretor, y = n))
+  geom_col(aes(x = direcao, y = n))
 ```
 ]
 ---
@@ -273,9 +276,9 @@ imdb %>%
 
 Gráficos de barras também precisam dos atributos `x` e `y`, sendo que o atributo `y` representará a altura de cada barra.
 
-No gráfico anterior, vemos que o `NA` é considerado uma "opção" de diretor e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
+No gráfico anterior, vemos que o `NA` é considerado uma "opção" de direcao e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
 
-A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
+A seguir, além de retirar os `NAs`, atribuímos a coluna `direcao` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
 
 ---
 <br><br>
@@ -283,12 +286,12 @@ A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das c
 .tiny[
 ```{r ggbarracolorida, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   )
 ```
@@ -302,12 +305,12 @@ Para consertar as labels do eixo `x`, a melhor prática é invertermos os eixos 
 .tiny[
 ```{r ggbarracoordflip, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip()
@@ -317,11 +320,11 @@ imdb %>%
 ---
 <br><br>
 
-Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `diretor`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
+Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `direcao`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
 
 Fatores dentro do R são números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
 
-Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem dos diretores nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
+Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem das pessoas que dirigiram filmes nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
 
 ---
 <br><br>
@@ -329,13 +332,13 @@ Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela
 .tiny[
 ```{r ggbarraforcats, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
-  mutate(diretor = forcats::fct_reorder(diretor, n)) %>% 
+  mutate(direcao = forcats::fct_reorder(direcao, n)) %>% 
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip()
@@ -345,18 +348,18 @@ imdb %>%
 ---
 <br><br>
 
-Por fim, podemos colocar uma label com o número de filmes de cada diretor dentro de cada barra.
+Por fim, podemos colocar uma label com o número de filmes de cada pessoa que dirigiu filmes dentro de cada barra.
 
 .tiny[
 ```{r ggbarralabel, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(10, n) %>%
-  mutate(diretor = forcats::fct_reorder(diretor, n)) %>% 
+  mutate(direcao = forcats::fct_reorder(direcao, n)) %>% 
   ggplot() +
-  geom_col(aes(x = diretor, y = n, fill = diretor), show.legend = FALSE) +
-  geom_label(aes(x = diretor, y = n/2, label = n)) +
+  geom_col(aes(x = direcao, y = n, fill = direcao), show.legend = FALSE) +
+  geom_label(aes(x = direcao, y = n/2, label = n)) +
   coord_flip()
 ```
 ]
@@ -374,7 +377,7 @@ O primeiro *warning* nos diz que o eixo x foi dividido em 30 intervalos para a c
 
 ```{r gghist, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  filter(diretor == "Steven Spielberg") %>%
+  filter(direcao == "Steven Spielberg") %>%
   ggplot() +
   geom_histogram(aes(x = lucro))
 ```
@@ -387,7 +390,7 @@ Para definir o tamanho de cada intervalo, podemos utilizar o argumento `bindwidt
 .tiny[
 ```{r gghistbind, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  filter(diretor == "Steven Spielberg") %>%
+  filter(direcao == "Steven Spielberg") %>%
   ggplot() +
   geom_histogram(
     aes(x = lucro), 
@@ -404,19 +407,24 @@ Boxplots também são úteis para estudarmos a distribuição de uma variável, 
 
 Para construir um boxplot no ggplot, utilizamos a função `geom_boxplot`. Ele precisa dos atributos `x` e `y`, sendo que ao atributo `x` devemos mapear uma variável categórica.
 
-A seguir, construímos boxplots do lucro dos filmes dos diretores que fizeram mais de 15 filmes.
+A seguir, construímos boxplots do lucro dos filmes das pessoas que dirigiram de 15 filmes.
 
 ---
 <br><br>
 
 .tiny[
 ```{r ggboxplot, fig.width = 7, fig.height = 3.5}
+direcao_mais_15_filmes <- imdb %>% 
+  filter(!is.na(direcao), !is.na(lucro) ) %>%
+  group_by(direcao) %>% 
+  count(direcao, sort = TRUE) %>% 
+  filter(n >= 15)
+
 imdb %>% 
-  filter(!is.na(diretor)) %>%
-  group_by(diretor) %>% 
-  filter(n() >= 15) %>% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 ```
 ]
 
@@ -428,13 +436,11 @@ Também podemos reordenar a ordem dos boxplots utilizando a função `forcats::f
 .tiny[
 ```{r ggboxplotreorder, fig.width = 7, fig.height = 3.5}
 imdb %>% 
-  filter(!is.na(diretor)) %>%
-  group_by(diretor) %>% 
-  filter(n() >= 15) %>% 
-  ungroup() %>% 
-  mutate(diretor = forcats::fct_reorder(diretor, lucro, na.rm = TRUE)) %>% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
+  mutate(direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)) %>% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 ```
 ]
 
@@ -520,12 +526,12 @@ Substituindo as cores padrão do gráfico por um outro conjunto de cores.
 .tiny[
 ```{r ggfillmanual, fig.width = 7, fig.height = 3}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(5, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip() +
@@ -541,12 +547,12 @@ Também podemos usar códigos hexadecimais.
 .tiny[
 ```{r ggfillhex, fig.width = 7, fig.height = 3}
 imdb %>% 
-  count(diretor) %>%
-  filter(!is.na(diretor)) %>% 
+  count(direcao) %>%
+  filter(!is.na(direcao)) %>% 
   top_n(5, n) %>%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip() +
@@ -564,12 +570,14 @@ Trocando os textos da legenda.
 .tiny[
 ```{r gglabelslegenda, fig.width = 7, fig.height = 3}
 imdb %>% 
-  filter(!is.na(cor)) %>% 
-  group_by(ano, cor) %>% 
+  mutate(sucesso_nota = case_when(nota_imdb >= 7 ~ "sucesso_nota_imbd",
+                                  TRUE ~ "sem_sucesso_nota_imdb")) %>%
+  group_by(ano, sucesso_nota) %>% 
   summarise(num_filmes = n()) %>% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor)) +
-  scale_color_discrete(labels = c("Preto e branco", "Colorido"))
+  geom_line(aes(x = ano, y = num_filmes, color = sucesso_nota)) +
+  scale_color_discrete(labels = c("Nota menor que 7", "Nota maior ou igual à 7"))
+
 ```
 ]
 
@@ -649,6 +657,5 @@ imdb %>%
 
 - Seção de gráficos do R cookbook (ótima folha de cola): [http://www.cookbook-r.com/Graphs/](http://www.cookbook-r.com/Graphs/)
 
-
-
+- [Curso de visualização de dados](https://loja.curso-r.com/visualizac-o-de-dados.html)
 

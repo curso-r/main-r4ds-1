@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -39,7 +39,11 @@ class: middle, center
 
 Importar uma base de dados para o R significa levar a informação contida no disco rígido (HD) para a mé moria RAM.
 
-![](img/import.png)&lt;!-- --&gt;
+&lt;img src="img/import.png" width="1284" /&gt;
+
+```
+## Warning: package 'readr' was built under R version 4.1.2
+```
 
 ---
 # Caminhos
@@ -70,7 +74,7 @@ A função `setwd()` pode ser utilizada para mudar o diretório de trabalho. Com
 
 Caminhos absolutos são aqueles que tem início na pasta raiz do seu computador/usuário. Por exemplo:
 
-`/Users/william/Documents/curso-r/main-r4ds-1/slides`
+`/Users/beatrizmilz/Documents/Curso-R/cursos/rds1/main-r4ds-1/slides`
 
 Esse é o caminho absoluto para a pasta onde esses slides foram produzidos.
 
@@ -148,7 +152,7 @@ tibble::as_tibble(mtcars)
 ```
 
 ```
-## # A tibble: 32 x 11
+## # A tibble: 32 × 11
 ##      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ##  1  21       6  160    110  3.9   2.62  16.5     0     1     4     4
@@ -189,25 +193,14 @@ A mensagem devolvida pela função indica qual classe foi atribuída para cada c
 .tiny[
 
 ```
-## 
+## Rows: 78681 Columns: 21
 ## ── Column specification ───────────────────────────────────────────────────
-## cols(
-##   titulo = col_character(),
-##   ano = col_double(),
-##   diretor = col_character(),
-##   duracao = col_double(),
-##   cor = col_character(),
-##   generos = col_character(),
-##   pais = col_character(),
-##   classificacao = col_character(),
-##   orcamento = col_double(),
-##   receita = col_double(),
-##   nota_imdb = col_double(),
-##   likes_facebook = col_double(),
-##   ator_1 = col_character(),
-##   ator_2 = col_character(),
-##   ator_3 = col_character()
-## )
+## Delimiter: ","
+## chr (12): id_filme, titulo, titulo_original, data_lancamento, generos, ...
+## dbl  (9): ano, duracao, orcamento, receita, receita_eua, nota_imdb, num...
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 ```
 ]
 
@@ -223,22 +216,24 @@ imdb_csv
 ```
 
 ```
-## # A tibble: 3,713 x 15
-##    titulo   ano diretor duracao cor   generos pais  classificacao orcamento
-##    &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;
-##  1 Avata…  2009 James …     178 Color Action… USA   A partir de … 237000000
-##  2 Pirat…  2007 Gore V…     169 Color Action… USA   A partir de … 300000000
-##  3 The D…  2012 Christ…     164 Color Action… USA   A partir de … 250000000
-##  4 John …  2012 Andrew…     132 Color Action… USA   A partir de … 263700000
-##  5 Spide…  2007 Sam Ra…     156 Color Action… USA   A partir de … 258000000
-##  6 Tangl…  2010 Nathan…     100 Color Advent… USA   Livre         260000000
-##  7 Aveng…  2015 Joss W…     141 Color Action… USA   A partir de … 250000000
-##  8 Batma…  2016 Zack S…     183 Color Action… USA   A partir de … 250000000
-##  9 Super…  2006 Bryan …     169 Color Action… USA   A partir de … 209000000
-## 10 Pirat…  2006 Gore V…     151 Color Action… USA   A partir de … 225000000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;dbl&gt;,
-## #   nota_imdb &lt;dbl&gt;, likes_facebook &lt;dbl&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;,
-## #   ator_3 &lt;chr&gt;
+## # A tibble: 78,681 × 21
+##    id_filme  titulo   titulo_original   ano data_lancamento generos duracao
+##    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt;
+##  1 tt0023352 Prestig… Prestige         1931 1932-01-22      Advent…      71
+##  2 tt0260671 24 chasa 24 chasa         2000 2000-11-03      Crime,…      86
+##  3 tt0065908 Jak roz… Jak rozpetalem…  1970 1970-04-02      Advent…     224
+##  4 tt0037946 La barr… Nob Hill         1945 1945-11-15      Drama,…      95
+##  5 tt0216204 The Sha… The Shade        1999 2000-03-01      Drama        83
+##  6 tt0304076 Aionios… Aionios foitit…  2001 2002-04-12      Drama       100
+##  7 tt0043622 L'eredi… Das Haus in Mo…  1951 1951-11-08      Comedy      106
+##  8 tt1581835 Daydrea… Daydream Nation  2010 2010-11-11      Drama,…      98
+##  9 tt9778190 Shinbun… Shinbun kisha    2019 2019-06-28      Drama       113
+## 10 tt1680089 Femmine… Femmine contro…  2011 2011-02-04      Comedy       98
+## # … with 78,671 more rows, and 14 more variables: pais &lt;chr&gt;,
+## #   idioma &lt;chr&gt;, orcamento &lt;dbl&gt;, receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;,
+## #   nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;,
+## #   producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -401,7 +396,7 @@ Também podemos passar instruções SQL ao criar esses objetos temporários
 
 
 ```r
-instrucao &lt;- dplyr::sql("SELECT titulo, ano, diretor FROM imdb")
+instrucao &lt;- dplyr::sql("SELECT titulo, ano, direcao FROM imdb")
 
 imdb_select &lt;- dplyr::tbl(conexao, instrucao)
 ```

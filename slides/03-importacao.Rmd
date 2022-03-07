@@ -304,7 +304,7 @@ Essa operação **não traz** a tabela para a memória RAM. O objeto `imdb_sqlit
 Também podemos passar instruções SQL ao criar esses objetos temporários
 
 ```{r, eval=FALSE}
-instrucao <- dplyr::sql("SELECT titulo, ano, diretor FROM imdb")
+instrucao <- dplyr::sql("SELECT titulo, ano, direcao FROM imdb")
 
 imdb_select <- dplyr::tbl(conexao, instrucao)
 ```

@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -86,20 +86,20 @@ select(imdb, titulo)
 ```
 
 ```
-## # A tibble: 3,713 x 1
-##    titulo                                    
-##    &lt;chr&gt;                                     
-##  1 Avatar                                    
-##  2 Pirates of the Caribbean: At World's End  
-##  3 The Dark Knight Rises                     
-##  4 John Carter                               
-##  5 Spider-Man 3                              
-##  6 Tangled                                   
-##  7 Avengers: Age of Ultron                   
-##  8 Batman v Superman: Dawn of Justice        
-##  9 Superman Returns                          
-## 10 Pirates of the Caribbean: Dead Man's Chest
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 1
+##    titulo                   
+##    &lt;chr&gt;                    
+##  1 Prestige                 
+##  2 Nob Hill                 
+##  3 The Shade                
+##  4 Viewer Discretion Advised
+##  5 Broadcast News           
+##  6 Murder, He Says          
+##  7 Mother Is a Freshman     
+##  8 On the Threshold of Space
+##  9 Her Name Was Torment     
+## 10 It Lives in the Attic    
+## # … with 28,480 more rows
 ```
 ]
 
@@ -114,20 +114,20 @@ select(imdb, titulo, ano, orcamento)
 ```
 
 ```
-## # A tibble: 3,713 x 3
-##    titulo                                       ano orcamento
-##    &lt;chr&gt;                                      &lt;int&gt;     &lt;int&gt;
-##  1 Avatar                                      2009 237000000
-##  2 Pirates of the Caribbean: At World's End    2007 300000000
-##  3 The Dark Knight Rises                       2012 250000000
-##  4 John Carter                                 2012 263700000
-##  5 Spider-Man 3                                2007 258000000
-##  6 Tangled                                     2010 260000000
-##  7 Avengers: Age of Ultron                     2015 250000000
-##  8 Batman v Superman: Dawn of Justice          2016 250000000
-##  9 Superman Returns                            2006 209000000
-## 10 Pirates of the Caribbean: Dead Man's Chest  2006 225000000
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 3
+##    titulo                      ano orcamento
+##    &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 Prestige                   1931        NA
+##  2 Nob Hill                   1945        NA
+##  3 The Shade                  1999    400000
+##  4 Viewer Discretion Advised  1998        NA
+##  5 Broadcast News             1987  20000000
+##  6 Murder, He Says            1945        NA
+##  7 Mother Is a Freshman       1949        NA
+##  8 On the Threshold of Space  1956   1505000
+##  9 Her Name Was Torment       2014       500
+## 10 It Lives in the Attic      2016      1000
+## # … with 28,480 more rows
 ```
 
 ---
@@ -138,24 +138,24 @@ O operador `:` é muito útil para selecionar colunas consecutivas.
 .tiny[
 
 ```r
-select(imdb, titulo:cor)
+select(imdb, titulo:generos)
 ```
 
 ```
-## # A tibble: 3,713 x 5
-##    titulo                                     ano diretor          duracao cor  
-##    &lt;chr&gt;                                    &lt;int&gt; &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;
-##  1 Avatar                                    2009 James Cameron        178 Color
-##  2 Pirates of the Caribbean: At World's End  2007 Gore Verbinski       169 Color
-##  3 The Dark Knight Rises                     2012 Christopher Nol…     164 Color
-##  4 John Carter                               2012 Andrew Stanton       132 Color
-##  5 Spider-Man 3                              2007 Sam Raimi            156 Color
-##  6 Tangled                                   2010 Nathan Greno         100 Color
-##  7 Avengers: Age of Ultron                   2015 Joss Whedon          141 Color
-##  8 Batman v Superman: Dawn of Justice        2016 Zack Snyder          183 Color
-##  9 Superman Returns                          2006 Bryan Singer         169 Color
-## 10 Pirates of the Caribbean: Dead Man's Ch…  2006 Gore Verbinski       151 Color
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 4
+##    titulo                      ano data_lancamento generos               
+##    &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;                 
+##  1 Prestige                   1931 1932-01-22      Adventure, Drama      
+##  2 Nob Hill                   1945 1945-11-15      Drama, Musical        
+##  3 The Shade                  1999 2000-03-01      Drama                 
+##  4 Viewer Discretion Advised  1998 2012-05-01      Comedy, Horror        
+##  5 Broadcast News             1987 1988-04-01      Comedy, Drama, Romance
+##  6 Murder, He Says            1945 1945-06-23      Comedy, Crime, Mystery
+##  7 Mother Is a Freshman       1949 1949-06-10      Comedy                
+##  8 On the Threshold of Space  1956 1956-04-30      Drama                 
+##  9 Her Name Was Torment       2014 2014-04-29      Horror                
+## 10 It Lives in the Attic      2016 2016-11-12      Thriller              
+## # … with 28,480 more rows
 ```
 ]
 
@@ -168,29 +168,29 @@ O `dplyr` possui o conjunto de funções auxiliares muito úteis para seleção 
 - `ends_with()`: para colunas que terminam com um texto padrão
 - `contains()`: para colunas que contêm um texto padrão
 
-Selecionamos a seguir todas as colunas que começam com o texto "ator".
+Selecionamos a seguir todas as colunas que começam com o texto "num".
 
 .tiny[
 
 ```r
-select(imdb, starts_with("ator"))
+select(imdb, starts_with("num"))
 ```
 
 ```
-## # A tibble: 3,713 x 3
-##    ator_1          ator_2            ator_3              
-##    &lt;chr&gt;           &lt;chr&gt;             &lt;chr&gt;               
-##  1 CCH Pounder     Joel David Moore  Wes Studi           
-##  2 Johnny Depp     Orlando Bloom     Jack Davenport      
-##  3 Tom Hardy       Christian Bale    Joseph Gordon-Levitt
-##  4 Daryl Sabara    Samantha Morton   Polly Walker        
-##  5 J.K. Simmons    James Franco      Kirsten Dunst       
-##  6 Brad Garrett    Donna Murphy      M.C. Gainey         
-##  7 Chris Hemsworth Robert Downey Jr. Scarlett Johansson  
-##  8 Henry Cavill    Lauren Cohan      Alan D. Purwin      
-##  9 Kevin Spacey    Marlon Brando     Frank Langella      
-## 10 Johnny Depp     Orlando Bloom     Jack Davenport      
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 3
+##    num_avaliacoes num_criticas_publico num_criticas_critica
+##             &lt;dbl&gt;                &lt;dbl&gt;                &lt;dbl&gt;
+##  1            240                   12                    2
+##  2            246                   11                    2
+##  3            102                    1                    1
+##  4            111                    5                    3
+##  5          26257                  142                   62
+##  6           1639                   35                   10
+##  7            310                    8                    5
+##  8            162                    9                   NA
+##  9            115                    4                    5
+## 10            197                   12                    7
+## # … with 28,480 more rows
 ```
 ]
 
@@ -206,21 +206,23 @@ arrange(imdb, orcamento)
 ```
 
 ```
-## # A tibble: 3,713 x 15
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Tarnati…  2003 Jonatha…      88 Color Biograph… USA   Outros              218
-##  2 My Date…  2004 Jon Gunn      90 Color Document… USA   Livre              1100
-##  3 A Plagu…  2013 Benjami…      76 Color Drama|Ho… USA   Outros             1400
-##  4 The Mon…  2005 Anthony…      84 Color Crime|Dr… USA   A partir de …      3250
-##  5 Primer    2004 Shane C…      77 Color Drama|Sc… USA   A partir de …      7000
-##  6 El Mari…  1992 Robert …      81 Color Action|C… USA   A partir de …      7000
-##  7 Newlywe…  2011 Edward …      95 Color Comedy|D… USA   Outros             9000
-##  8 Pink Fl…  1972 John Wa…     108 Color Comedy|C… USA   A partir de …     10000
-##  9 The Tou…  2007 Jane Cl…       7 Color Romance|… USA   Outros            13000
-## 10 Paranor…  2007 Oren Pe…      84 Color Horror    USA   A partir de …     15000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 28,490 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt5345298 Patie…  2016 2016-10-11      Horror      116 USA   Icela…         0
+##  2 tt7692822 Driven  2019 2019-02-09      Comedy…      90 USA   Engli…         0
+##  3 tt117773… Murde…  2020 2020-03-21      Crime,…      80 USA   Engli…         0
+##  4 tt4540326 Buried  2011 2011-06-25      Thrill…      95 USA   Engli…         0
+##  5 tt4655630 Drift…  2016 2017-02-24      Crime,…      86 USA   Engli…         0
+##  6 tt7604948 Gutte…  2019 2019-04-28      Crime,…     101 USA   Engli…         0
+##  7 tt2226440 Dead …  2018 2018-01-02      Action…     180 USA   Engli…         0
+##  8 tt3889450 Ameri…  2017 2017-02-01      Comedy…      96 USA   Engli…         0
+##  9 tt5252440 Hot W…  2005 2005-10-01      Animat…      60 USA   Engli…         0
+## 10 tt5229754 She W…  2016 2016-06-24      Horror       76 USA   Engli…         0
+## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -236,21 +238,23 @@ arrange(imdb, desc(orcamento))
 ```
 
 ```
-## # A tibble: 3,713 x 15
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Pirates…  2007 Gore Ve…     169 Color Action|A… USA   A partir de … 300000000
-##  2 John Ca…  2012 Andrew …     132 Color Action|A… USA   A partir de … 263700000
-##  3 Tangled   2010 Nathan …     100 Color Adventur… USA   Livre         260000000
-##  4 Spider-…  2007 Sam Rai…     156 Color Action|A… USA   A partir de … 258000000
-##  5 The Dar…  2012 Christo…     164 Color Action|T… USA   A partir de … 250000000
-##  6 Avenger…  2015 Joss Wh…     141 Color Action|A… USA   A partir de … 250000000
-##  7 Batman …  2016 Zack Sn…     183 Color Action|A… USA   A partir de … 250000000
-##  8 Pirates…  2011 Rob Mar…     136 Color Action|A… USA   A partir de … 250000000
-##  9 Captain…  2016 Anthony…     147 Color Action|A… USA   A partir de … 250000000
-## 10 Avatar    2009 James C…     178 Color Action|A… USA   A partir de … 237000000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 28,490 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt4154796 Aveng…  2019 2019-04-24      Action…     181 USA   Engli… 356000000
+##  2 tt4154756 Aveng…  2018 2018-04-25      Action…     149 USA   Engli… 321000000
+##  3 tt2527336 Star …  2017 2017-12-13      Action…     152 USA   Engli… 317000000
+##  4 tt0449088 Pirat…  2007 2007-05-23      Action…     169 USA   Engli… 300000000
+##  5 tt2527338 Star …  2019 2019-12-18      Action…     141 USA   Engli… 275000000
+##  6 tt3778644 Solo:…  2018 2018-05-23      Action…     135 USA   Engli… 275000000
+##  7 tt0348150 Super…  2006 2006-09-01      Action…     154 USA   Engli… 270000000
+##  8 tt0398286 Tangl…  2010 2010-11-26      Animat…     100 USA   Engli… 260000000
+##  9 tt0413300 Spide…  2007 2007-05-01      Action…     139 USA   Engli… 258000000
+## 10 tt2975590 Batma…  2016 2016-03-23      Action…     152 USA   Engli… 250000000
+## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -266,21 +270,23 @@ arrange(imdb, desc(ano), desc(orcamento))
 ```
 
 ```
-## # A tibble: 3,713 x 15
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Batman …  2016 Zack Sn…     183 Color Action|A… USA   A partir de … 250000000
-##  2 Captain…  2016 Anthony…     147 Color Action|A… USA   A partir de … 250000000
-##  3 Star Tr…  2016 Justin …     122 Color Action|A… USA   A partir de … 185000000
-##  4 The Leg…  2016 David Y…     110 Color Action|A… USA   A partir de … 180000000
-##  5 X-Men: …  2016 Bryan S…     144 Color Action|A… USA   A partir de … 178000000
-##  6 Suicide…  2016 David A…     123 Color Action|A… USA   A partir de … 175000000
-##  7 Alice T…  2016 James B…     113 Color Adventur… USA   Livre         170000000
-##  8 Indepen…  2016 Roland …     120 Color Action|A… USA   A partir de … 165000000
-##  9 Warcraft  2016 Duncan …     123 Color Action|A… USA   A partir de … 160000000
-## 10 Kung Fu…  2016 Alessan…      95 Color Action|A… USA   Livre         145000000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 28,490 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt6587640 Troll…  2020 2020-04-10      Animat…      90 USA   Engli…  90000000
+##  2 tt7713068 Birds…  2020 2020-02-06      Action…     109 USA   Engli…  84500000
+##  3 tt5774060 Under…  2020 2020-01-30      Action…      95 USA   Engli…  80000000
+##  4 tt6820324 Timmy…  2020 2020-03-24      Advent…      99 USA   Engli…  45000000
+##  5 tt1634106 Blood…  2020 2020-03-27      Action…     109 USA   Engli…  45000000
+##  6 tt100595… Unhin…  2020 2020-09-24      Action…      90 USA   Engli…  33000000
+##  7 tt8461224 The T…  2020 2020-08-07      Action…      95 USA   Engli…  30000000
+##  8 tt7939428 10 Th…  2020 2020-02-21      Romance      74 USA   Engli…  25000000
+##  9 tt103089… Force…  2020 2020-06-30      Action…      91 USA   Engli…  23000000
+## 10 tt4411584 The S…  2020 2020-07-31      Drama,…     107 USA   Engli…  21000000
+## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -402,14 +408,21 @@ imdb %&gt;% filter(nota_imdb &gt; 9)
 ```
 
 ```
-## # A tibble: 3 x 15
-##   titulo      ano diretor   duracao cor   generos  pais  classificacao orcamento
-##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-## 1 The Shaw…  1994 Frank Da…     142 Color Crime|D… USA   A partir de …  25000000
-## 2 The Godf…  1972 Francis …     175 Color Crime|D… USA   A partir de …   6000000
-## 3 Kickboxe…  2016 John Sto…      90 &lt;NA&gt;  Action   USA   Outros         17000000
-## # … with 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 8 × 20
+##   id_filme   titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1 tt10218912 As I …  2019 2019-12-06      Drama,…      62 USA   Engli…     10000
+## 2 tt6735740  Love …  2019 2019-06-23      Comedy      100 USA   Engli…   3000000
+## 3 tt0111161  The S…  1994 1995-02-10      Drama       142 USA   Engli…  25000000
+## 4 tt0068646  The G…  1972 1972-09-21      Crime,…     175 USA   Engli…   6000000
+## 5 tt1508669  Hopef…  2010 2010-12-15      Drama        94 USA   Engli…   1500000
+## 6 tt11164090 The M…  2020 2020-05-11      Comedy       85 USA   Engli…        NA
+## 7 tt5980638  The T…  2018 2020-06-19      Music,…      96 USA   Engli…     90000
+## 8 tt6074834  Delaw…  2018 2018-12-21      Drama        98 USA   Engli…        NA
+## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -427,12 +440,17 @@ imdb %&gt;%
 ```
 
 ```
-## # A tibble: 3 x 2
+## # A tibble: 8 × 2
 ##   titulo                   nota_imdb
 ##   &lt;chr&gt;                        &lt;dbl&gt;
-## 1 The Shawshank Redemption       9.3
-## 2 The Godfather                  9.2
-## 3 Kickboxer: Vengeance           9.1
+## 1 As I Am                        9.3
+## 2 Love in Kilnerry               9.3
+## 3 The Shawshank Redemption       9.3
+## 4 The Godfather                  9.2
+## 5 Hopeful Notes                  9.7
+## 6 The Moving on Phase            9.5
+## 7 The Transcendents              9.2
+## 8 Delaware Shore                 9.1
 ```
 ]
 
@@ -444,20 +462,22 @@ Podemos estender o filtro para duas ou mais colunas. Para isso, separamos cada o
 .tiny[
 
 ```r
-imdb %&gt;% filter(ano &gt; 2010, nota_imdb &gt; 8.5)
+imdb %&gt;% filter(ano &gt; 2010,
+                nota_imdb &gt; 8.5, 
+                num_avaliacoes &gt; 5000)
 ```
 
 ```
-## # A tibble: 5 x 15
-##   titulo      ano diretor   duracao cor   generos  pais  classificacao orcamento
-##   &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;       &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-## 1 Interste…  2014 Christop…     169 Color Adventu… USA   A partir de … 165000000
-## 2 Running …  2015 Mike May…      88 Color Family   USA   Outros          5000000
-## 3 A Beginn…  2016 Mitchell…      87 Color Comedy|… USA   Outros               NA
-## 4 Kickboxe…  2016 John Sto…      90 &lt;NA&gt;  Action   USA   Outros         17000000
-## 5 Butterfl…  2014 Cary Bell      78 Color Documen… USA   Outros           180000
-## # … with 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 3 × 20
+##   id_filme  titulo    ano data_lancamento generos duracao pais  idioma orcamento
+##   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1 tt8503618 Hamilt…  2020 2020-07-03      Biogra…     160 USA   Engli…        NA
+## 2 tt6019206 Kill B…  2011 2011-03-27      Action…     247 USA   &lt;NA&gt;          NA
+## 3 tt2170667 Wheels   2014 2017-02-01      Drama       115 USA   Engli…        NA
+## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -473,52 +493,61 @@ imdb %&gt;% filter(receita - orcamento &gt; 0)
 ```
 
 ```
-## # A tibble: 1,710 x 15
-##    titulo      ano diretor  duracao cor   generos  pais  classificacao orcamento
-##    &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar     2009 James C…     178 Color Action|… USA   A partir de … 237000000
-##  2 Pirates …  2007 Gore Ve…     169 Color Action|… USA   A partir de … 300000000
-##  3 The Dark…  2012 Christo…     164 Color Action|… USA   A partir de … 250000000
-##  4 Spider-M…  2007 Sam Rai…     156 Color Action|… USA   A partir de … 258000000
-##  5 Avengers…  2015 Joss Wh…     141 Color Action|… USA   A partir de … 250000000
-##  6 Batman v…  2016 Zack Sn…     183 Color Action|… USA   A partir de … 250000000
-##  7 Pirates …  2006 Gore Ve…     151 Color Action|… USA   A partir de … 225000000
-##  8 Man of S…  2013 Zack Sn…     143 Color Action|… USA   A partir de … 225000000
-##  9 The Aven…  2012 Joss Wh…     173 Color Action|… USA   A partir de … 220000000
-## 10 The Amaz…  2012 Marc We…     153 Color Action|… USA   A partir de … 230000000
-## # … with 1,700 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 2,584 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0092699 Broad…  1987 1988-04-01      Comedy…     133 USA   Engli…  20000000
+##  2 tt0183505 Me, M…  2000 2000-09-08      Comedy      116 USA   Engli…  51000000
+##  3 tt0093640 No Wa…  1987 1987-12-11      Action…     114 USA   Engli…  15000000
+##  4 tt0494652 Welco…  2008 2008-02-08      Comedy…     104 USA   Engli…  35000000
+##  5 tt0285869 Pando…  2002 2002-09-27      Drama,…     103 USA   Engli…    800000
+##  6 tt1488555 The C…  2011 2011-12-09      Comedy…     112 USA   Engli…  52000000
+##  7 tt0090022 Silve…  1985 1986-01-16      Action…     133 USA   Engli…  26000000
+##  8 tt0120434 Vegas…  1997 1997-02-14      Comedy       93 USA   Engli…  25000000
+##  9 tt1086772 Blend…  2014 2014-07-02      Comedy…     117 USA   Engli…  40000000
+## 10 tt0064115 Butch…  1969 1969-09-26      Biogra…     110 USA   Engli…   6000000
+## # … with 2,574 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
 ---
 &lt;br&gt;&lt;br&gt;
 
-Naturalmente, podemos filtrar colunas categóricas. O exemplo abaixo retorna uma tabela apenas com os filmes com a Angelina Jolie Pitt ou o Brad Pitt no papel principal.
+Naturalmente, podemos filtrar colunas categóricas. O exemplo abaixo retorna uma tabela apenas com os filmes dirigidos por Quentin Tarantino e George Lucas.
 
 .tiny[
 
 ```r
 imdb %&gt;%
-  filter(ator_1 %in% c('Angelina Jolie Pitt', "Brad Pitt"))
+  filter(direcao %in% c('Quentin Tarantino', "George Lucas"))
 ```
 
 ```
-## # A tibble: 29 x 15
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Malefic…  2014 Robert …      97 Color Action|A… USA   Livre         180000000
-##  2 The Cur…  2008 David F…     166 Color Drama|Fa… USA   A partir de … 150000000
-##  3 Kung Fu…  2011 Jennife…      90 Color Action|A… USA   Livre         150000000
-##  4 Troy      2004 Wolfgan…     196 Color Adventure USA   A partir de … 175000000
-##  5 Kung Fu…  2008 Mark Os…      92 Color Action|A… USA   Livre         130000000
-##  6 Salt      2010 Phillip…     101 Color Action|C… USA   A partir de … 110000000
-##  7 Ocean's…  2004 Steven …     125 Color Crime|Th… USA   A partir de … 110000000
-##  8 Mr. &amp; M…  2005 Doug Li…     126 Color Action|C… USA   A partir de … 120000000
-##  9 Lara Cr…  2001 Simon W…     100 Color Action|A… USA   A partir de … 115000000
-## 10 Ocean's…  2001 Steven …     116 Color Crime|Th… USA   A partir de …  85000000
-## # … with 19 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 15 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0076759 Star …  1977 1977-10-20      Action…     121 USA   Engli…  11000000
+##  2 tt0121766 Star …  2005 2005-05-20      Action…     140 USA   Engli… 113000000
+##  3 tt0069704 Ameri…  1973 1974-04-24      Comedy…     110 USA   Engli…    777000
+##  4 tt0121765 Star …  2002 2002-05-16      Action…     142 USA   Engli… 115000000
+##  5 tt0110912 Pulp …  1994 1994-10-28      Crime,…     154 USA   Engli…   8000000
+##  6 tt0359715 My Be…  1987 1987            Comedy       90 USA   Engli…      5000
+##  7 tt3460252 The H…  2015 2016-02-04      Crime,…     168 USA   Engli…  44000000
+##  8 tt6019206 Kill …  2011 2011-03-27      Action…     247 USA   &lt;NA&gt;          NA
+##  9 tt0105236 Reser…  1992 1992-10-09      Crime,…      99 USA   Engli…   1200000
+## 10 tt0119396 Jacki…  1997 1998-03-27      Crime,…     154 USA   Engli…  12000000
+## 11 tt1028528 Death…  2007 2007-06-01      Action…     127 USA   Engli…        NA
+## 12 tt0378194 Kill …  2004 2004-04-23      Action…     137 USA   Engli…  30000000
+## 13 tt0066434 THX 1…  1971 1976-10-29      Drama,…      86 USA   Engli…    777000
+## 14 tt1853728 Djang…  2012 2013-01-17      Drama,…     165 USA   Engli… 100000000
+## 15 tt0120915 Star …  1999 1999-09-17      Action…     136 USA   Engli… 115000000
+## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -548,12 +577,8 @@ imdb$generos[1:6]
 ```
 
 ```
-## [1] "Action|Adventure|Fantasy|Sci-Fi"                          
-## [2] "Action|Adventure|Fantasy"                                 
-## [3] "Action|Thriller"                                          
-## [4] "Action|Adventure|Sci-Fi"                                  
-## [5] "Action|Adventure|Romance"                                 
-## [6] "Adventure|Animation|Comedy|Family|Fantasy|Musical|Romance"
+## [1] "Adventure, Drama"       "Drama, Musical"         "Drama"                 
+## [4] "Comedy, Horror"         "Comedy, Drama, Romance" "Comedy, Crime, Mystery"
 ```
 
 
@@ -563,38 +588,40 @@ imdb$generos[1:6]
 .tiny[
 
 ```r
-# Podemos detectar se o gênero Action aparece na string
+# Podemos detectar se o gênero Drama aparece na string
 str_detect(
   string = imdb$generos[1:6],
-  pattern = "Action"
+  pattern = "Drama"
 )
 ```
 
 ```
-## [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+## [1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE
 ```
 
 ```r
 # Aplicamos essa lógica dentro da função filter, para a coluna completa
-imdb %&gt;% filter(str_detect(generos, "Action"))
+imdb %&gt;% filter(str_detect(generos, "Drama"))
 ```
 
 ```
-## # A tibble: 832 x 15
-##    titulo      ano diretor  duracao cor   generos  pais  classificacao orcamento
-##    &lt;chr&gt;     &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar     2009 James C…     178 Color Action|… USA   A partir de … 237000000
-##  2 Pirates …  2007 Gore Ve…     169 Color Action|… USA   A partir de … 300000000
-##  3 The Dark…  2012 Christo…     164 Color Action|… USA   A partir de … 250000000
-##  4 John Car…  2012 Andrew …     132 Color Action|… USA   A partir de … 263700000
-##  5 Spider-M…  2007 Sam Rai…     156 Color Action|… USA   A partir de … 258000000
-##  6 Avengers…  2015 Joss Wh…     141 Color Action|… USA   A partir de … 250000000
-##  7 Batman v…  2016 Zack Sn…     183 Color Action|… USA   A partir de … 250000000
-##  8 Superman…  2006 Bryan S…     169 Color Action|… USA   A partir de … 209000000
-##  9 Pirates …  2006 Gore Ve…     151 Color Action|… USA   A partir de … 225000000
-## 10 The Lone…  2013 Gore Ve…     150 Color Action|… USA   A partir de … 215000000
-## # … with 822 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 13,816 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0023352 Prest…  1931 1932-01-22      Advent…      71 USA   Engli…        NA
+##  2 tt0037946 Nob H…  1945 1945-11-15      Drama,…      95 USA   Engli…        NA
+##  3 tt0216204 The S…  1999 2000-03-01      Drama        83 USA   Engli…    400000
+##  4 tt0092699 Broad…  1987 1988-04-01      Comedy…     133 USA   Engli…  20000000
+##  5 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
+##  6 tt0421539 9/Ten…  2006 2008-08-28      Drama,…      98 USA   Engli…   1000000
+##  7 tt0027200 Westw…  1935 1935-08-19      Action…      61 USA   Engli…     35000
+##  8 tt2822280 Confe…  2015 2015-03-24      Drama        90 USA   Engli…        NA
+##  9 tt0372122 Adam …  2005 2007-05-17      Comedy…      99 USA   Engli…        NA
+## 10 tt3703836 Henry…  2015 2016-01-08      Drama        87 USA   Engli…        NA
+## # … with 13,806 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -610,21 +637,23 @@ imdb %&gt;% mutate(duracao = duracao/60)
 ```
 
 ```
-## # A tibble: 3,713 x 15
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar    2009 James C…    2.97 Color Action|A… USA   A partir de … 237000000
-##  2 Pirates…  2007 Gore Ve…    2.82 Color Action|A… USA   A partir de … 300000000
-##  3 The Dar…  2012 Christo…    2.73 Color Action|T… USA   A partir de … 250000000
-##  4 John Ca…  2012 Andrew …    2.2  Color Action|A… USA   A partir de … 263700000
-##  5 Spider-…  2007 Sam Rai…    2.6  Color Action|A… USA   A partir de … 258000000
-##  6 Tangled   2010 Nathan …    1.67 Color Adventur… USA   Livre         260000000
-##  7 Avenger…  2015 Joss Wh…    2.35 Color Action|A… USA   A partir de … 250000000
-##  8 Batman …  2016 Zack Sn…    3.05 Color Action|A… USA   A partir de … 250000000
-##  9 Superma…  2006 Bryan S…    2.82 Color Action|A… USA   A partir de … 209000000
-## 10 Pirates…  2006 Gore Ve…    2.52 Color Action|A… USA   A partir de … 225000000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 28,490 × 20
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0023352 Prest…  1931 1932-01-22      Advent…   1.18  USA   Engli…        NA
+##  2 tt0037946 Nob H…  1945 1945-11-15      Drama,…   1.58  USA   Engli…        NA
+##  3 tt0216204 The S…  1999 2000-03-01      Drama     1.38  USA   Engli…    400000
+##  4 tt0171889 Viewe…  1998 2012-05-01      Comedy…   1.75  USA   Engli…        NA
+##  5 tt0092699 Broad…  1987 1988-04-01      Comedy…   2.22  USA   Engli…  20000000
+##  6 tt0037931 Murde…  1945 1945-06-23      Comedy…   1.52  USA   Engli…        NA
+##  7 tt0041659 Mothe…  1949 1949-06-10      Comedy    1.35  USA   Engli…        NA
+##  8 tt0049571 On th…  1956 1956-04-30      Drama     1.63  USA   Engli…   1505000
+##  9 tt3772198 Her N…  2014 2014-04-29      Horror    0.833 USA   &lt;NA&gt;         500
+## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…   1.42  USA   Engli…      1000
+## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -640,22 +669,23 @@ imdb %&gt;% mutate(duracao_horas = duracao/60)
 ```
 
 ```
-## # A tibble: 3,713 x 16
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar    2009 James C…     178 Color Action|A… USA   A partir de … 237000000
-##  2 Pirates…  2007 Gore Ve…     169 Color Action|A… USA   A partir de … 300000000
-##  3 The Dar…  2012 Christo…     164 Color Action|T… USA   A partir de … 250000000
-##  4 John Ca…  2012 Andrew …     132 Color Action|A… USA   A partir de … 263700000
-##  5 Spider-…  2007 Sam Rai…     156 Color Action|A… USA   A partir de … 258000000
-##  6 Tangled   2010 Nathan …     100 Color Adventur… USA   Livre         260000000
-##  7 Avenger…  2015 Joss Wh…     141 Color Action|A… USA   A partir de … 250000000
-##  8 Batman …  2016 Zack Sn…     183 Color Action|A… USA   A partir de … 250000000
-##  9 Superma…  2006 Bryan S…     169 Color Action|A… USA   A partir de … 209000000
-## 10 Pirates…  2006 Gore Ve…     151 Color Action|A… USA   A partir de … 225000000
-## # … with 3,703 more rows, and 7 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;,
-## #   duracao_horas &lt;dbl&gt;
+## # A tibble: 28,490 × 21
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0023352 Prest…  1931 1932-01-22      Advent…      71 USA   Engli…        NA
+##  2 tt0037946 Nob H…  1945 1945-11-15      Drama,…      95 USA   Engli…        NA
+##  3 tt0216204 The S…  1999 2000-03-01      Drama        83 USA   Engli…    400000
+##  4 tt0171889 Viewe…  1998 2012-05-01      Comedy…     105 USA   Engli…        NA
+##  5 tt0092699 Broad…  1987 1988-04-01      Comedy…     133 USA   Engli…  20000000
+##  6 tt0037931 Murde…  1945 1945-06-23      Comedy…      91 USA   Engli…        NA
+##  7 tt0041659 Mothe…  1949 1949-06-10      Comedy       81 USA   Engli…        NA
+##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
+##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
+## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
+## # … with 28,480 more rows, and 12 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;, duracao_horas &lt;dbl&gt;
 ```
 ]
 
@@ -673,20 +703,20 @@ imdb %&gt;%
 ```
 
 ```
-## # A tibble: 3,713 x 3
-##    titulo                                          lucro pais          
-##    &lt;chr&gt;                                           &lt;int&gt; &lt;chr&gt;         
-##  1 Avatar                                      523505847 Estados Unidos
-##  2 Pirates of the Caribbean: At World's End      9404152 Estados Unidos
-##  3 The Dark Knight Rises                       198130642 Estados Unidos
-##  4 John Carter                                -190641321 Estados Unidos
-##  5 Spider-Man 3                                 78530303 Estados Unidos
-##  6 Tangled                                     -59192738 Estados Unidos
-##  7 Avengers: Age of Ultron                     208991599 Estados Unidos
-##  8 Batman v Superman: Dawn of Justice           80249062 Estados Unidos
-##  9 Superman Returns                             -8930592 Estados Unidos
-## 10 Pirates of the Caribbean: Dead Man's Chest  198032628 Estados Unidos
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 3
+##    titulo                       lucro pais          
+##    &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;         
+##  1 Prestige                        NA Estados Unidos
+##  2 Nob Hill                        NA Estados Unidos
+##  3 The Shade                       NA Estados Unidos
+##  4 Viewer Discretion Advised       NA Estados Unidos
+##  5 Broadcast News            47331309 Estados Unidos
+##  6 Murder, He Says                 NA Estados Unidos
+##  7 Mother Is a Freshman            NA Estados Unidos
+##  8 On the Threshold of Space       NA Estados Unidos
+##  9 Her Name Was Torment            NA Estados Unidos
+## 10 It Lives in the Attic           NA Estados Unidos
+## # … with 28,480 more rows
 ```
 ]
 
@@ -703,10 +733,10 @@ imdb %&gt;% summarize(media_orcamento = mean(orcamento, na.rm = TRUE))
 ```
 
 ```
-## # A tibble: 1 x 1
+## # A tibble: 1 × 1
 ##   media_orcamento
 ##             &lt;dbl&gt;
-## 1       35237114.
+## 1       12135607.
 ```
 
 Repare que a saída da função continua sendo uma tibble.
@@ -726,10 +756,10 @@ imdb %&gt;% summarise(
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##   media_orcamento mediana_orcamento variancia_orcamento
 ##             &lt;dbl&gt;             &lt;dbl&gt;               &lt;dbl&gt;
-## 1       35237114.          20000000             1.77e15
+## 1       12135607.           2000000             7.17e14
 ```
 
 ---
@@ -747,10 +777,10 @@ imdb %&gt;% summarize(
 ```
 
 ```
-## # A tibble: 1 x 3
+## # A tibble: 1 × 3
 ##   media_orcamento media_receita media_lucro
 ##             &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;
-## 1       35237114.     54530550.   17161639.
+## 1       12135607.     45375563.   45786607.
 ```
 
 ---
@@ -758,22 +788,32 @@ imdb %&gt;% summarize(
 
 Muitas vezes queremos sumarizar uma coluna agrupada pelas categorias de uma segunda coluna. Para isso, além do `summarize`, utilizamos também a função `group_by()`.
 
-O código a seguir calcula a receita média dos filmes para cada categoria da coluna "cor".
+O código a seguir calcula a receita média dos filmes para cada categoria da coluna "direcao".
 
 
 ```r
 imdb %&gt;% 
-  group_by(cor) %&gt;% 
-  summarise(receita_media = mean(receita, na.rm = TRUE))
+  group_by(direcao) %&gt;% 
+  summarise(receita_media = mean(receita, na.rm = TRUE)) %&gt;% 
+  drop_na(receita_media) %&gt;% 
+  arrange(desc(receita_media))
 ```
 
 ```
-## # A tibble: 3 x 2
-##   cor             receita_media
-##   &lt;chr&gt;                   &lt;dbl&gt;
-## 1 Black and White     36124154.
-## 2 Color               55094030.
-## 3 &lt;NA&gt;                80014842
+## # A tibble: 4,032 × 2
+##    direcao                       receita_media
+##    &lt;chr&gt;                                 &lt;dbl&gt;
+##  1 Anthony Russo, Joe Russo        1368908569.
+##  2 Chris Buck, Jennifer Lee        1365415143 
+##  3 J.A. Bayona                     1331958159 
+##  4 Kyle Balda, Pierre Coffin       1097121269 
+##  5 James Cameron                   1086440534.
+##  6 Josh Cooley                     1073394593 
+##  7 Lee Unkrich                     1066969703 
+##  8 Gareth Edwards                  1056057720 
+##  9 Andrew Stanton, Angus MacLane   1028570889 
+## 10 Byron Howard, Rich Moore        1023789075 
+## # … with 4,022 more rows
 ```
 
 ---
@@ -784,99 +824,102 @@ A única alteração que a função `group_by()` faz na base é a marcação de 
 .tiny[
 
 ```r
-imdb %&gt;% group_by(cor)
+imdb %&gt;% group_by(direcao)
 ```
 
 ```
-## # A tibble: 3,713 x 15
-## # Groups:   cor [3]
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar    2009 James C…     178 Color Action|A… USA   A partir de … 237000000
-##  2 Pirates…  2007 Gore Ve…     169 Color Action|A… USA   A partir de … 300000000
-##  3 The Dar…  2012 Christo…     164 Color Action|T… USA   A partir de … 250000000
-##  4 John Ca…  2012 Andrew …     132 Color Action|A… USA   A partir de … 263700000
-##  5 Spider-…  2007 Sam Rai…     156 Color Action|A… USA   A partir de … 258000000
-##  6 Tangled   2010 Nathan …     100 Color Adventur… USA   Livre         260000000
-##  7 Avenger…  2015 Joss Wh…     141 Color Action|A… USA   A partir de … 250000000
-##  8 Batman …  2016 Zack Sn…     183 Color Action|A… USA   A partir de … 250000000
-##  9 Superma…  2006 Bryan S…     169 Color Action|A… USA   A partir de … 209000000
-## 10 Pirates…  2006 Gore Ve…     151 Color Action|A… USA   A partir de … 225000000
-## # … with 3,703 more rows, and 6 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;
+## # A tibble: 28,490 × 20
+## # Groups:   direcao [12,459]
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0023352 Prest…  1931 1932-01-22      Advent…      71 USA   Engli…        NA
+##  2 tt0037946 Nob H…  1945 1945-11-15      Drama,…      95 USA   Engli…        NA
+##  3 tt0216204 The S…  1999 2000-03-01      Drama        83 USA   Engli…    400000
+##  4 tt0171889 Viewe…  1998 2012-05-01      Comedy…     105 USA   Engli…        NA
+##  5 tt0092699 Broad…  1987 1988-04-01      Comedy…     133 USA   Engli…  20000000
+##  6 tt0037931 Murde…  1945 1945-06-23      Comedy…      91 USA   Engli…        NA
+##  7 tt0041659 Mothe…  1949 1949-06-10      Comedy       81 USA   Engli…        NA
+##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
+##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
+## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
+## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
 ---
 # Juntando bases
 
-Podemos juntar duas tabelas a partir de uma (coluna) chave utilizando a função `left_join()`. Como exempo, vamos inicialmente calcular o lucro médio dos filmes de cada diretor e salvar no objeto `tab_lucro_diretor`.
+Podemos juntar duas tabelas a partir de uma (coluna) chave utilizando a função `left_join()`. Como exempo, vamos inicialmente calcular o lucro médio dos filmes de cada pessoa que dirige filme e salvar no objeto `tab_lucro_direcao`.
 
 .tiny[
 
 ```r
-tab_lucro_diretor &lt;- imdb %&gt;%
-  group_by(diretor) %&gt;% 
+tab_lucro_direcao &lt;- imdb %&gt;%
+  group_by(direcao) %&gt;% 
   summarise(lucro_medio = mean(receita - orcamento, na.rm = TRUE))
 
-tab_lucro_diretor
+tab_lucro_direcao
 ```
 
 ```
-## # A tibble: 1,813 x 2
-##    diretor          lucro_medio
-##    &lt;chr&gt;                  &lt;dbl&gt;
-##  1 A. Raven Cruz            NaN
-##  2 Aaron Hann               NaN
-##  3 Aaron Schneider      1676553
-##  4 Aaron Seltzer       28546578
-##  5 Abel Ferrara       -11272676
-##  6 Adam Carolla        -1394057
-##  7 Adam Goldberg       -1647420
-##  8 Adam Green               NaN
-##  9 Adam Jay Epstein         NaN
-## 10 Adam Marcus         13435068
-## # … with 1,803 more rows
+## # A tibble: 12,459 × 2
+##    direcao                              lucro_medio
+##    &lt;chr&gt;                                      &lt;dbl&gt;
+##  1 'Evil' Ted Smith                             NaN
+##  2 'Philthy' Phil Phillips                      NaN
+##  3 A. Dean Bell                                 NaN
+##  4 A. Edward Sutherland                         NaN
+##  5 A. Edward Sutherland, John Rawlins           NaN
+##  6 A. Edward Sutherland, Wesley Ruggles         NaN
+##  7 A. Raven Cruz                            -996300
+##  8 A.D. Calvo                                   NaN
+##  9 A.J. Edwards                                 NaN
+## 10 A.J. Kparr                                   NaN
+## # … with 12,449 more rows
 ```
 ]
 
 ---
 &lt;br&gt;&lt;br&gt;
 
-E se quisermos colocar essa informação na base original? Basta usar a função `left_join()` utilizando a coluna `diretor` como chave. Observe que a coluna `lucro_medio` aparece agora no fim da tabela.
+E se quisermos colocar essa informação na base original? Basta usar a função `left_join()` utilizando a coluna `direcao` como chave. Observe que a coluna `lucro_medio` aparece agora no fim da tabela.
 
 .tiny[
 
 ```r
-imdb_com_lucro_medio &lt;- left_join(imdb, tab_lucro_diretor, by = "diretor")
+imdb_com_lucro_medio &lt;- left_join(imdb, tab_lucro_direcao, by = "direcao")
 
 imdb_com_lucro_medio
 ```
 
 ```
-## # A tibble: 3,713 x 16
-##    titulo     ano diretor  duracao cor   generos   pais  classificacao orcamento
-##    &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;             &lt;int&gt;
-##  1 Avatar    2009 James C…     178 Color Action|A… USA   A partir de … 237000000
-##  2 Pirates…  2007 Gore Ve…     169 Color Action|A… USA   A partir de … 300000000
-##  3 The Dar…  2012 Christo…     164 Color Action|T… USA   A partir de … 250000000
-##  4 John Ca…  2012 Andrew …     132 Color Action|A… USA   A partir de … 263700000
-##  5 Spider-…  2007 Sam Rai…     156 Color Action|A… USA   A partir de … 258000000
-##  6 Tangled   2010 Nathan …     100 Color Adventur… USA   Livre         260000000
-##  7 Avenger…  2015 Joss Wh…     141 Color Action|A… USA   A partir de … 250000000
-##  8 Batman …  2016 Zack Sn…     183 Color Action|A… USA   A partir de … 250000000
-##  9 Superma…  2006 Bryan S…     169 Color Action|A… USA   A partir de … 209000000
-## 10 Pirates…  2006 Gore Ve…     151 Color Action|A… USA   A partir de … 225000000
-## # … with 3,703 more rows, and 7 more variables: receita &lt;int&gt;, nota_imdb &lt;dbl&gt;,
-## #   likes_facebook &lt;int&gt;, ator_1 &lt;chr&gt;, ator_2 &lt;chr&gt;, ator_3 &lt;chr&gt;,
-## #   lucro_medio &lt;dbl&gt;
+## # A tibble: 28,490 × 21
+##    id_filme  titulo   ano data_lancamento generos duracao pais  idioma orcamento
+##    &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 tt0023352 Prest…  1931 1932-01-22      Advent…      71 USA   Engli…        NA
+##  2 tt0037946 Nob H…  1945 1945-11-15      Drama,…      95 USA   Engli…        NA
+##  3 tt0216204 The S…  1999 2000-03-01      Drama        83 USA   Engli…    400000
+##  4 tt0171889 Viewe…  1998 2012-05-01      Comedy…     105 USA   Engli…        NA
+##  5 tt0092699 Broad…  1987 1988-04-01      Comedy…     133 USA   Engli…  20000000
+##  6 tt0037931 Murde…  1945 1945-06-23      Comedy…      91 USA   Engli…        NA
+##  7 tt0041659 Mothe…  1949 1949-06-10      Comedy       81 USA   Engli…        NA
+##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
+##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
+## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
+## # … with 28,480 more rows, and 12 more variables: receita &lt;dbl&gt;,
+## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
+## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;, lucro_medio &lt;dbl&gt;
 ```
 ]
 
 ---
 &lt;br&gt;&lt;br&gt;
 
-Na tabela `imdb_com_lucro_medio`, como na tabela `imdb`, cada linha continua a representar um filme diferente, mas agora temos também a informação do lucro médio do diretor de cada filme. 
+Na tabela `imdb_com_lucro_medio`, como na tabela `imdb`, cada linha continua a representar um filme diferente, mas agora temos também a informação do lucro médio da direcao de cada filme. 
 
 A primeira linha, por exemplo, traz as informações do filme Avatar. O valor do `lucro_medio` nessa linha representa o lucro médio de todos os filmes do James Cameron, que é o diretor de Avatar. Com essa informação, podemos calcular o quanto o lucro do Avatar se afasta do lucro médio do James Cameron.
 
@@ -892,24 +935,24 @@ imdb_com_lucro_medio %&gt;%
     lucro_relativo = (lucro - lucro_medio)/lucro_medio,
     lucro_relativo = scales::percent(lucro_relativo)
   ) %&gt;% 
-  select(titulo, diretor, lucro, lucro_medio, lucro_relativo)
+  select(titulo, direcao, lucro, lucro_medio, lucro_relativo) 
 ```
 
 ```
-## # A tibble: 3,713 x 5
-##    titulo                      diretor          lucro lucro_medio lucro_relativo
-##    &lt;chr&gt;                       &lt;chr&gt;            &lt;int&gt;       &lt;dbl&gt; &lt;chr&gt;         
-##  1 Avatar                      James Cameron   5.24e8  194620985  168.987359%   
-##  2 Pirates of the Caribbean: … Gore Verbins…   9.40e6   36942999. -74.544157%   
-##  3 The Dark Knight Rises       Christopher …   1.98e8  101028447  96.113716%    
-##  4 John Carter                 Andrew Stant…  -1.91e8   46668146  -508.504167%  
-##  5 Spider-Man 3                Sam Raimi       7.85e7   66820940. 17.523494%    
-##  6 Tangled                     Nathan Greno   -5.92e7  -59192738  0.000000%     
-##  7 Avengers: Age of Ultron     Joss Whedon     2.09e8  199202360. 4.914218%     
-##  8 Batman v Superman: Dawn of… Zack Snyder     8.02e7   33186745. 141.810582%   
-##  9 Superman Returns            Bryan Singer   -8.93e6   -2887024. 209.335596%   
-## 10 Pirates of the Caribbean: … Gore Verbins…   1.98e8   36942999. 436.049135%   
-## # … with 3,703 more rows
+## # A tibble: 28,490 × 5
+##    titulo                    direcao            lucro lucro_medio lucro_relativo
+##    &lt;chr&gt;                     &lt;chr&gt;              &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;         
+##  1 Prestige                  Tay Garnett      NA             NaN  &lt;NA&gt;          
+##  2 Nob Hill                  Henry Hathaway   NA        -2966627  &lt;NA&gt;          
+##  3 The Shade                 Raphaël Nadjari  NA             NaN  &lt;NA&gt;          
+##  4 Viewer Discretion Advised Eddie Beverly J… NA             NaN  &lt;NA&gt;          
+##  5 Broadcast News            James L. Brooks   4.73e7   47749419. -0.87563%     
+##  6 Murder, He Says           George Marshall  NA             NaN  &lt;NA&gt;          
+##  7 Mother Is a Freshman      Lloyd Bacon      NA         -437400  &lt;NA&gt;          
+##  8 On the Threshold of Space Robert D. Webb   NA             NaN  &lt;NA&gt;          
+##  9 Her Name Was Torment      Dustin Mills     NA             NaN  &lt;NA&gt;          
+## 10 It Lives in the Attic     Steve Hudgins    NA             NaN  &lt;NA&gt;          
+## # … with 28,480 more rows
 ```
 ]
 

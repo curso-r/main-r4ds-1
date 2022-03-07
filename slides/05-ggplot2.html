@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -83,7 +83,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggdispersao-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -128,7 +128,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggreta-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -158,7 +158,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggretavermelha-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -178,7 +178,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggdispersaoazul-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -201,7 +201,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglucro-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -245,19 +245,23 @@ Se mapearmos uma coluna à cor das retas, serão construídas uma reta correspon
 
 ```r
 imdb %&gt;% 
-  filter(!is.na(cor)) %&gt;% 
-  group_by(ano, cor) %&gt;% 
+  filter(!is.na(idioma)) %&gt;% 
+  mutate(idioma_ingles = case_when(idioma == "English" ~ "Apenas Inglês",
+                                   str_detect(idioma, "English") ~ "Inglês e outros idiomas",
+                                   TRUE ~ "Outros idiomas")) %&gt;%
+  group_by(ano, idioma_ingles) %&gt;% 
   summarise(num_filmes = n()) %&gt;% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor))
+  geom_line(aes(x = ano, y = num_filmes, color = idioma_ingles))
 ```
 
 ```
-## `summarise()` has grouped output by 'ano'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'ano'. You can override using the `.groups`
+## argument.
 ```
 
 ```
-## Warning: Removed 2 row(s) containing missing values (geom_path).
+## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglinhacolorida-1.png" width="576" style="display: block; margin: auto;" /&gt;
@@ -271,7 +275,7 @@ Podemos colocar pontos e retas no mesmo gráfico. Basta acrescentar os dois `geo
 
 ```r
 imdb %&gt;% 
-  filter(ator_1 == "Robert De Niro") %&gt;% 
+  filter(str_detect(elenco, "Robert De Niro")) %&gt;% 
   group_by(ano) %&gt;% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %&gt;% 
   ggplot() +
@@ -289,7 +293,7 @@ Quando precisamos usar o mesmo `aes()` em vários `geoms`, podemos defini-lo den
 
 ```r
 imdb %&gt;% 
-  filter(ator_1 == "Robert De Niro") %&gt;% 
+  filter(str_detect(elenco, "Robert De Niro")) %&gt;% 
   group_by(ano) %&gt;% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %&gt;% 
   ggplot(aes(x = ano, y = nota_media)) +
@@ -308,7 +312,7 @@ Se algum `geom` necessitar de um atributo que os outros não precisam, esse atri
 
 ```r
 imdb %&gt;% 
-  filter(ator_1 == "Robert De Niro") %&gt;% 
+  filter(str_detect(elenco, "Robert De Niro")) %&gt;% 
   group_by(ano) %&gt;% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %&gt;% 
   mutate(nota_media = round(nota_media, 1)) %&gt;% 
@@ -323,16 +327,16 @@ imdb %&gt;%
 ---
 # Gráfico de barras
 
-Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construímos um gráfico de barras do número de filmes dos 10 diretores que mais aparecem na nossa base do IMDB.
+Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construímos um gráfico de barras do número de filmes das 10 pessoas que mais dirigiram filmes na nossa base do IMDB.
 
 .tiny[
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
+  count(direcao) %&gt;%
   top_n(10, n) %&gt;%
   ggplot() +
-  geom_col(aes(x = diretor, y = n))
+  geom_col(aes(x = direcao, y = n))
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggbarras-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -342,9 +346,9 @@ imdb %&gt;%
 
 Gráficos de barras também precisam dos atributos `x` e `y`, sendo que o atributo `y` representará a altura de cada barra.
 
-No gráfico anterior, vemos que o `NA` é considerado uma "opção" de diretor e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
+No gráfico anterior, vemos que o `NA` é considerado uma "opção" de direcao e entra no gráfico. Podemos retirar os `NAs` dessa coluna previamente utilizando a função `filter()`.
 
-A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
+A seguir, além de retirar os `NAs`, atribuímos a coluna `direcao` à cor das colunas. Repare que, nesse caso, não utilizamos o atributo `color` e sim `fill`. A regra é a seguinte: o atributo `color` colore objetos sem área (pontos, linhas, contornos), o atributo `fill` preenche objetos com cor (barras, áreas, polígonos em geral).
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -353,12 +357,12 @@ A seguir, além de retirar os `NAs`, atribuímos a coluna `diretor` à cor das c
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(10, n) %&gt;%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   )
 ```
@@ -375,12 +379,12 @@ Para consertar as labels do eixo `x`, a melhor prática é invertermos os eixos 
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(10, n) %&gt;%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip()
@@ -392,11 +396,11 @@ imdb %&gt;%
 ---
 &lt;br&gt;&lt;br&gt;
 
-Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `diretor`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
+Para ordenar as colunas, precisamos mudar a ordem dos níveis do *fator* `direcao`. Para isso, utilizamos a função `fct_reorder()` do pacote `forcats`. A nova ordem será estabelecida pela coluna `n` (quantidade de filmes).
 
 Fatores dentro do R são números inteiros (1, 2, 3, ...) que possuem uma representação textual. Variáveis categóricas são transformadas em fatores pelo ggplot pois todo eixo cartesiano é numérico. Assim, os textos de uma variável categórica são, internamente, números inteiros.
 
-Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem dos diretores nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
+Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela ordem alfabética (repare na ordem das pessoas que dirigiram filmes nos gráficos anteriores). Assim, se transformássemos o vetor `c("banana", "uva", "melancia")` em um fator, a atribuição de inteiros seria: "banana" vira 1, "melancia" vira 2 e "uva" vira 3. Embora sejam inteiros internamente, sempre que chamássemos esse novo vetor, ainda sim veríamos os textos "banana", "uva" e "melancia".
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -405,13 +409,13 @@ Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(10, n) %&gt;%
-  mutate(diretor = forcats::fct_reorder(diretor, n)) %&gt;% 
+  mutate(direcao = forcats::fct_reorder(direcao, n)) %&gt;% 
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip()
@@ -423,19 +427,19 @@ imdb %&gt;%
 ---
 &lt;br&gt;&lt;br&gt;
 
-Por fim, podemos colocar uma label com o número de filmes de cada diretor dentro de cada barra.
+Por fim, podemos colocar uma label com o número de filmes de cada pessoa que dirigiu filmes dentro de cada barra.
 
 .tiny[
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(10, n) %&gt;%
-  mutate(diretor = forcats::fct_reorder(diretor, n)) %&gt;% 
+  mutate(direcao = forcats::fct_reorder(direcao, n)) %&gt;% 
   ggplot() +
-  geom_col(aes(x = diretor, y = n, fill = diretor), show.legend = FALSE) +
-  geom_label(aes(x = diretor, y = n/2, label = n)) +
+  geom_col(aes(x = direcao, y = n, fill = direcao), show.legend = FALSE) +
+  geom_label(aes(x = direcao, y = n/2, label = n)) +
   coord_flip()
 ```
 
@@ -456,7 +460,7 @@ O primeiro *warning* nos diz que o eixo x foi dividido em 30 intervalos para a c
 
 ```r
 imdb %&gt;% 
-  filter(diretor == "Steven Spielberg") %&gt;%
+  filter(direcao == "Steven Spielberg") %&gt;%
   ggplot() +
   geom_histogram(aes(x = lucro))
 ```
@@ -480,7 +484,7 @@ Para definir o tamanho de cada intervalo, podemos utilizar o argumento `bindwidt
 
 ```r
 imdb %&gt;% 
-  filter(diretor == "Steven Spielberg") %&gt;%
+  filter(direcao == "Steven Spielberg") %&gt;%
   ggplot() +
   geom_histogram(
     aes(x = lucro), 
@@ -503,7 +507,7 @@ Boxplots também são úteis para estudarmos a distribuição de uma variável, 
 
 Para construir um boxplot no ggplot, utilizamos a função `geom_boxplot`. Ele precisa dos atributos `x` e `y`, sendo que ao atributo `x` devemos mapear uma variável categórica.
 
-A seguir, construímos boxplots do lucro dos filmes dos diretores que fizeram mais de 15 filmes.
+A seguir, construímos boxplots do lucro dos filmes das pessoas que dirigiram de 15 filmes.
 
 ---
 &lt;br&gt;&lt;br&gt;
@@ -511,16 +515,21 @@ A seguir, construímos boxplots do lucro dos filmes dos diretores que fizeram ma
 .tiny[
 
 ```r
+direcao_mais_15_filmes &lt;- imdb %&gt;% 
+  filter(!is.na(direcao), !is.na(lucro) ) %&gt;%
+  group_by(direcao) %&gt;% 
+  count(direcao, sort = TRUE) %&gt;% 
+  filter(n &gt;= 15)
+
 imdb %&gt;% 
-  filter(!is.na(diretor)) %&gt;%
-  group_by(diretor) %&gt;% 
-  filter(n() &gt;= 15) %&gt;% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %&gt;% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 ```
 
 ```
-## Warning: Removed 10 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 20 rows containing non-finite values (stat_boxplot).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggboxplot-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -535,17 +544,15 @@ Também podemos reordenar a ordem dos boxplots utilizando a função `forcats::f
 
 ```r
 imdb %&gt;% 
-  filter(!is.na(diretor)) %&gt;%
-  group_by(diretor) %&gt;% 
-  filter(n() &gt;= 15) %&gt;% 
-  ungroup() %&gt;% 
-  mutate(diretor = forcats::fct_reorder(diretor, lucro, na.rm = TRUE)) %&gt;% 
+  filter(direcao %in% direcao_mais_15_filmes$direcao) %&gt;% 
+  mutate(direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)) %&gt;% 
   ggplot() +
-  geom_boxplot(aes(x = diretor, y = lucro))
+  geom_boxplot(aes(x = direcao, y = lucro)) +
+  coord_flip()
 ```
 
 ```
-## Warning: Removed 10 rows containing non-finite values (stat_boxplot).
+## Warning: Removed 20 rows containing non-finite values (stat_boxplot).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggboxplotreorder-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -581,7 +588,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglabs-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -655,12 +662,12 @@ Substituindo as cores padrão do gráfico por um outro conjunto de cores.
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(5, n) %&gt;%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip() +
@@ -679,12 +686,12 @@ Também podemos usar códigos hexadecimais.
 
 ```r
 imdb %&gt;% 
-  count(diretor) %&gt;%
-  filter(!is.na(diretor)) %&gt;% 
+  count(direcao) %&gt;%
+  filter(!is.na(direcao)) %&gt;% 
   top_n(5, n) %&gt;%
   ggplot() +
   geom_col(
-    aes(x = diretor, y = n, fill = diretor),
+    aes(x = direcao, y = n, fill = direcao),
     show.legend = FALSE
   ) +
   coord_flip() +
@@ -705,20 +712,22 @@ Trocando os textos da legenda.
 
 ```r
 imdb %&gt;% 
-  filter(!is.na(cor)) %&gt;% 
-  group_by(ano, cor) %&gt;% 
+  mutate(sucesso_nota = case_when(nota_imdb &gt;= 7 ~ "sucesso_nota_imbd",
+                                  TRUE ~ "sem_sucesso_nota_imdb")) %&gt;%
+  group_by(ano, sucesso_nota) %&gt;% 
   summarise(num_filmes = n()) %&gt;% 
   ggplot() +
-  geom_line(aes(x = ano, y = num_filmes, color = cor)) +
-  scale_color_discrete(labels = c("Preto e branco", "Colorido"))
+  geom_line(aes(x = ano, y = num_filmes, color = sucesso_nota)) +
+  scale_color_discrete(labels = c("Nota menor que 7", "Nota maior ou igual à 7"))
 ```
 
 ```
-## `summarise()` has grouped output by 'ano'. You can override using the `.groups` argument.
+## `summarise()` has grouped output by 'ano'. You can override using the `.groups`
+## argument.
 ```
 
 ```
-## Warning: Removed 2 row(s) containing missing values (geom_path).
+## Warning: Removed 1 row(s) containing missing values (geom_path).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/gglabelslegenda-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -743,7 +752,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggthememinimal-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -760,7 +769,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggthemebw-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -777,7 +786,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggthemeclassic-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -794,7 +803,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggthemedark-1.png" width="360" style="display: block; margin: auto;" /&gt;
@@ -821,7 +830,7 @@ imdb %&gt;%
 ```
 
 ```
-## Warning: Removed 720 rows containing missing values (geom_point).
+## Warning: Removed 23758 rows containing missing values (geom_point).
 ```
 
 &lt;img src="05-ggplot2_files/figure-html/ggthemealterado-1.png" width="504" style="display: block; margin: auto;" /&gt;
@@ -835,8 +844,7 @@ imdb %&gt;%
 
 - Seção de gráficos do R cookbook (ótima folha de cola): [http://www.cookbook-r.com/Graphs/](http://www.cookbook-r.com/Graphs/)
 
-
-
+- [Curso de visualização de dados](https://loja.curso-r.com/visualizac-o-de-dados.html)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

@@ -1,56 +1,127 @@
 ---
-title: "R para Ciência de Dados I"
-author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>"
-date: ""
+title: "R para Ciência de Dados 1"
+subtitle: "Introdução ao curso"
+author: "<img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '30%'>"
+date: "`r paste(lubridate::month(Sys.Date(), label = TRUE, abbr = FALSE, locale = 'pt_BR.UTF-8'), 'de', lubridate::year(Sys.Date()))`"
 output:
   xaringan::moon_reader:
-    css: ["css/xaringan-themer.css"]
+    css: ["default", "default-fonts", "css/xaringan-themer.css"]
     lib_dir: libs
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+      ratio: "16:9"
 knit: pagedown::chrome_print
 ---
+class: middle, center
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+link <- function(href, ...) {
+  htmltools::a(
+    href = href,
+    target = "_blank",
+    ...
+  )
+}
+```
 
 ```{r, child="00-preamble.Rmd"}
 
 ```
 
-class: middle, center
+```{css, echo=FALSE}
+.smaller{
+  font-size: 0.8em;
+}
+```
+
+
+
 
 # Sobre a Curso-R
 
 ---
 
-class: middle, center
-
 ## A empresa
 
-.pull-left[
-```{r, echo = FALSE}
+<br>
+
+```{r, echo = FALSE, out.width="50%", fig.align="center"}
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/295643c6243701ae6a9bac3fb8ad467ff0ce3c84/d1785/img/logo/cursor1-41.png")
 ```
 
 <br>
 <br>
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, out.width="40%", fig.align="center"}
 knitr::include_graphics("img/logo_r6.png")
 ```
 
+---
+
+## Filosofia de código aberto!
+
+.pull-left[
+```{r, echo = FALSE}
+htmltools::h3("Livros")
+
+link(
+  href = "https://livro.curso-r.com/",
+  htmltools::img(src = "img/hex-livro.png", width = "100px")
+)
+
+link(
+  href = "https://curso-r.github.io/zen-do-r/index.html",
+  htmltools::img(
+    src = "img/zen-do-r.png",
+    width = "100px",
+    style = "margin-left: 20px;"
+  )
+)
+```
+
+<br>
+
+```{r, echo = FALSE}
+htmltools::h3("Lives")
+link(
+  href = "https://www.youtube.com/c/CursoR6",
+  htmltools::img(src = "img/youtube.png", width = "200px")
+)
+```
 ]
 
 .pull-right[
 ```{r, echo = FALSE}
-knitr::include_graphics("img/produtos.png")
+htmltools::h3("Material dos cursos")
+link(
+  href = "https://github.com/curso-r",
+  htmltools::img(src = "img/github.png", width = "230px")
+)
+```
+
+<br>
+
+```{r, echo = FALSE}
+htmltools::h3("Blog")
+link(
+  href = "https://blog.curso-r.com/",
+  htmltools::img(src = "img/blog.png", width = "400px")
+)
 ```
 ]
 
+<br>
+
+.center[
 ### [www.curso-r.com](https://www.curso-r.com)
+]
+
 
 ---
-
 ## Nossos cursos
 
 .smaller[
@@ -65,74 +136,21 @@ class: middle, center
 # Sobre o curso
 
 ---
-## Conteúdo
+## Dinâmica curso
 
-<center>
-<img src = "img/conteudo.png" width = "80%">
-</center>   
-
----
-
-## Material
-
-<center>
-
-<br>
-
-Nosso livro Ciência de Dados em R:
-
-<br>
-
-<a href='https://livro.curso-r.com/'>https://livro.curso-r.com/</a>
-
-<br>
-<br>
-
-Também temos um blog: 
-
-<br>
-
-<a href='http://curso-r.com/blog/'>http://curso-r.com/blog/ </a>
-
-</center>
-
-<a href="https://www.curso-r.com/blog/2019-07-15-comunidade/">
-<img src="img/post-comunidade.png" style="position: fixed; bottom: 80px; left: 180px" width = 170px height = 280px></img>
-</a>
-
-<a href="https://www.curso-r.com/blog/2017-07-29-segundo-menor-dl/">
-<img src="img/post-deep-learning.png" style="position: fixed; bottom: 78px; left: 380px" width = 170px height = 275px></img>
-</a>
-
-<a href="https://www.curso-r.com/blog/2017-05-01-as-paletas-de-cores-da-marvel-vs-dc/">
-<img src="img/post-marvel.png" style="position: fixed; bottom: 82px; left: 570px" width = 170px height = 277px></img>
-</a>
-
----
-
-## Referência
-
-Disponível online e gratuitamente em [Inglês](https://r4ds.had.co.nz/) e [Espanhol](https://es.r4ds.hadley.nz/).
-
-<center>
-<a href = "https://r4ds.had.co.nz">
-<img src="img/r4ds.png" width = 40%> 
-</a>
-
-</center>
-
----
-## Dinâmica do curso
+- As aulas serão em maior parte expositivas.
 
 - As aulas terão uma seção teórica, de exposição de conceitos, e prática, de aplicação de conceitos.
 
-- Teremos diversos exercícios para serem feitos "em casa".
-
 - O objetivo dos exercícios é gerar dúvidas. **Com exceção do trabalho final, nenhum exercício precisa ser entregue**.
 
-- O certificado será emitido mediante um **trabalho final**. O prazo da entrega final será de pelo menos 2 semanas após a última aula.
+- O certificado será emitido mediante uma **entrega final**, a ser especificada nas últimas aulas do curso. 
 
 - Haverá monitoria para esclarecimento de dúvidas sempre 30 minutos antes do início das aulas.
+
+- Usaremos os últimos minutos de cada aula para tirar dúvidas do conteúdo apresentado. Não haverá plantão de dúvidas pós aula.
+
+- A gravação das aulas ficará disponível no Google Classroom por 1 ano após o final do curso.
 
 ---
 ## Dinâmica das aulas
@@ -146,45 +164,16 @@ Disponível online e gratuitamente em [Inglês](https://r4ds.had.co.nz/) e [Espa
 - Só interrompa quem estiver falando em caso de emergência.
 
 ---
-class: middle, center
+## Tire suas dúvidas
 
-# `r blue("Como estudar?")`
-
----
-# Pratique
-
-- Não se preocupe com estilos de estudo. Use o que te deixar mais confortável.
-
-- Estude um pouco todo dia. Se você tem apenas uma hora para estudar na semana, faça 3 sessões de 20 minutos em dias diferentes.
-
-- Se teste! Coloque em prática o que você aprendeu resolvendo exercícios ou inserindo o R no seu dia-a-dia.
-
-
-<br>
-<br>
-### Referência
-
-[Nahurhodo 205 - Powerpoint é útil para a aprendizagem?](https://www.b9.com.br/shows/naruhodo/naruhodo-205-powerpoint-e-util-para-a-aprendizagem/)
-
----
-# Tire suas dúvidas
-
-- **Não existe dúvida idiota**.
+- **Não fique com dúvida**.
  
 - Fora do horário de aula ou monitoria:
-    - envie suas perguntas gerais sobre o curso no Classroom.
+    - envie suas perguntas gerais **sobre o curso** no Classroom.
      
-    - envie preferencialmente suas perguntas sobre R, principalmente as que envolverem código, no [nosso discourse](https://discourse.curso-r.com/).
+    - envie preferencialmente suas perguntas **sobre R** no [nosso discourse](https://discourse.curso-r.com/).
 
-- [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
-
-### Por que usar o discourse?
-
-- Muito melhor para escrever textos que possuem códigos. Com ele, podemos usar o pacote `{reprex}`!
-
-- Mais pessoas acompanhando e respondendo as dúvidas.
-
-- Em um ambiente aberto, as suas dúvidas vão contribuir com a comunidade.
+- Saber fazer a pergunta certa vai te ajudar bastante nos estudos de programação. [Veja aqui dicas de como fazer uma boa pergunta](https://discourse.curso-r.com/t/como-escrever-uma-boa-pergunta/542).
 
 ---
 # Abrace o seu sotaque
@@ -319,10 +308,16 @@ class: middle, center
 
 ## O ciclo da ciência de dados
 
-<img src="img/ciclo-ciencia-de-dados.png" style = "display: block; margin-left: auto; margin-right: auto;">
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/ciclo-ciencia-de-dados.png")
+```
+
 
 ---
 
 ## O ciclo da ciência de dados com o R
 
-<img src="img/ciclo-ciencia-de-dados-pacotes.png" style = "display: block; margin-left: auto; margin-right: auto;">
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("img/ciclo-ciencia-de-dados-pacotes.png")
+```
