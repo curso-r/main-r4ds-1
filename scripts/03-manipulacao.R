@@ -34,7 +34,7 @@ imdb
 
 select(imdb, titulo, ano, orcamento)
 
-select(imdb, titulo:genero)
+select(imdb, titulo:generos)
 
 # Funções auxiliares
 
