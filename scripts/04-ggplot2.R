@@ -215,30 +215,28 @@ imdb %>%
   )
 
 # Boxplot do lucro dos filmes das pessoas que dirigiram
-# mais de 15 filmes
-direcao_mais_15_filmes <- imdb %>% 
-  filter(!is.na(direcao), !is.na(lucro) ) %>%
-  group_by(direcao) %>% 
-  count(direcao, sort = TRUE) %>% 
-  filter(n >= 15)
-
-direcao_mais_15_filmes$direcao
-
+# mais de 30 filmes
 imdb %>% 
-  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
+  filter(!is.na(direcao)) %>%
+  group_by(direcao) %>% 
+  filter(n() >= 30) %>% 
+  mutate(lucro = receita - orcamento) %>% 
   ggplot() +
-  geom_boxplot(aes(x = direcao, y = lucro)) +
-  coord_flip()
+  geom_boxplot(aes(x = direcao, y = lucro))
 
 # Ordenando pela mediana
 
 imdb %>% 
-  filter(direcao %in% direcao_mais_15_filmes$direcao) %>% 
-  mutate(direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)) %>% 
+  filter(!is.na(direcao)) %>%
+  group_by(direcao) %>% 
+  filter(n() >= 30) %>% 
+  ungroup() %>% 
+  mutate(
+    lucro = receita - orcamento,
+    direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)
+  ) %>% 
   ggplot() +
-  geom_boxplot(aes(x = direcao, y = lucro)) +
-  coord_flip()
-
+  geom_boxplot(aes(x = direcao, y = lucro))
 
 # Título e labels ---------------------------------------------------------
 
