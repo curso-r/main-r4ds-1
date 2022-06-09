@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.14.2/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -334,7 +334,7 @@ Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construí
 ```r
 imdb %&gt;% 
   count(direcao) %&gt;%
-  top_n(10, n) %&gt;%
+  slice_max(order_by = n, n = 10) %&gt;% 
   ggplot() +
   geom_col(aes(x = direcao, y = n))
 ```
@@ -359,7 +359,7 @@ A seguir, além de retirar os `NAs`, atribuímos a coluna `direcao` à cor das c
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(10, n) %&gt;%
+  slice_max(order_by = n, n = 10) %&gt;% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -381,7 +381,7 @@ Para consertar as labels do eixo `x`, a melhor prática é invertermos os eixos 
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(10, n) %&gt;%
+  slice_max(order_by = n, n = 10) %&gt;% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -411,7 +411,7 @@ Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(10, n) %&gt;%
+  slice_max(order_by = n, n = 10) %&gt;% 
   mutate(direcao = forcats::fct_reorder(direcao, n)) %&gt;% 
   ggplot() +
   geom_col(
@@ -435,7 +435,7 @@ Por fim, podemos colocar uma label com o número de filmes de cada pessoa que di
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(10, n) %&gt;%
+  slice_max(order_by = n, n = 10) %&gt;% 
   mutate(direcao = forcats::fct_reorder(direcao, n)) %&gt;% 
   ggplot() +
   geom_col(aes(x = direcao, y = n, fill = direcao), show.legend = FALSE) +
@@ -664,7 +664,7 @@ Substituindo as cores padrão do gráfico por um outro conjunto de cores.
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(5, n) %&gt;%
+  slice_max(order_by = n, n = 5) %&gt;% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -688,7 +688,7 @@ Também podemos usar códigos hexadecimais.
 imdb %&gt;% 
   count(direcao) %&gt;%
   filter(!is.na(direcao)) %&gt;% 
-  top_n(5, n) %&gt;%
+  slice_max(order_by = n, n = 5) %&gt;% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),

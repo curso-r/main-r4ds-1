@@ -148,7 +148,7 @@ imdb <- readr::read_rds("dados/imdb.rds")
 top_10_direcao <- imdb %>% 
   filter(!is.na(direcao)) %>% 
   count(direcao) %>% 
-  top_n(10, n) %>% 
+  slice_max(order_by = n, n = 10) %>% 
   pull(direcao)
   
 

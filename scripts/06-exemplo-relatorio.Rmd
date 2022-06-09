@@ -46,7 +46,7 @@ A tabela abaixo mostra as 15 pessoas na base que mais dirigiram filmes de coméd
 
 ```{r, fig.height=10, fig.width=8}
 tab_lucro %>% 
-  top_n(15, num_filmes) %>% 
+  slice_max(order_by = num_filmes, n = 15) %>% 
   mutate(
     lucro_medio = lucro_medio / 1000000,
     direcao = forcats::fct_reorder(direcao, num_filmes)
@@ -125,7 +125,7 @@ imdb %>%
          !is.na(direcao),
          num_avaliacoes > 5000,
          ano > 1980) %>%
-  top_n(15, nota_imdb) %>% 
+  slice_max(order_by = nota_imdb, n = 15) %>% 
   arrange(desc(nota_imdb)) %>% 
   select(
     Filme = titulo,

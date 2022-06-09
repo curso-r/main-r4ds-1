@@ -109,7 +109,7 @@ A seguir, mostramos os 10 filmes com maior lucro na base.
 ```{r}
 imdb %>% 
   mutate(lucro = receita - orcamento) %>% 
-  top_n(10, lucro) %>% 
+  slice_max(order_by = lucro, n = 10) %>% 
   arrange(lucro) %>%
   mutate(
     pos = 10:1,

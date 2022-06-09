@@ -137,7 +137,7 @@ imdb %>%
 # Número de filmes das pessoas que dirigiram filmes na base
 imdb %>% 
   count(direcao) %>%
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(aes(x = direcao, y = n))
 
@@ -145,7 +145,7 @@ imdb %>%
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -156,7 +156,7 @@ imdb %>%
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(
     aes(x = n, y = direcao, fill = direcao),
@@ -168,7 +168,7 @@ imdb %>%
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   mutate(
     direcao = forcats::fct_reorder(direcao, n)
   ) %>% 
@@ -182,7 +182,7 @@ imdb %>%
 top_10_direcao <- imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) 
+  slice_max(order_by = n, n = 10) 
 
 top_10_direcao %>%
   mutate(
@@ -278,7 +278,7 @@ imdb %>%
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(5, n) %>%
+  slice_max(order_by = n, n = 5) %>% 
   ggplot() +
   geom_col(
     aes(x = n, y = direcao, fill = direcao), 
@@ -291,7 +291,7 @@ imdb %>%
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(5, n) %>%
+  slice_max(order_by = n, n = 5) %>% 
   ggplot() +
   geom_col(
     aes(x = n, y = direcao, fill = direcao), 

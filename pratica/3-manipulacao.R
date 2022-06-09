@@ -154,7 +154,7 @@ starwars %>%
   filter(!is.na(massa)) %>% 
   group_by(especie) %>% 
   summarise(peso_medio = mean(massa)) %>% 
-  top_n(10, peso_medio) %>% 
+  slice_max(order_by = peso_medio, n = 10) %>% 
   arrange(desc(peso_medio))
 
 # Comparando com a altura
@@ -165,6 +165,6 @@ starwars %>%
     peso_medio = mean(massa),
     altura_media = mean(altura)
   ) %>% 
-  top_n(10, peso_medio) %>% 
+  slice_max(order_by = peso_medio, n = 10) %>% 
   arrange(desc(peso_medio))
 

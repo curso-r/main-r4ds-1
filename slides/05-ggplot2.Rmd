@@ -266,7 +266,7 @@ Para construir gráficos de barras, utilizamos o `geom_col`. A seguir, construí
 ```{r ggbarras, fig.width = 7, fig.height = 3.5}
 imdb %>% 
   count(direcao) %>%
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(aes(x = direcao, y = n))
 ```
@@ -288,7 +288,7 @@ A seguir, além de retirar os `NAs`, atribuímos a coluna `direcao` à cor das c
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -307,7 +307,7 @@ Para consertar as labels do eixo `x`, a melhor prática é invertermos os eixos 
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -334,7 +334,7 @@ Por padrão, os inteiros são atribuídos a cada categoria de uma variável pela
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   mutate(direcao = forcats::fct_reorder(direcao, n)) %>% 
   ggplot() +
   geom_col(
@@ -355,7 +355,7 @@ Por fim, podemos colocar uma label com o número de filmes de cada pessoa que di
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(10, n) %>%
+  slice_max(order_by = n, n = 10) %>% 
   mutate(direcao = forcats::fct_reorder(direcao, n)) %>% 
   ggplot() +
   geom_col(aes(x = direcao, y = n, fill = direcao), show.legend = FALSE) +
@@ -528,7 +528,7 @@ Substituindo as cores padrão do gráfico por um outro conjunto de cores.
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(5, n) %>%
+  slice_max(order_by = n, n = 5) %>% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
@@ -549,7 +549,7 @@ Também podemos usar códigos hexadecimais.
 imdb %>% 
   count(direcao) %>%
   filter(!is.na(direcao)) %>% 
-  top_n(5, n) %>%
+  slice_max(order_by = n, n = 5) %>% 
   ggplot() +
   geom_col(
     aes(x = direcao, y = n, fill = direcao),
