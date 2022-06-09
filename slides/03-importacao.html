@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.14.2/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -40,10 +40,6 @@ class: middle, center
 Importar uma base de dados para o R significa levar a informação contida no disco rígido (HD) para a mé moria RAM.
 
 &lt;img src="img/import.png" width="1284" /&gt;
-
-```
-## Warning: package 'readr' was built under R version 4.1.2
-```
 
 ---
 # Caminhos
@@ -193,10 +189,10 @@ A mensagem devolvida pela função indica qual classe foi atribuída para cada c
 .tiny[
 
 ```
-## Rows: 78681 Columns: 21
+## Rows: 28490 Columns: 20
 ## ── Column specification ───────────────────────────────────────────────────
 ## Delimiter: ","
-## chr (12): id_filme, titulo, titulo_original, data_lancamento, generos, ...
+## chr (11): id_filme, titulo, data_lancamento, generos, pais, idioma, dir...
 ## dbl  (9): ano, duracao, orcamento, receita, receita_eua, nota_imdb, num...
 ## 
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
@@ -216,24 +212,24 @@ imdb_csv
 ```
 
 ```
-## # A tibble: 78,681 × 21
-##    id_filme  titulo   titulo_original   ano data_lancamento generos duracao
-##    &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt;
-##  1 tt0023352 Prestig… Prestige         1931 1932-01-22      Advent…      71
-##  2 tt0260671 24 chasa 24 chasa         2000 2000-11-03      Crime,…      86
-##  3 tt0065908 Jak roz… Jak rozpetalem…  1970 1970-04-02      Advent…     224
-##  4 tt0037946 La barr… Nob Hill         1945 1945-11-15      Drama,…      95
-##  5 tt0216204 The Sha… The Shade        1999 2000-03-01      Drama        83
-##  6 tt0304076 Aionios… Aionios foitit…  2001 2002-04-12      Drama       100
-##  7 tt0043622 L'eredi… Das Haus in Mo…  1951 1951-11-08      Comedy      106
-##  8 tt1581835 Daydrea… Daydream Nation  2010 2010-11-11      Drama,…      98
-##  9 tt9778190 Shinbun… Shinbun kisha    2019 2019-06-28      Drama       113
-## 10 tt1680089 Femmine… Femmine contro…  2011 2011-02-04      Comedy       98
-## # … with 78,671 more rows, and 14 more variables: pais &lt;chr&gt;,
-## #   idioma &lt;chr&gt;, orcamento &lt;dbl&gt;, receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;,
-## #   nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;,
-## #   producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # A tibble: 28,490 × 20
+##    id_filme  titulo        ano data_lancamento generos duracao pais  idioma
+##    &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+##  1 tt0023352 Prestige     1931 1932-01-22      Advent…      71 USA   Engli…
+##  2 tt0037946 Nob Hill     1945 1945-11-15      Drama,…      95 USA   Engli…
+##  3 tt0216204 The Shade    1999 2000-03-01      Drama        83 USA   Engli…
+##  4 tt0171889 Viewer Dis…  1998 2012-05-01      Comedy…     105 USA   Engli…
+##  5 tt0092699 Broadcast …  1987 1988-04-01      Comedy…     133 USA   Engli…
+##  6 tt0037931 Murder, He…  1945 1945-06-23      Comedy…      91 USA   Engli…
+##  7 tt0041659 Mother Is …  1949 1949-06-10      Comedy       81 USA   Engli…
+##  8 tt0049571 On the Thr…  1956 1956-04-30      Drama        98 USA   Engli…
+##  9 tt3772198 Her Name W…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;  
+## 10 tt6212020 It Lives i…  2016 2016-11-12      Thrill…      85 USA   Engli…
+## # … with 28,480 more rows, and 12 more variables: orcamento &lt;dbl&gt;,
+## #   receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
