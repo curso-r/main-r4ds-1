@@ -14,8 +14,8 @@ View(imdb)
 
 # dplyr: 6 verbos principais
 # select()    # seleciona colunas do data.frame
-# filter()    # filtra linhas do data.frame
 # arrange()   # reordena as linhas do data.frame
+# filter()    # filtra linhas do data.frame
 # mutate()    # cria novas colunas no data.frame (ou atualiza as colunas existentes)
 # summarise() + group_by() # sumariza o data.frame
 # left_join   # junta dois data.frames
@@ -124,90 +124,69 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
-# Conceitos importantes para filtros! --------------------------------------
+# filter ------------------------------------------------------------------
+
+# filter() - filtrar linhas da base --------
+
+# NOME nome - o R é case sensitive
+# olhar as categorias de uma variável
+# Retorna uma tabela
+imdb %>% 
+  distinct(direcao) %>% 
+  View()
+
+# Retorna um vetor
+unique(imdb$direcao)
+
+
+
+# Aqui falaremos de Conceitos importantes para filtros, seguindo de exemplos!
 
 ## Comparações lógicas -------------------------------
 
-x <- 1 
 
-# Testes com resultado verdadeiro
+# comparacao logica
+# == significa: uma coisa é igual a outra?
+x <- 1
+
+# Teste com resultado verdadeiro
 x == 1
-"a" == "a"
 
-# Testes com resultado falso
+# Teste com resultado falso
 x == 2
-"a" == "b"
 
-# Maior
+# Exemplo com filtros!
+# Filtrando uma coluna da base: O que for TRUE (verdadeiro)
+# será mantido!
+
+imdb %>% 
+  filter(direcao == "Quentin Tarantino") %>%
+  View()
+
+imdb %>% 
+  filter(direcao == "Quentin Tarantino", 
+         producao == "Miramax") %>%
+  View()
+
+
+
+
+## Comparações lógicas -------------------------------
+
+# maior 
 x > 3
 x > 0
-
-# Maior ou igual
-x > 1
-x >= 1
-
-# Menor
+# menor
 x < 3
 x < 0
 
-# Menor ou igual
+
+x > 1
+x >= 1 # # Maior ou igual
 x < 1
-x <= 1
+x <= 1 # menor ou igual
 
-# Diferente
-x != 1
-x != 2
-
-x %in% c(1, 2, 3)
-"a" %in% c("b", "c")
-
-## Operadores lógicos -------------------------------
-
-## & - E - Para ser verdadeiro, os dois lados 
-# precisam resultar em TRUE
-
-x <- 5
-x >= 3 & x <=7
-
-
-y <- 2
-y >= 3 & y <= 7
-
-## | - OU - Para ser verdadeiro, apenas um dos 
-# lados precisa ser verdadeiro
-
-y <- 2
-y >= 3 | y <=7
-
-y <- 1
-y >= 3 | y == 0
-
-
-## ! - Negação - É o "contrário"
-
-!TRUE
-
-!FALSE
-
-
-w <- 5
-(!w < 4)
-
-# filter ------------------------------------------------------------------
-
-# Filtrando uma coluna da base
-
-imdb %>% filter(direcao == "Quentin Tarantino")
-
-imdb %>% filter(nota_imdb > 9)
-imdb %>% filter(num_avaliacoes > 10000)
-
-
-# Vendo categorias de uma variável
-unique(imdb$pais) # saída é um vetor
-imdb %>% distinct(pais) # saída é uma tibble
-
-# Filtrando duas colunas da base
+# Exemplo com filtros!
 
 ## Recentes e com nota alta
 imdb %>% filter(nota_imdb > 9, num_avaliacoes > 10000)
@@ -220,27 +199,137 @@ imdb %>% filter(orcamento < 100000, receita > 1000000)
 ## Lucraram
 imdb %>% filter(receita - orcamento > 0)
 
+
+## Comparações lógicas -------------------------------
+
+x != 2
+x != 1
+
+# Exemplo com filtros!
+imdb %>% 
+  filter(direcao != "Quentin Tarantino") %>% 
+  View()
+
+## Comparações lógicas -------------------------------
+
+# operador %in%
+x %in% c(1, 2, 3)
+x %in% c(2, 3, 4)
+
+# Exemplo com filtros!
+
+
+# O operador %in%
+
+
+
+imdb %>% filter(direcao %in% c('Matt Reeves', "Christopher Nolan"))
+
+
+imdb %>%
+  filter(
+    direcao %in% c(
+      "Quentin Tarantino",
+      "Christopher Nolan",
+      "Matt Reeves",
+      "Steven Spielberg",
+      "Francis Ford Coppola"
+    )
+  )
+
+
+
+## Operadores lógicos -------------------------------
+## operadores lógicos - &, | , !
+
+## & - E - Para ser verdadeiro, os dois lados
+# precisam resultar em TRUE
+x <- 5
+
+x >= 3
+x <= 7
+
+x >= 3 & x <= 7
+
+x >= 3 & x <= 4
+
+# no filter, a virgula funciona como o &!
+imdb %>%  filter(ano > 2010, nota_imdb > 8.5) %>% View()
+imdb %>%  filter(ano > 2010 & nota_imdb > 8.5)
+
+
+## Operadores lógicos -------------------------------
+
+## | - OU - Para ser verdadeiro, apenas um dos
+# lados precisa ser verdadeiro
+
+# operador |
+
+
+y <- 2
+y >= 3
+y <= 7
+
+y >= 3 | y <= 7
+
+y >= 3 | y <= 0
+
+# Exemplo com filter
+
 ## Lucraram mais de 500 milhões OU têm nota muito alta
 imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
 
-# O operador %in%
-imdb %>% filter(direcao %in% c('Matt Reeves', "Christopher Nolan"))
+# O que esse quer dizer?
+imdb %>% filter(ano > 2010 | nota_imdb > 8.5) %>% View()
 
-# Negação
-imdb %>% filter(direcao %in% c("Quentin Tarantino", "Steven Spielberg"))
-imdb %>% filter(!direcao %in% c("Quentin Tarantino", "Steven Spielberg"))
+## Operadores lógicos -------------------------------
 
-# O que acontece com o NA?
-df <- tibble(x = c(1, NA, 3))
+## ! - Negação - É o "contrário"
+
+# operador de negação !
+# é o contrario
+
+!TRUE
+
+!FALSE
+
+# Exemplo com filter
+
+imdb %>% 
+  filter(!direcao %in% c("Quentin Tarantino",
+                         "Christopher Nolan",
+                         "Matt Reeves",
+                         "Steven Spielberg",
+                         "Francis Ford Coppola"
+  )) %>%
+  View()
+
+
+
+# exemplo com NA
+is.na(imdb$orcamento)
+
+imdb %>% 
+  filter(!is.na(orcamento))
+
+# o filtro por padrão tira os NAs!
+df <- tibble(x = c(1, 2, 3, NA))
+df
 
 filter(df, x > 1)
-filter(df, is.na(x) | x > 1)
 
-# Filtrando texto sem correspondência exata
-# A função str_detect()
-textos <- c("a", "aa","abc", "bc", "A", NA)
+# manter os NAs!
+filter(df, x > 1 | is.na(x))
 
-str_detect(textos, pattern = "a")
+# filtrar textos sem correspondência exata
+
+textos <- c("a", "aa", "abc", "bc", "A", NA)
+textos
+
+library(stringr) # faz parte do tidyverse
+
+str_detect(textos, pattern =  "a")
+
 
 ## Pegando os seis primeiros valores da coluna "generos"
 imdb$generos[1:6]
@@ -250,9 +339,24 @@ str_detect(
   pattern = "Drama"
 )
 
+
 ## Pegando apenas os filmes que 
 ## tenham o gênero ação
 imdb %>% filter(str_detect(generos, "Action")) 
+
+
+# filtra generos que contenha filmes que tenha "Crime" no texto
+imdb %>% 
+  filter(str_detect(generos, "Crime")) %>% 
+  View()
+
+# filtra generos que seja IGUAL e APENAS "Crime"
+imdb %>% filter(generos == "Crime")
+
+
+
+
+
 
 # mutate ------------------------------------------------------------------
 
