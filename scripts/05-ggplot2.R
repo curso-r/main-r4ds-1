@@ -1,3 +1,6 @@
+# Isso é uma opção que evita mostrar os números com notação científica
+options(scipen = 999)
+
 
 # Carregar pacotes --------------------------------------------------------
 
@@ -26,18 +29,18 @@ imdb %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita))
 
-# Inserindo a reta x = y
+# Inserindo uma reta horizontal: filmes com receita maior que 1 milhão!
 imdb %>%
   ggplot() +
   geom_point(aes(x = orcamento, y = receita)) +
-  geom_abline(intercept = 0, slope = 1, color = "red")
+  geom_hline(yintercept = 1000000, color = "red", linetype = 2)
 
 # Observe como cada elemento é uma camada do gráfico.
 # Agora colocamos a camada da linha antes da camada
 # dos pontos.
 imdb %>%
   ggplot() +
-  geom_abline(intercept = 0, slope = 1, color = "red") +
+  geom_hline(yintercept = 1000000, color = "red", linetype = 2) +
   geom_point(aes(x = orcamento, y = receita))
 
 # Atribuindo a variável lucro aos pontos
@@ -47,6 +50,7 @@ imdb %>%
 
 # Categorizando o lucro antes
 imdb %>%
+  drop_na(lucro)  %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
   ) %>%
@@ -55,14 +59,26 @@ imdb %>%
 
 # Salvando um gráfico em um arquivo
 imdb %>%
+  drop_na(lucro)  %>%
   mutate(
     lucrou = ifelse(lucro <= 0, "Não", "Sim")
   ) %>%
   ggplot() +
-  geom_point(aes(x = orcamento, y = receita, color = lucrou))
+  geom_point(aes(x = orcamento, y = receita, color = lucrou), alpha = 0.5)
 
+
+
+
+# se você não especificar essas parâmetros,  ele salva por default do jeito 
+# que ta na sua tela do R
 ggsave("meu_grafico.png")
 
+# podemos especificar o tamanho
+ggsave("meu_grafico.png", 
+       dpi = 300, # resolucao
+       width = 7, # largura
+       height = 5 # altura
+) 
 
 # Filosofia ---------------------------------------------------------------
 
@@ -215,28 +231,26 @@ imdb %>%
   )
 
 # Boxplot do lucro dos filmes das pessoas que dirigiram
-# mais de 30 filmes
+# mais de 15 filmes (que temos informações sobre o lucro)
 imdb %>% 
-  filter(!is.na(direcao)) %>%
+  drop_na(direcao, lucro) %>% 
   group_by(direcao) %>% 
-  filter(n() >= 30) %>% 
-  mutate(lucro = receita - orcamento) %>% 
+  filter(n() >= 15) %>% 
   ggplot() +
-  geom_boxplot(aes(x = direcao, y = lucro))
+  geom_boxplot(aes(y = direcao, x = lucro))
 
 # Ordenando pela mediana
 
 imdb %>% 
-  filter(!is.na(direcao)) %>%
+  drop_na(direcao, lucro) %>% 
   group_by(direcao) %>% 
-  filter(n() >= 30) %>% 
+  filter(n() >= 15) %>% 
   ungroup() %>% 
   mutate(
-    lucro = receita - orcamento,
-    direcao = forcats::fct_reorder(direcao, lucro, na.rm = TRUE)
+    direcao = forcats::fct_reorder(direcao, lucro, .fun = median)
   ) %>% 
   ggplot() +
-  geom_boxplot(aes(x = direcao, y = lucro))
+  geom_boxplot(aes(y = direcao, x = lucro))
 
 # Título e labels ---------------------------------------------------------
 
@@ -259,18 +273,19 @@ imdb %>%
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
   geom_line(aes(x = ano, y = nota_media)) +
-  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
+  scale_x_continuous(breaks = seq(1880, 2020, 10)) +
   scale_y_continuous(breaks = seq(0, 10, 2))
 
 # Visão do gráfico
+
 imdb %>% 
   group_by(ano) %>% 
   summarise(nota_media = mean(nota_imdb, na.rm = TRUE)) %>% 
   ggplot() +
   geom_line(aes(x = ano, y = nota_media)) +
-  scale_x_continuous(breaks = seq(1896, 2016, 10)) +
-  scale_y_continuous(breaks = seq(0, 10, 2)) +
-  coord_cartesian(ylim = c(0, 10))
+  scale_x_continuous(breaks = seq(1880, 2020, 10), limits = c(1910, 2020)) +
+  scale_y_continuous(breaks = seq(0, 10, 2), limits = c(0, 10))
+
 
 # Cores -------------------------------------------------------------------
 
@@ -311,7 +326,7 @@ imdb %>%
   geom_line(aes(x = ano, y = num_filmes, color = sucesso_nota)) +
   scale_color_discrete(labels = c("Nota menor que 7", "Nota maior ou igual à 7"))
 
-# Definiando cores das formas geométricas
+# Definindo cores das formas geométricas
 imdb %>% 
   ggplot() +
   geom_point(mapping = aes(x = orcamento, y = receita), color = "#ff7400")

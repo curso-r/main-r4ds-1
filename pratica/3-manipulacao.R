@@ -168,3 +168,26 @@ starwars %>%
   slice_max(order_by = peso_medio, n = 10) %>% 
   arrange(desc(peso_medio))
 
+
+
+## -----
+# IMDB: Objetivo: criar uma tabela sumarizando as produtoras, ordenadas por lucro.
+imdb_produtoras <- imdb %>% 
+  drop_na(orcamento, receita) %>% 
+  mutate(lucro = receita - orcamento) %>% 
+  group_by(producao) %>% 
+  summarise(
+    media_orcamento = mean(orcamento, na.rm = TRUE),
+    media_receita = mean(receita, na.rm = TRUE),
+    media_lucro = mean(lucro, na.rm = TRUE),
+    qtd = n(),
+    qtd_direcao = n_distinct(direcao),
+    filmes = knitr::combine_words(titulo, sep = ", ", and = " e ", oxford_comma = FALSE)
+  ) %>%
+  arrange(desc(media_lucro)) 
+
+imdb_produtoras %>% 
+  write_csv2("dados_output/imdb_produtoras.csv")
+
+
+imdb_produtoras

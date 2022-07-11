@@ -1,5 +1,5 @@
 ---
-title: "Relatórios em R Markdown"
+title: "Aula de Relatórios em R Markdown"
 output: html_document
 ---
 
@@ -100,6 +100,29 @@ Veja que as mensagens e warnings dos nossos códigos também são colocadas no r
 
 Você precisa carregar o pacote apenas uma vez em cada documento. Uma vez carregado um pacote, suas funçõe estarão disponíveis para todo código em R abaixo, no mesmo ou em outros chunks.
 
+## Inline code!
+
+Podemos usar resultados de código no texto, usando o inline code. A sintaxe é 
+```{r, eval=FALSE}
+`r codigo`
+```
+
+
+```{r message=FALSE, warning=FALSE}
+library(knitr)
+library(scales)
+# como buscar filmes com a nota maior ou igual 9 e com pelo menos 10.000 avaliacoes?
+filmes_com_nota_maior_que_nove <- imdb %>% 
+  filter(nota_imdb >= 9, num_avaliacoes > 10000)
+titulos_filmes_top <- filmes_com_nota_maior_que_nove %>% 
+  summarise(titulos = combine_words(titulo, and = " e ", oxford_comma = FALSE)) %>% 
+  pull(titulos)
+```
+
+
+A base do imdb possui `r nrow(imdb)` filmes. O filme mais antigo na base é do ano de `r min(imdb$ano, na.rm = TRUE)`, e o mais recente é do ano de `r max(imdb$ano, na.rm = TRUE)`. Existem `r nrow(filmes_com_nota_maior_que_nove)` filmes com a nota igual ou maior que 9 e com pelo menos 10.000 avaliações: `r titulos_filmes_top`.
+
+
 ## Incluindo tabelas
 
 A função `knit::kable()` é muito útil para gerar tabelas bem formatadas.
@@ -110,7 +133,7 @@ A seguir, mostramos os 10 filmes com maior lucro na base.
 imdb %>% 
   mutate(lucro = receita - orcamento) %>% 
   slice_max(order_by = lucro, n = 10) %>% 
-  arrange(lucro) %>%
+  select(titulo, lucro) %>%
   mutate(
     pos = 10:1,
     lucro = scales::dollar(lucro)
@@ -134,3 +157,10 @@ imdb %>%
 ```
 
 Para centralizar o gráfico no documento, você pode usar o parâmetro `fig.align = "center"` no chunk. Para alterar o tamanho da figura, existem os parâmetros `fig.width` (comprimento) e `fig.height` (altura). O parâmetro `fig.cap` coloca legendas.
+
+
+## Adicionando imagens externas 
+
+```{r echo=FALSE, fig.align='center'}
+knitr::include_graphics("https://media.giphy.com/media/AcfTF7tyikWyroP0x7/giphy.gif")
+```

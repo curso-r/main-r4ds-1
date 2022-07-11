@@ -38,8 +38,8 @@ LETTERS
 # Funções são nomes que guardam um código de R. Esse código é
 # avaliado quando rodamos uma função.
 
-nrow(mtcars)
-ncol(mtcars)
+nrow(mtcars) # número de linhas - row = linha
+ncol(mtcars) # número de colunas - col = coluna
 
 # Podemos usar a função help para ver
 # a documentação de um objeto ou função
@@ -59,12 +59,17 @@ sum(2, 3, 4)
 
 read.csv("dados/imdb.csv")
 
+# CSV - Comma Separated Value - arquivo de texto
+# valores separados por vírgula, ou ponto e vírgula (;).
+
 # Como "salvar" a base dentro do R?
 
 # Criando objetos ---------------------------------------------------------
 
 # No dia-a-dia, a gente vai precisar criar os 
 # nossos próprios objetos
+
+# chamamos de atribuição: <-
 
 # Salvando o valor 1 no objeto "obj"
 obj <- 1
@@ -132,9 +137,13 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 
 # checkpoint --------------------------------------------------------------
 
-# 1. Escrevam (não copiem e colem) o código que lê a base e 
+# 1. Apague os objetos criados na aba environment, clicando na  vassoura!
+
+# 2. Escrevam (não copiem e colem) o código que lê a base e 
 # a salva num objeto imdb. Rodem o código e observem 
 # na aba environment se o objeto imdb apareceu.
+
+
 
 # Classes -----------------------------------------------------------------
 
@@ -187,12 +196,16 @@ class(falso)
 class(mtcars)
 class(imdb)
 
-# Como vemos a classe de uma coluna?
+
 # Como acessar as colunas de uma base?
+imdb$data_lancamento
+
+# Como vemos a classe de uma coluna?
+class(imdb$data_lancamento)
 
 # Vetores -----------------------------------------------------------------
 
-# Vetores são conjuntos de valores
+# Vetores são conjuntos de valores: use a função c()
 
 vetor1 <- c(1, 4, 3, 10)
 vetor2 <- c("a", "b", "z")

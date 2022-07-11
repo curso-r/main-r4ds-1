@@ -78,8 +78,7 @@ sd(imdb$orcamento, na.rm = TRUE)
 
 # em data frames --------
 # remove todas as linhas que contenha qualquer NA
-imdb %>% 
-  drop_na()   # tidyr
+drop_na(imdb)   # tidyr
 
 # remove todas as linhas que contenha NA nas colunas que oferecemos para o 
 # drop_na()
@@ -92,6 +91,3 @@ imdb %>%
 
 # funciona como o drop_na() que remove todas linhas que tem algum NA
 na.omit(imdb)
-
-
-# mostrar depois! NA no filter e no summarize.

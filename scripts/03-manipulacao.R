@@ -10,7 +10,8 @@ imdb <- read_rds("dados/imdb.rds")
 
 glimpse(imdb)
 names(imdb)
-View(imdb)
+View(imdb) # Cuidado com bases muito grandes!
+head(imdb)
 
 # dplyr: 6 verbos principais
 # select()    # seleciona colunas do data.frame
@@ -39,7 +40,12 @@ select(imdb, titulo:generos)
 # Funções auxiliares
 
 select(imdb, starts_with("num"))
+
+select(imdb, ends_with("cao"))
+
 select(imdb, contains("cri"))
+
+
 
 # Principais funções auxiliares
 
@@ -69,7 +75,7 @@ arrange(imdb, desc(orcamento))
 
 arrange(imdb, desc(ano), orcamento)
 
-# O que acontece com o NA?
+# O que acontece com o NA? Sempre fica no final!
 
 df <- tibble(x = c(NA, 2, 1), y = c(1, 2, 3))
 arrange(df, x)
@@ -124,23 +130,40 @@ recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
 
 # ATALHO DO %>%: CTRL (command) + SHIFT + M
 
+
+# pipe nativo - Atalho: CTRL SHIFT M 
+imdb |> 
+  select(titulo, ano, nota_imdb, num_avaliacoes) |> 
+  arrange(desc(nota_imdb))
+
+# pipe do tidyverse - Atalho: CTRL SHIFT M 
+imdb %>% 
+  select(titulo, ano, nota_imdb, num_avaliacoes) %>% 
+  arrange(desc(nota_imdb))
+
+
+
 # filter ------------------------------------------------------------------
 
 # filter() - filtrar linhas da base --------
 
-# NOME nome - o R é case sensitive
-# olhar as categorias de uma variável
+# R é case sensitive: 'NOME' é diferente de 'nome'
+
+
+# olhar as categorias de uma variável:
+
+
 # Retorna uma tabela
 imdb %>% 
-  distinct(direcao) %>% 
-  View()
+  distinct(direcao) 
 
 # Retorna um vetor
 unique(imdb$direcao)
 
 
 
-# Aqui falaremos de Conceitos importantes para filtros, seguindo de exemplos!
+# Aqui falaremos de Conceitos importantes para filtros, 
+# seguindo de exemplos!
 
 ## Comparações lógicas -------------------------------
 
@@ -223,7 +246,8 @@ x %in% c(2, 3, 4)
 
 
 
-imdb %>% filter(direcao %in% c('Matt Reeves', "Christopher Nolan"))
+imdb %>% 
+  filter(direcao %in% c('Matt Reeves', "Christopher Nolan"))
 
 
 imdb %>%
@@ -254,8 +278,13 @@ x >= 3 & x <= 7
 x >= 3 & x <= 4
 
 # no filter, a virgula funciona como o &!
-imdb %>%  filter(ano > 2010, nota_imdb > 8.5) %>% View()
-imdb %>%  filter(ano > 2010 & nota_imdb > 8.5)
+imdb %>%  
+  filter(ano > 2010, nota_imdb > 8.5) %>%
+  View()
+
+
+imdb %>% 
+  filter(ano > 2010 & nota_imdb > 8.5)
 
 
 ## Operadores lógicos -------------------------------
@@ -277,10 +306,13 @@ y >= 3 | y <= 0
 # Exemplo com filter
 
 ## Lucraram mais de 500 milhões OU têm nota muito alta
-imdb %>% filter(receita - orcamento > 500000000 | nota_imdb > 9)
+imdb %>% 
+  filter(receita - orcamento > 500000000 | nota_imdb > 9)
 
 # O que esse quer dizer?
-imdb %>% filter(ano > 2010 | nota_imdb > 8.5) %>% View()
+imdb %>%
+  filter(ano > 2010 | nota_imdb > 8.5) %>%
+  View()
 
 ## Operadores lógicos -------------------------------
 
@@ -305,6 +337,8 @@ imdb %>%
   View()
 
 
+
+##  NA ---- 
 
 # exemplo com NA
 is.na(imdb$orcamento)
@@ -377,13 +411,28 @@ imdb %>%
   View()
 
 # A função ifelse é uma ótima ferramenta
-# para fazermos classificação binária
+# para fazermos classificação binária (2 CATEGORIAS)
 
 imdb %>% mutate(
   lucro = receita - orcamento,
   houve_lucro = ifelse(lucro > 0, "Sim", "Não")
 ) %>% 
   View()
+
+
+
+# classificacao com mais de 2 categorias:
+# usar a função case_when()
+
+imdb %>%
+  mutate(
+    categoria_nota = case_when(
+      nota_imdb >= 8 ~ "Alta",
+      nota_imdb < 8 & nota_imdb >= 5 ~ "Média",
+      nota_imdb < 5 ~ "Baixa",
+      TRUE ~ "Não classificado"
+    )
+  ) %>% View()
 
 # summarise ---------------------------------------------------------------
 
@@ -406,7 +455,9 @@ imdb %>% summarise(
 imdb %>% summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   mediana_orcamento = median(orcamento, na.rm = TRUE),
-  variancia_orcamento = var(orcamento, na.rm = TRUE)
+  variancia_orcamento = var(orcamento, na.rm = TRUE),
+  variancia_orcamento = var(orcamento, na.rm = TRUE),
+  desvio_padrao_orcamento = sd(orcamento, na.rm = TRUE)
 )
 
 # Tabela descritiva
@@ -418,12 +469,18 @@ imdb %>% summarise(
 )
 
 
+# n_distinct() é similar à:
+imdb %>% 
+  distinct(direcao) %>% 
+  nrow()
+
+
 # funcoes que transformam -> N valores
 log(1:10)
 sqrt()
 str_detect()
 
-# funcoes que sumarizam -> 1 valor
+# funcoes que sumarizam -> 1 valor - FUNÇÕES BOAS PARA SUMMARISE
 mean(c(1, NA, 2))
 mean(c(1, NA, 2), na.rm = TRUE)
 n_distinct()
@@ -445,6 +502,9 @@ imdb %>%
     qtd_direcao = n_distinct(direcao)
   ) %>%
   arrange(desc(qtd)) 
+
+
+
   
   
 # left join ---------------------------------------------------------------
@@ -456,18 +516,32 @@ imdb %>%
 band_members
 band_instruments
 
-band_members %>% left_join(band_instruments)
-band_instruments %>% left_join(band_members)
+band_members %>% 
+  left_join(band_instruments)
+
+band_instruments %>%
+  left_join(band_members)
 
 # o argumento 'by'
-band_members %>% left_join(band_instruments, by = "name")
+band_members %>%
+  left_join(band_instruments, by = "name")
 
 # OBS: existe uma família de joins
 
-band_instruments %>% left_join(band_members)
-band_instruments %>% right_join(band_members)
-band_instruments %>% inner_join(band_members)
-band_instruments %>% full_join(band_members)
+band_instruments %>%
+  left_join(band_members)
+
+band_instruments %>%
+  inner_join(band_members)
+
+band_instruments %>%
+  full_join(band_members)
+
+band_instruments %>%
+  anti_join(band_members)
+
+band_instruments %>%
+  right_join(band_members)
 
 
 # Um exemplo usando a outra base do imdb
