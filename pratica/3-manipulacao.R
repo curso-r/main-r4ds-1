@@ -1,9 +1,11 @@
 # Objetivo: ler a base IMDB e gerar uma tabela 
 # com apenas as colunas filme e ano, ordenada por ano
 
+# carregando as bibliotecas que vamos usar
 library(readxl)
 library(dplyr)
 
+# lendo os dados
 imdb <- read_excel("dados/imdb.xlsx")
 
 imdb
@@ -94,11 +96,31 @@ imdb %>%
   select(titulo, nota_imdb) %>% 
   arrange(decada)
 
+# Objetivo : mostrar relocate e rename ------
+
+# quero mudar a coluna "producao" para "estudio"
+
+imdb_renomeado <- imdb %>% 
+  rename(estudio = producao)
+
+# quero criar uma coluna nova "lucro"
+# e quero que ela fique depois da coluna "receita"
+imdb_lucro <- imdb %>% 
+  mutate(lucro = receita - orcamento) %>% 
+  relocate(lucro, .after = receita)
+
+imdb_lucrou <- imdb %>% 
+  mutate(lucro = receita - orcamento,
+         lucrou = lucro > 0,
+         .after = receita)
 
 # -------------------------------------------------------------------------
 
 # Objetivo: descobrir qual o peso médio dos 
 # personagens do Star Wars
+
+# instalando pacote dados
+install.packages("dados")
 
 library(dados)
 
@@ -170,7 +192,7 @@ starwars %>%
 
 
 
-## -----
+## ------------------
 # IMDB: Objetivo: criar uma tabela sumarizando as produtoras, ordenadas por lucro.
 imdb_produtoras <- imdb %>% 
   drop_na(orcamento, receita) %>% 

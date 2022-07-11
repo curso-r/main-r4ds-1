@@ -4,6 +4,8 @@
 # contar a historia do will pra contextualizar de onde surgiu essa curiosidade!
 
 library(tidyverse)
+library(dados)
+library(gghighlight)
 
 starwars %>%
   ggplot(aes(x = mass, y = height)) +
@@ -14,6 +16,32 @@ starwars %>%
   ggplot(aes(x = mass, y = height)) +
   geom_point()
 
+# dando destaque ao ponto destoante
+starwars |> 
+  ggplot() +
+  geom_point(aes(x = altura, y = massa)) +
+  gghighlight(massa > 1000, label_key = nome)
+
+
+# install.packages("esquisse")
+library(esquisse)
+
+# fazer graficos point and click e copiar o codigo!
+esquisser(starwars)
+
+# copiei o codigo do grafico que fiz no esquisse
+starwars %>%
+  filter(massa >= 15L & massa <= 1087L | is.na(massa)) %>%
+  ggplot() +
+  aes(x = altura, y = massa, colour = genero) +
+  geom_point(shape = "circle", size = 2.4) +
+  scale_color_viridis_d(option = "viridis", direction = 1) +
+  labs(title = "Massa x Altura ") +
+  theme_minimal()
+
+
+
+
 # Exemplo 2: Mananciais -------------------------------
 # Objetivo: Visualizar o nível dos reservatórios ao 
 # longo do ano.
@@ -23,6 +51,7 @@ library(magrittr)
 library(ggplot2)
 library(dplyr)
 
+# fazer a leitura da base pelo Import Dataset e copiar o codigo
 mananciais <-
   read_delim(
     "https://github.com/beatrizmilz/mananciais/raw/master/inst/extdata/mananciais.csv",
@@ -35,15 +64,27 @@ mananciais <-
 View(mananciais)
 
 # nivel dos reservatorios
-mananciais %>%
-  mutate(ano = lubridate::year(data)) %>%
-  filter(ano == 2021) %>%
+# vendo a evolução do nível de cada reservatório no ano de 2022
+# (uma linha por cada sistema)
+mananciais |> 
+  mutate(ano = lubridate::year(data)) |> 
+  filter(ano == 2022) |>
   ggplot() +
-  geom_line(aes(x = data, y = volume_porcentagem, color = sistema)) #+
-  #scale_y_continuous(breaks = c(-25, 0, 25, 50, 75, 100)) +
-  #theme_bw() +
-  #labs(x = "Anos", y = "Volume operacional (%)")
+  geom_line(aes(x = data, 
+                y = volume_porcentagem, 
+                color = sistema),
+            size = 2)
 
+# fazendo um grafico para cada sistema da evolucao do nivel de agua
+# ao longo de todo o periodo, colorindo por sistema
+mananciais |> 
+  ggplot() +
+  geom_line(aes(x = data, 
+                y = volume_porcentagem,
+                color = sistema),
+            size = 1,
+            show.legend = FALSE) +
+  facet_wrap(~sistema)
 
 # -------------------------------------------------------------------------
 # Objetivo: avaliar se as tempestades tropicais estão
