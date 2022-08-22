@@ -33,13 +33,13 @@ abaixo**.
 ### Aula 2
 
 -   Importação de arquivos
-    -   arquivos de texto
+    -   arquivos de texto (`.csv`)
     -   arquivos Excel
 -   Exportação de arquivos
 -   Manipulação de bases
     -   `select()`
     -   `arrange()`
-    -   pipe `%>%`
+    -   pipe `%>%` e `|>`
 
 ### Aula 3
 
@@ -51,22 +51,22 @@ abaixo**.
 
 -   Manipulação de bases
     -   `group_by()` e `summarise()`
-    -   juntando duas bases
+    -   juntando duas bases com joins
 
 ### Aula 5
+
+-   Relatórios em R Markdown
+    -   Introdução ao R Markdown
+    -   Construindo relatórios em HTML, PDF e Word
+
+### Aula 6
 
 -   Gráficos
     -   Gráficos de pontos (dispersão)
     -   Gráficos de barras
 
-### Aula 6
+### Aula 7
 
 -   Gráficos
     -   Boxplots e histogramas
     -   Customizando gráficos
-
-### Aula 7
-
--   Relatórios em R Markdown
-    -   Introdução ao R Markdown
-    -   Construindo relatórios em HTML, PDF e Word
