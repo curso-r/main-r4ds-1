@@ -240,9 +240,7 @@ library(viridis)
 image_read("https://jeroen.github.io/images/frink.png") %>%
   image_rotate(270) %>%
   image_background("blue", flatten = TRUE) %>%
-  image_border("red", "10x10") %>%
-  image_annotate("Linguagens de programação ainda\nsão linguagens!",
-                 color = "white", size = 30)
+  image_border("red", "10x10")
 ```
 
 --
@@ -321,3 +319,31 @@ knitr::include_graphics("img/ciclo-ciencia-de-dados.png")
 ```{r echo=FALSE, fig.align='center', out.width="80%"}
 knitr::include_graphics("img/ciclo-ciencia-de-dados-pacotes.png")
 ```
+
+
+---
+
+## Plano para o curso!
+
+.pull-left[
+
+### Introdução ao R
+
+### Importação de dados
+
+### Manipulação de dados
+
+### Relatórios
+
+### Gráficos
+]
+
+.pull-right[
+
+```{r echo=FALSE, fig.align='center', out.width="80%"}
+knitr::include_graphics("https://ecorepsci.github.io/reproducible-science/img/tidyverse_celestial.png")
+```
+
+Arte por Allison Horst.
+
+]
