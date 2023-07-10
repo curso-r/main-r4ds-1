@@ -333,9 +333,6 @@ knitr::include_graphics("img/ciclo-ciencia-de-dados-pacotes.png")
 
 ### Manipulação de dados
 
-### Relatórios
-
-### Gráficos
 ]
 
 .pull-right[
