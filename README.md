@@ -10,63 +10,44 @@ Inscreva-se no curso: <https://www.curso-r.com/cursos/r4ds-1/>
 **Acesse o material completo do curso escolhendo uma das turmas
 abaixo**.
 
-| Turma            | Material                                  | Github                                     |
-|:-----------------|:------------------------------------------|:-------------------------------------------|
-| Setembro de 2022 | <https://curso-r.github.io/202209-r4ds-1> | <https://github.com/curso-r/202209-r4ds-1> |
-| Junho de 2022    | <https://curso-r.github.io/202206-r4ds-1> | <https://github.com/curso-r/202206-r4ds-1> |
-| Março de 2022    | <https://curso-r.github.io/202203-r4ds-1> | <https://github.com/curso-r/202203-r4ds-1> |
+| Turma           | Material                                  | Github                                     |
+|:----------------|:------------------------------------------|:-------------------------------------------|
+| Julho de 2023   | <https://curso-r.github.io/202307-r4ds-1> | <https://github.com/curso-r/202307-r4ds-1> |
+| Janeiro de 2023 | <https://curso-r.github.io/202301-r4ds-1> | <https://github.com/curso-r/202301-r4ds-1> |
 
 ## Plano de aula atual
 
-### Aula 1
+### Aula 1 e 2
 
--   Vantagens de usarmos programação para analisar dados
--   Ambientação ao RStudio
-    -   Interface
-    -   Projetos
--   Introdução ao R
-    -   Objetos e vetores
-    -   Classes: números, caracteres, lógicos e data frames
-    -   Funções e pacotes
-    -   tidyverse
-
-### Aula 2
-
--   Importação de arquivos
-    -   arquivos de texto (`.csv`)
-    -   arquivos Excel
--   Exportação de arquivos
--   Manipulação de bases
-    -   `select()`
-    -   `arrange()`
-    -   pipe `%>%` e `|>`
+- Vantagens de usarmos programação para analisar dados
+- Ambientação ao RStudio
+  - Interface
+  - Projetos
+- Introdução ao R
+  - Objetos e vetores
+  - Classes: números, caracteres, lógicos e data frames
+  - Funções e pacotes
+  - tidyverse
 
 ### Aula 3
 
--   Manipulação de bases
-    -   `filter()`
-    -   `mutate()`
+- Importação de arquivos
+  - arquivos de texto (`.csv`)
+  - arquivos Excel
+- Exportação de arquivos
+- Manipulação de bases
+  - `select()`
+  - `arrange()`
+  - pipe `%>%` e `|>`
 
 ### Aula 4
 
--   Manipulação de bases
-    -   `group_by()` e `summarise()`
-    -   juntando duas bases com joins
+- Manipulação de bases
+  - `filter()`
+  - `mutate()`
 
 ### Aula 5
 
--   Relatórios em R Markdown
-    -   Introdução ao R Markdown
-    -   Construindo relatórios em HTML, PDF e Word
-
-### Aula 6
-
--   Gráficos
-    -   Gráficos de pontos (dispersão)
-    -   Gráficos de barras
-
-### Aula 7
-
--   Gráficos
-    -   Boxplots e histogramas
-    -   Customizando gráficos
+- Manipulação de bases
+  - `group_by()` e `summarise()`
+  - juntando duas bases com joins

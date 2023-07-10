@@ -25,7 +25,7 @@ knitr::kable(CursoRutils:::listar_turmas_recentes("r4ds-1"))
 
 ## Plano de aula atual
 
-### Aula 1
+### Aula 1 e 2
 
 - Vantagens de usarmos programação para analisar dados
 - Ambientação ao RStudio
@@ -37,7 +37,7 @@ knitr::kable(CursoRutils:::listar_turmas_recentes("r4ds-1"))
   - Funções e pacotes
   - tidyverse
 
-### Aula 2
+### Aula 3
 
 - Importação de arquivos
   - arquivos de texto (`.csv`)
@@ -48,35 +48,19 @@ knitr::kable(CursoRutils:::listar_turmas_recentes("r4ds-1"))
   - `arrange()`
   - pipe `%>%` e `|>`
   
-### Aula 3
+### Aula 4
 
 - Manipulação de bases
   - `filter()`
   - `mutate()`
 
-### Aula 4
+### Aula 5
 
 - Manipulação de bases
   - `group_by()` e `summarise()`
   - juntando duas bases com joins
   
-### Aula 5
 
-- Relatórios em R Markdown
-  - Introdução ao R Markdown
-  - Construindo relatórios em HTML, PDF e Word  
-
-### Aula 6
-
-- Gráficos
-  - Gráficos de pontos (dispersão)
-  - Gráficos de barras
-
-### Aula 7
-
-- Gráficos
-  - Boxplots e histogramas
-  - Customizando gráficos
 
   
 ```{r eval=FALSE, include=FALSE}
