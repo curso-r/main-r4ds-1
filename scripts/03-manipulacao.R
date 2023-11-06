@@ -869,7 +869,7 @@ shape_ce_pnud |>
 # tabelas a partir de uma chave.
 # Vamos ver um exemplo bem simples.
 
-band_members
+band_members 
 band_instruments
 
 band_members |>
@@ -906,7 +906,7 @@ band_instruments |>
   inner_join(band_members) # só vai aparecer o que tem em comum
 
 
-band_instruments 
+band_instruments |> 
   anti_join(band_members) # só vai aparecer o que NÃO tem em comum
 
 

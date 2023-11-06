@@ -23,17 +23,17 @@
 5 / 3
 
 # potência
-4 ^ 2
+4^2
 
 # Objetos -----------------------------------------------------------------
 
-# As bases de dados serão o nosso objeto de trabalho 
+# As bases de dados serão o nosso objeto de trabalho
 mtcars
 
 # O objeto mtcars já vem com a instalação do R
 # Ele está sempre disponível
 
-# Outros exemplos 
+# Outros exemplos
 pi
 letters
 LETTERS
@@ -41,13 +41,13 @@ LETTERS
 # Na prática, vamos precisar trazer nossas bases
 # para dentro do R. Como faremos isso?
 
-objeto_criado <- 30 # 
+objeto_criado <- 30 #
 
-# atalho 
+# atalho
 # <- ALT MENOS
 
 # funciona com = , mas é melhor usar <-
-objeto = "Beatriz"
+nome = "Beatriz"
 
 # EXECUTAR: CTRL ENTER
 
@@ -55,7 +55,7 @@ objeto = "Beatriz"
 
 Sys.Date()
 
-somar_dois_numeros <- function(numero_a, numero_b){
+somar_dois_numeros <- function(numero_a, numero_b) {
   numero_a + numero_b
 }
 
@@ -337,13 +337,13 @@ vetor * 10
 vetor1 <- c(1, 2, 3)
 vetor2 <- c(10, 20, 30)
 
-vetor1  + vetor2
+vetor1 + vetor2
 
 # Pacotes -----------------------------------------------------------------
 
 # Para instalar pacotes
 
-install.packages("tidyverse") # busca no CRAN 
+install.packages("tidyverse") # busca no CRAN
 
 
 starwars
@@ -358,4 +358,3 @@ dplyr::transmute()
 # aproveite o auto complete
 
 dplyr::filter()
-
