@@ -16,7 +16,7 @@ getwd()
 "dados/imdb.csv"
 "dados/imdb.csv"
 
-# (cara(o) professora(o), favor lembrar de falar da dica 
+# (cara(o) professora(o), favor lembrar de falar da dica
 # de navegação entre as aspas)
 
 # Tibbles -----------------------------------------------------------------
