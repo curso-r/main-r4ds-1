@@ -10,10 +10,11 @@ Inscreva-se no curso: <https://www.curso-r.com/cursos/r4ds-1/>
 **Acesse o material completo do curso escolhendo uma das turmas
 abaixo**.
 
-| Turma           | Material                                  | Github                                     |
-|:----------------|:------------------------------------------|:-------------------------------------------|
-| Julho de 2023   | <https://curso-r.github.io/202307-r4ds-1> | <https://github.com/curso-r/202307-r4ds-1> |
-| Janeiro de 2023 | <https://curso-r.github.io/202301-r4ds-1> | <https://github.com/curso-r/202301-r4ds-1> |
+| Turma            | Material                                  | Github                                     |
+|:-----------------|:------------------------------------------|:-------------------------------------------|
+| Novembro de 2023 | <https://curso-r.github.io/202311-r4ds-1> | <https://github.com/curso-r/202311-r4ds-1> |
+| Julho de 2023    | <https://curso-r.github.io/202307-r4ds-1> | <https://github.com/curso-r/202307-r4ds-1> |
+| Janeiro de 2023  | <https://curso-r.github.io/202301-r4ds-1> | <https://github.com/curso-r/202301-r4ds-1> |
 
 ## Plano de aula atual
 

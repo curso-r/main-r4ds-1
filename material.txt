@@ -1,3 +1,7 @@
 scripts
 dados
 main-r4ds-1.Rproj
+slides/01-introducao-ao-curso.pdf
+slides/02-introducao-ao-r.pdf
+slides/03-importacao.pdf
+slides/04-manipulacao.pdf
