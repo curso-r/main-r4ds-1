@@ -2,6 +2,14 @@
 
 # ATALHO para rodar o código: CTRL + ENTER
 
+# Comentário
+# Isso não vai ser executado
+
+# Executar
+# mouse no código: ctrl + enter
+# mouse no código: botão run
+# selecionar o códig e rodar com botão run (isso é util para resolver erros!)
+
 # adição
 1 + 1
 
@@ -33,7 +41,25 @@ LETTERS
 # Na prática, vamos precisar trazer nossas bases
 # para dentro do R. Como faremos isso?
 
+objeto_criado <- 30 # 
+
+# atalho 
+# <- ALT MENOS
+
+# funciona com = , mas é melhor usar <-
+objeto = "Beatriz"
+
+# EXECUTAR: CTRL ENTER
+
 # Funções -----------------------------------------------------------------
+
+Sys.Date()
+
+somar_dois_numeros <- function(numero_a, numero_b){
+  numero_a + numero_b
+}
+
+somar_dois_numeros(10, 20)
 
 # Funções são nomes que guardam um código de R. Esse código é
 # avaliado quando rodamos uma função.
@@ -46,14 +72,29 @@ ncol(mtcars) # número de colunas - col = coluna
 help(mtcars)
 help(nrow)
 
+?mean
+
 # Uma função muito útil para data frames é a View
 View(mtcars)
+# evitar em bases muito grandes, e em dados geoespaciais
+
+
+# E o view com v minúsculo? só com o tidyverse carregado
+
+View(mtcars) # R base
+view(mtcars) # tidyverse
 
 # Uma função pode ter mais de um argumento
 # Argumentos são sempre separados por vírgulas
 
 sum(1, 2)
 sum(2, 3, 4)
+
+round(1.3453456234, digits = 2) 
+
+round(1.3453456234, 2)
+
+# usar o ponto para separador decimal dentro do R.
 
 # Existem funções para ler bases de dados
 
@@ -63,6 +104,8 @@ read.csv("dados/imdb.csv")
 # valores separados por vírgula, ou ponto e vírgula (;).
 
 # Como "salvar" a base dentro do R?
+
+imdb <- read.csv("dados/imdb.csv")
 
 # Criando objetos ---------------------------------------------------------
 
@@ -103,11 +146,15 @@ resultado <- 33 / 11
 
 # atualizar um objeto
 resultado <- resultado * 5
+# tomar cuidado com salvar coisas em objetos com o mesmo nome!
 
 # A nossa base imdb só será alterada quando salvarmos
 # uma operação em cima do objeto imdb
 
 na.exclude(imdb)
+
+
+
 imdb_sem_na <- na.exclude(imdb)
 
 # Os nomes devem começar com uma letra.
@@ -121,18 +168,21 @@ objeto <- 3
 meu_objeto <- 4
 meu.objeto <- 5
 
+
+
+
 # Não permitido
 
-1x <- 1
-_objeto <- 2
-meu-objeto <- 3
+1x <- 1 # nao pode começar com numero
+_objeto <- 2 # nao pode começar com underline
+meu-objeto <- 3 # nao usar traço 
 
 # Estilo de nomes
 
-eu_uso_snake_case
-outrasPessoasUsamCamelCase
-algumas.pessoas.usam.pontos.mas.nao.deviam
-E_algumasPoucas.Pessoas_RENUNCIAMconvenções
+eu_uso_snake_case # underline
+outrasPessoasUsamCamelCase  # separa com maiusculas
+algumas.pessoas.usam.pontos.mas.nao.deviam # pontos
+E_algumasPoucas.Pessoas_RENUNCIAMconvenções # 
 
 
 # checkpoint --------------------------------------------------------------
@@ -142,6 +192,9 @@ E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 # 2. Escrevam (não copiem e colem) o código que lê a base e 
 # a salva num objeto imdb. Rodem o código e observem 
 # na aba environment se o objeto imdb apareceu.
+
+
+imdb <- read.csv("dados/imdb.csv")
 
 
 
@@ -185,16 +238,21 @@ class(obj2)
 
 # lógicos (logical, booleanos)
 
-verdadeiro <- TRUE
-falso <- FALSE
+verdadeiro <- TRUE # 1 
+falso <- FALSE # 0
 
 class(verdadeiro)
 class(falso)
 
-# Data frames
+# Data frames (classe do objeto) - tibble, df, tabela
 
 class(mtcars)
 class(imdb)
+
+
+imdb$nota_imdb
+
+class(imdb$nota_imdb)
 
 
 # Como acessar as colunas de uma base?
@@ -203,12 +261,16 @@ imdb$data_lancamento
 # Como vemos a classe de uma coluna?
 class(imdb$data_lancamento)
 
+
+
 # Vetores -----------------------------------------------------------------
 
 # Vetores são conjuntos de valores: use a função c()
 
 vetor1 <- c(1, 4, 3, 10)
 vetor2 <- c("a", "b", "z")
+
+
 
 vetor1
 vetor2
@@ -281,10 +343,19 @@ vetor1  + vetor2
 
 # Para instalar pacotes
 
-install.packages("tidyverse")
-library(tidyverse)
+install.packages("tidyverse") # busca no CRAN 
+
+
+starwars
+
+library(tidyverse) # para poder usar o pacote
 library(dplyr)
 
 # Também é possível acessar as funções usando ::
 dplyr::filter_at()
 dplyr::transmute()
+
+# aproveite o auto complete
+
+dplyr::filter()
+
