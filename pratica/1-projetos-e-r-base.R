@@ -23,8 +23,8 @@ summary(imdb)
 # da receita média e quantos estão abaixo
 
 imdb[1, 1]
-imdb[1,"titulo"]
-imdb[1:10,"titulo"]
+imdb[1, "titulo"]
+imdb[1:10, "titulo"]
 
 imdb$receita[1]
 imdb$receita[1:10]
@@ -44,8 +44,8 @@ table(imdb$pais)
 # Podemos ver a receita média para filmes feitos depois dos
 # anos 2000 versus os filmes feito antes dos anos 2000:
 
-filmes_depois_2000 <- imdb[imdb$ano >= 2000,]
-filmes_antes_2000 <- imdb[imdb$ano < 2000,]
+filmes_depois_2000 <- imdb[imdb$ano >= 2000, ]
+filmes_antes_2000 <- imdb[imdb$ano < 2000, ]
 
 mean(filmes_depois_2000$receita, na.rm = TRUE)
 mean(filmes_antes_2000$receita, na.rm = TRUE)

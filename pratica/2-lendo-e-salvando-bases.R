@@ -8,16 +8,19 @@ imdb <- read_excel("dados/imdb_nao_estruturada.xlsx")
 
 # ler a base pulando as linhas do começo
 imdb <- read_excel("dados/imdb_nao_estruturada.xlsx",
-                   skip = 4)
+  skip = 4
+)
 
 # tirar o cabeçalho da base
 imdb <- read_excel("dados/imdb_nao_estruturada.xlsx",
-                   skip = 4,
-                   col_names = FALSE)
+  skip = 4,
+  col_names = FALSE
+)
 
 # lendo a tabela com o nome das colunas
 colunas <- read_excel("dados/imdb_nao_estruturada.xlsx",
-                      sheet = "Sheet1")
+  sheet = "Sheet1"
+)
 
 # funcao que da o nome das colunas da base de dados
 names(imdb)
@@ -36,23 +39,25 @@ tail(imdb)
 
 # lendo a base de dados sem a as ultimas linhas
 imdb <- read_excel("dados/imdb_nao_estruturada.xlsx",
-                   skip = 4,
-                   col_names = FALSE,
-                   n_max = 3713)
+  skip = 4,
+  col_names = FALSE,
+  n_max = 3713
+)
 
 # veja que agora as duas linhas "erradas" foram retiradas
 tail(imdb)
 
 # fazendo a leitura "bonitinha" da base de dados, direto
 imdb <- read_excel("dados/imdb_nao_estruturada.xlsx",
-                   skip = 4,
-                   col_names = colunas$nome,
-                   n_max = 3713)
+  skip = 4,
+  col_names = colunas$nome,
+  n_max = 3713
+)
 
 
 # Exemplo 2: importar dados com o Import Dataset --------------------------
 
-# Passo 1: ir até onde queremos buscar o link da tabela 
+# Passo 1: ir até onde queremos buscar o link da tabela
 # http://orcamento.sf.prefeitura.sp.gov.br/orcamento/execucao.php
 
 # Passo 2: encontrar o link do arquivo .xlsx
@@ -116,7 +121,7 @@ url_planilha <- "https://docs.google.com/spreadsheets/d/1U6Cf_qEOhiR9AZqTqS3mbMF
 # ler a planilha
 planilha_gapminder <- read_sheet(url_planilha)
 
-# ver as propriedades da planilha (conseguimos descobrir quais sheets 
+# ver as propriedades da planilha (conseguimos descobrir quais sheets
 # estão disponíveis)
 sheet_properties(url_planilha)
 
