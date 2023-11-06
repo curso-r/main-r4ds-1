@@ -2,10 +2,18 @@ library(tidyverse)
 
 # Caminhos até o arquivo --------------------------------------------------
 
+# diretório de trabalho - onde o R vai buscar ou salvar arquivos.
+getwd()
+# com projetos, o diretorio de trabalho é a pasta do projeto!
+
+
 # Caminhos absolutos - Não é uma boa prática
 "/home/william/Documents/Curso-R/main-r4ds-1/dados/imdb.csv"
 
-# Caminhos relativos
+# imdb <- leitura("~/Desktop/material_do_curso-r-para-ciencia-de-dados/dados/imdb.csv")
+
+# Caminhos relativos - partem do diretório de trabalho
+"dados/imdb.csv"
 "dados/imdb.csv"
 
 # (cara(o) professora(o), favor lembrar de falar da dica 
@@ -15,20 +23,38 @@ library(tidyverse)
 
 airquality
 
+iris
+
+class(airquality)
+
 as_tibble(airquality)
 
 class(as_tibble(airquality))
 
+
+t_airquality <- as_tibble(airquality)
+
+class(t_airquality)
+
+
 # Lendo arquivos de texto -------------------------------------------------
 
-# CSV, separado por vírgula
+# Quais formatos vocês costumam usar?
+
+
+
+
+
+# readr - pacote para importacao
+
+# CSV, separado por vírgula-  comma separated values
 imdb_csv <- read_csv("dados/imdb.csv")
 
 # CSV, separado por ponto-e-vírgula
 imdb_csv2 <- read_csv2("dados/imdb2.csv")
 
 # TXT, separado por tabulação (tecla TAB)
-imdb_txt <- read_delim("dados/imdb.txt", delim = "\t")
+imdb_txt <- read_delim("dados/imdb.txt", delim = "\t") # \t representa o tab
 
 # A função read_delim funciona para qualquer tipo de separador
 imdb_delim <- read_delim("dados/imdb.csv", delim = ",")
