@@ -91,3 +91,6 @@ imdb %>%
 
 # funciona como o drop_na() que remove todas linhas que tem algum NA
 na.omit(imdb)
+
+# visualização dos NAs
+naniar::gg_miss_var(imdb)
