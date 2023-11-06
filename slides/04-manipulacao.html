@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -15,9 +15,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # R para Ciência de Dados I
+]
+.subtitle[
 ## Manipulando bases de dados
+]
+.author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
+]
 
 ---
 
@@ -99,7 +105,7 @@ select(imdb, titulo)
 ##  8 On the Threshold of Space
 ##  9 Her Name Was Torment     
 ## 10 It Lives in the Attic    
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 ]
 
@@ -127,7 +133,7 @@ select(imdb, titulo, ano, orcamento)
 ##  8 On the Threshold of Space  1956   1505000
 ##  9 Her Name Was Torment       2014       500
 ## 10 It Lives in the Attic      2016      1000
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 
 ---
@@ -155,7 +161,7 @@ select(imdb, titulo:generos)
 ##  8 On the Threshold of Space  1956 1956-04-30      Drama                 
 ##  9 Her Name Was Torment       2014 2014-04-29      Horror                
 ## 10 It Lives in the Attic      2016 2016-11-12      Thriller              
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 ]
 
@@ -190,7 +196,7 @@ select(imdb, starts_with("num"))
 ##  8            162                    9                   NA
 ##  9            115                    4                    5
 ## 10            197                   12                    7
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 ]
 
@@ -219,10 +225,11 @@ arrange(imdb, orcamento)
 ##  8 tt3889450 Ameri…  2017 2017-02-01      Comedy…      96 USA   Engli…         0
 ##  9 tt5252440 Hot W…  2005 2005-10-01      Animat…      60 USA   Engli…         0
 ## 10 tt5229754 She W…  2016 2016-06-24      Horror       76 USA   Engli…         0
-## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -251,10 +258,11 @@ arrange(imdb, desc(orcamento))
 ##  8 tt0398286 Tangl…  2010 2010-11-26      Animat…     100 USA   Engli… 260000000
 ##  9 tt0413300 Spide…  2007 2007-05-01      Action…     139 USA   Engli… 258000000
 ## 10 tt2975590 Batma…  2016 2016-03-23      Action…     152 USA   Engli… 250000000
-## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -283,10 +291,11 @@ arrange(imdb, desc(ano), desc(orcamento))
 ##  8 tt7939428 10 Th…  2020 2020-02-21      Romance      74 USA   Engli…  25000000
 ##  9 tt103089… Force…  2020 2020-06-30      Action…      91 USA   Engli…  23000000
 ## 10 tt4411584 The S…  2020 2020-07-31      Drama,…     107 USA   Engli…  21000000
-## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -318,9 +327,9 @@ A primeira alternativa é ruim de escrever, já que precisamos escrever primeiro
 
 A segunda alternativa é ruim pois exige a criação de objetos auxiliares. Se quiséssimos aplicar 10 operações na base, precisaríamos criar 9 objetos intermediários.
 
-A solução para aplicar diversas operações de manipulação em uma base de dados é aplicar o operador pipe: %&gt;%.
+A solução para aplicar diversas operações de manipulação em uma base de dados é aplicar o operador pipe: |&gt;.
 ---
-## O operador pipe %&gt;% 
+## O operador pipe |&gt; 
 
 A ideia do operador pipe é a seguinte: ele vai aplicar a função do lado direito ao objeto do lado esquerdo.
 
@@ -330,7 +339,7 @@ No exemplo a seguir, estamos aplicando a função `sum()` (lado direito) no obje
 ```r
 vetor &lt;- c(1, 2, 3)
 
-vetor %&gt;% sum()
+vetor |&gt; sum()
 ```
 
 ```
@@ -357,7 +366,7 @@ Na prática, o pipe coloca o objeto do lado esquerdo no primeiro argumento da fu
 ```r
 vetor &lt;- c(1, 2, 3, NA)
 
-vetor %&gt;% sum(na.rm = TRUE)
+vetor |&gt; sum(na.rm = TRUE)
 ```
 
 ```
@@ -387,8 +396,8 @@ Quando estamos aplicando apenas uma função, o pipe não parece trazer vantagen
 arrange(select(imdb, titulo, ano), ano)
 
 # Com pipe
-imdb %&gt;% 
-  select(titulo, ano) %&gt;% 
+imdb |&gt; 
+  select(titulo, ano) |&gt; 
   arrange(ano)
 ```
 
@@ -404,7 +413,7 @@ Para filtrar valores de uma coluna da base, utilizamos a função `filter()`.
 .tiny[
 
 ```r
-imdb %&gt;% filter(nota_imdb &gt; 9)
+imdb |&gt; filter(nota_imdb &gt; 9)
 ```
 
 ```
@@ -419,7 +428,7 @@ imdb %&gt;% filter(nota_imdb &gt; 9)
 ## 6 tt11164090 The M…  2020 2020-05-11      Comedy       85 USA   Engli…        NA
 ## 7 tt5980638  The T…  2018 2020-06-19      Music,…      96 USA   Engli…     90000
 ## 8 tt6074834  Delaw…  2018 2018-12-21      Drama        98 USA   Engli…        NA
-## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
 ## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
 ## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
 ## #   num_criticas_critica &lt;dbl&gt;
@@ -434,8 +443,8 @@ Podemos selecionar apenas as colunas título e nota para visualizarmos as notas:
 .tiny[
 
 ```r
-imdb %&gt;% 
-  filter(nota_imdb &gt; 9) %&gt;% 
+imdb |&gt; 
+  filter(nota_imdb &gt; 9) |&gt; 
   select(titulo, nota_imdb)
 ```
 
@@ -462,7 +471,7 @@ Podemos estender o filtro para duas ou mais colunas. Para isso, separamos cada o
 .tiny[
 
 ```r
-imdb %&gt;% filter(ano &gt; 2010,
+imdb |&gt; filter(ano &gt; 2010,
                 nota_imdb &gt; 8.5, 
                 num_avaliacoes &gt; 5000)
 ```
@@ -474,7 +483,7 @@ imdb %&gt;% filter(ano &gt; 2010,
 ## 1 tt8503618 Hamilt…  2020 2020-07-03      Biogra…     160 USA   Engli…        NA
 ## 2 tt6019206 Kill B…  2011 2011-03-27      Action…     247 USA   &lt;NA&gt;          NA
 ## 3 tt2170667 Wheels   2014 2017-02-01      Drama       115 USA   Engli…        NA
-## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
 ## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
 ## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
 ## #   num_criticas_critica &lt;dbl&gt;
@@ -489,7 +498,7 @@ Também podemos fazer operações com as colunas da base dentro da função filt
 .tiny[
 
 ```r
-imdb %&gt;% filter(receita - orcamento &gt; 0)
+imdb |&gt; filter(receita - orcamento &gt; 0)
 ```
 
 ```
@@ -506,10 +515,11 @@ imdb %&gt;% filter(receita - orcamento &gt; 0)
 ##  8 tt0120434 Vegas…  1997 1997-02-14      Comedy       93 USA   Engli…  25000000
 ##  9 tt1086772 Blend…  2014 2014-07-02      Comedy…     117 USA   Engli…  40000000
 ## 10 tt0064115 Butch…  1969 1969-09-26      Biogra…     110 USA   Engli…   6000000
-## # … with 2,574 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 2,574 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -521,7 +531,7 @@ Naturalmente, podemos filtrar colunas categóricas. O exemplo abaixo retorna uma
 .tiny[
 
 ```r
-imdb %&gt;%
+imdb |&gt;
   filter(direcao %in% c('Quentin Tarantino', "George Lucas"))
 ```
 
@@ -544,7 +554,7 @@ imdb %&gt;%
 ## 13 tt0066434 THX 1…  1971 1976-10-29      Drama,…      86 USA   Engli…    777000
 ## 14 tt1853728 Djang…  2012 2013-01-17      Drama,…     165 USA   Engli… 100000000
 ## 15 tt0120915 Star …  1999 1999-09-17      Action…     136 USA   Engli… 115000000
-## # … with 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
 ## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
 ## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
 ## #   num_criticas_critica &lt;dbl&gt;
@@ -601,7 +611,7 @@ str_detect(
 
 ```r
 # Aplicamos essa lógica dentro da função filter, para a coluna completa
-imdb %&gt;% filter(str_detect(generos, "Drama"))
+imdb |&gt; filter(str_detect(generos, "Drama"))
 ```
 
 ```
@@ -618,10 +628,11 @@ imdb %&gt;% filter(str_detect(generos, "Drama"))
 ##  8 tt2822280 Confe…  2015 2015-03-24      Drama        90 USA   Engli…        NA
 ##  9 tt0372122 Adam …  2005 2007-05-17      Comedy…      99 USA   Engli…        NA
 ## 10 tt3703836 Henry…  2015 2016-01-08      Drama        87 USA   Engli…        NA
-## # … with 13,806 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 13,806 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -633,7 +644,7 @@ Para modificar uma coluna existente ou criar uma nova coluna, utilizamos a funç
 .tiny[
 
 ```r
-imdb %&gt;% mutate(duracao = duracao/60)
+imdb |&gt; mutate(duracao = duracao/60)
 ```
 
 ```
@@ -650,10 +661,11 @@ imdb %&gt;% mutate(duracao = duracao/60)
 ##  8 tt0049571 On th…  1956 1956-04-30      Drama     1.63  USA   Engli…   1505000
 ##  9 tt3772198 Her N…  2014 2014-04-29      Horror    0.833 USA   &lt;NA&gt;         500
 ## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…   1.42  USA   Engli…      1000
-## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -665,7 +677,7 @@ Também poderíamos ter criado essa variável em uma nova coluna. Repare que a n
 .tiny[
 
 ```r
-imdb %&gt;% mutate(duracao_horas = duracao/60)
+imdb |&gt; mutate(duracao_horas = duracao/60)
 ```
 
 ```
@@ -682,10 +694,11 @@ imdb %&gt;% mutate(duracao_horas = duracao/60)
 ##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
 ##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
 ## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
-## # … with 28,480 more rows, and 12 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;, duracao_horas &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 12 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;, duracao_horas &lt;dbl&gt;
 ```
 ]
 
@@ -697,8 +710,8 @@ Podemos fazer qualquer operação com uma ou mais colunas. A única regra é que
 .tiny[
 
 ```r
-imdb %&gt;% 
-  mutate(lucro = receita - orcamento, pais = "Estados Unidos") %&gt;% 
+imdb |&gt; 
+  mutate(lucro = receita - orcamento, pais = "Estados Unidos") |&gt; 
   select(titulo, lucro, pais)
 ```
 
@@ -716,7 +729,7 @@ imdb %&gt;%
 ##  8 On the Threshold of Space       NA Estados Unidos
 ##  9 Her Name Was Torment            NA Estados Unidos
 ## 10 It Lives in the Attic           NA Estados Unidos
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 ]
 
@@ -729,7 +742,7 @@ Para sumarizar uma coluna da base, utilizamos a função `summarize()`. O códig
 
 
 ```r
-imdb %&gt;% summarize(media_orcamento = mean(orcamento, na.rm = TRUE))
+imdb |&gt; summarize(media_orcamento = mean(orcamento, na.rm = TRUE))
 ```
 
 ```
@@ -748,7 +761,7 @@ Podemos calcular diversas sumarizações diferentes em um mesmo `summarize`. Cad
 
 
 ```r
-imdb %&gt;% summarise(
+imdb |&gt; summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   mediana_orcamento = median(orcamento, na.rm = TRUE),
   variancia_orcamento = var(orcamento, na.rm = TRUE)
@@ -769,7 +782,7 @@ E também sumarizar diversas colunas.
 
 
 ```r
-imdb %&gt;% summarize(
+imdb |&gt; summarize(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   media_receita = mean(receita, na.rm = TRUE),
   media_lucro = mean(receita - orcamento, na.rm = TRUE)
@@ -792,10 +805,10 @@ O código a seguir calcula a receita média dos filmes para cada categoria da co
 
 
 ```r
-imdb %&gt;% 
-  group_by(direcao) %&gt;% 
-  summarise(receita_media = mean(receita, na.rm = TRUE)) %&gt;% 
-  drop_na(receita_media) %&gt;% 
+imdb |&gt; 
+  group_by(direcao) |&gt; 
+  summarise(receita_media = mean(receita, na.rm = TRUE)) |&gt; 
+  drop_na(receita_media) |&gt; 
   arrange(desc(receita_media))
 ```
 
@@ -813,7 +826,7 @@ imdb %&gt;%
 ##  8 Gareth Edwards                  1056057720 
 ##  9 Andrew Stanton, Angus MacLane   1028570889 
 ## 10 Byron Howard, Rich Moore        1023789075 
-## # … with 4,022 more rows
+## # ℹ 4,022 more rows
 ```
 
 ---
@@ -824,7 +837,7 @@ A única alteração que a função `group_by()` faz na base é a marcação de 
 .tiny[
 
 ```r
-imdb %&gt;% group_by(direcao)
+imdb |&gt; group_by(direcao)
 ```
 
 ```
@@ -842,10 +855,11 @@ imdb %&gt;% group_by(direcao)
 ##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
 ##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
 ## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
-## # … with 28,480 more rows, and 11 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 11 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -857,8 +871,8 @@ Podemos juntar duas tabelas a partir de uma (coluna) chave utilizando a função
 .tiny[
 
 ```r
-tab_lucro_direcao &lt;- imdb %&gt;%
-  group_by(direcao) %&gt;% 
+tab_lucro_direcao &lt;- imdb |&gt;
+  group_by(direcao) |&gt; 
   summarise(lucro_medio = mean(receita - orcamento, na.rm = TRUE))
 
 tab_lucro_direcao
@@ -878,7 +892,7 @@ tab_lucro_direcao
 ##  8 A.D. Calvo                                   NaN
 ##  9 A.J. Edwards                                 NaN
 ## 10 A.J. Kparr                                   NaN
-## # … with 12,449 more rows
+## # ℹ 12,449 more rows
 ```
 ]
 
@@ -909,10 +923,11 @@ imdb_com_lucro_medio
 ##  8 tt0049571 On th…  1956 1956-04-30      Drama        98 USA   Engli…   1505000
 ##  9 tt3772198 Her N…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;         500
 ## 10 tt6212020 It Li…  2016 2016-11-12      Thrill…      85 USA   Engli…      1000
-## # … with 28,480 more rows, and 12 more variables: receita &lt;dbl&gt;,
-## #   receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;,
-## #   roteiro &lt;chr&gt;, producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
-## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;, lucro_medio &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 12 more variables: receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
+## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
+## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
+## #   num_criticas_critica &lt;dbl&gt;, lucro_medio &lt;dbl&gt;
 ```
 ]
 
@@ -929,12 +944,12 @@ A primeira linha, por exemplo, traz as informações do filme Avatar. O valor do
 .tiny[
 
 ```r
-imdb_com_lucro_medio %&gt;% 
+imdb_com_lucro_medio |&gt; 
   mutate(
     lucro = receita - orcamento,
     lucro_relativo = (lucro - lucro_medio)/lucro_medio,
     lucro_relativo = scales::percent(lucro_relativo)
-  ) %&gt;% 
+  ) |&gt; 
   select(titulo, direcao, lucro, lucro_medio, lucro_relativo) 
 ```
 
@@ -952,7 +967,7 @@ imdb_com_lucro_medio %&gt;%
 ##  8 On the Threshold of Space Robert D. Webb   NA             NaN  &lt;NA&gt;          
 ##  9 Her Name Was Torment      Dustin Mills     NA             NaN  &lt;NA&gt;          
 ## 10 It Lives in the Attic     Steve Hudgins    NA             NaN  &lt;NA&gt;          
-## # … with 28,480 more rows
+## # ℹ 28,480 more rows
 ```
 ]
 
@@ -1005,6 +1020,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
