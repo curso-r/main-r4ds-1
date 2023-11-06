@@ -3,13 +3,13 @@
 # Existem valores reservados para representar dados faltantes,
 # infinitos, e indefinições matemáticas.
 
-NA   # (Not Available) significa dado faltante/indisponível.
- 
+NA # (Not Available) significa dado faltante/indisponível.
 
-NaN  # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1).
+
+NaN # (Not a Number) representa indefinições matemáticas, como 0/0 e log(-1).
 # Um NaN é um NA, mas a recíproca não é verdadeira.
 
-Inf  # (Infinito) é um número muito grande ou o limite matemático, por exemplo,
+Inf # (Infinito) é um número muito grande ou o limite matemático, por exemplo,
 # 1/0 e 10^310. Aceita sinal negativo -Inf.
 
 NULL # representa a ausência de objeto (no R).
@@ -43,7 +43,7 @@ idades <- c(15, 64, 31, NA, 59)
 is.na(idades)
 
 is.nan(NaN)
-is.infinite(10 ^ 309)
+is.infinite(10^309)
 is.null(NULL)
 
 # NAs em bases de dados
@@ -78,15 +78,15 @@ sd(imdb$orcamento, na.rm = TRUE)
 
 # em data frames --------
 # remove todas as linhas que contenha qualquer NA
-drop_na(imdb)   # tidyr
+drop_na(imdb) # tidyr
 
-# remove todas as linhas que contenha NA nas colunas que oferecemos para o 
+# remove todas as linhas que contenha NA nas colunas que oferecemos para o
 # drop_na()
-imdb %>% 
+imdb %>%
   drop_na(orcamento, receita)
 
 
-imdb %>% 
+imdb %>%
   drop_na(ano)
 
 # funciona como o drop_na() que remove todas linhas que tem algum NA
