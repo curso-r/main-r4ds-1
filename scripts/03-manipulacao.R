@@ -184,7 +184,7 @@ imdb_pipe <- imdb |> # usando a base do IMDB
   # ordenar de forma decrescente pela nota
   arrange(desc(nota_imdb))
 
-# ATALHO DO %>%: CTRL (command) + SHIFT + M
+# ATALHO DO |>: CTRL (command) + SHIFT + M
 
 
 # pipe nativo - Atalho: CTRL SHIFT M
@@ -205,12 +205,12 @@ imdb %>%
 # Retorna uma tabela
 
 distinct(imdb, direcao) # deixa apenas valores unicos!
-distinct(imdb, ano, idioma) %>%
-  arrange(ano) %>%
+distinct(imdb, ano, idioma) |>
+  arrange(ano) |>
   View()
 
 
-imdb %>%
+imdb |>
   distinct(direcao)
 
 # Retorna um vetor
@@ -219,16 +219,16 @@ unique(imdb$direcao)
 
 # Contagem ----
 
-imdb %>%
+imdb |>
   count(direcao)
 
-count(imdb, direcao, ano) %>% View()
+count(imdb, direcao, ano) |> View()
 
-diretores_ordenados <- imdb %>%
+diretores_ordenados <- imdb |>
   count(direcao, sort = TRUE)
 
-imdb %>%
-  filter(direcao == "Quentin Tarantino") %>%
+imdb |>
+  filter(direcao == "Quentin Tarantino") |>
   count(producao)
 
 
@@ -265,22 +265,22 @@ filter(imdb, direcao == "Quentin Tarantino")
 
 # reescrever com pipe
 
-imdb %>%
-  filter(direcao == "Quentin Tarantino") %>%
-  arrange(ano) %>% # decrescente: desc(ano)
-  select(titulo, ano, nota_imdb) %>%
+imdb |>
+  filter(direcao == "Quentin Tarantino") |>
+  arrange(ano) |> # decrescente: desc(ano)
+  select(titulo, ano, nota_imdb) |>
   View()
 
 
-imdb %>%
-  filter(direcao == "Quentin Tarantino") %>%
+imdb |>
+  filter(direcao == "Quentin Tarantino") |>
   View()
 
-imdb %>%
+imdb |>
   filter(
     direcao == "Quentin Tarantino",
     producao == "Miramax"
-  ) %>%
+  ) |>
   View()
 
 
@@ -302,36 +302,36 @@ x <= 1 # menor ou igual
 
 # Exemplo com filtros!
 
-imdb %>%
-  filter(nota_imdb >= 9) %>%
+imdb |>
+  filter(nota_imdb >= 9) |>
   View()
 
 
 
 ## Recentes e com nota alta
-imdb %>%
-  filter(nota_imdb >= 9, num_avaliacoes > 10000) %>%
+imdb |>
+  filter(nota_imdb >= 9, num_avaliacoes > 10000) |>
   View()
 
-imdb %>%
-  filter(ano > 2010, nota_imdb > 8.5, num_avaliacoes > 1000) %>%
+imdb |>
+  filter(ano > 2010, nota_imdb > 8.5, num_avaliacoes > 1000) |>
   View()
-imdb %>% filter(ano > 2010 & nota_imdb > 8.5)
+imdb |> filter(ano > 2010 & nota_imdb > 8.5)
 
 ## Gastaram menos de 100 mil, faturaram mais de 1 milhão
-imdb %>%
-  filter(orcamento < 100000, receita > 1000000) %>%
+imdb |>
+  filter(orcamento < 100000, receita > 1000000) |>
   View()
 
 ## Lucraram
-imdb %>%
-  filter(receita - orcamento > 0) %>%
+imdb |>
+  filter(receita - orcamento > 0) |>
   View()
 
-imdb %>%
+imdb |>
   # é NA na receita OU é NA no orçamento
   # OU - satisfazer pelo menos uma das comparacoes/condicoes
-  filter(is.na(receita) | is.na(orcamento)) %>%
+  filter(is.na(receita) | is.na(orcamento)) |>
   # nrow()
   View()
 
@@ -344,8 +344,8 @@ x != 2
 x != 1
 
 # Exemplo com filtros!
-imdb %>%
-  filter(direcao != "Quentin Tarantino") %>%
+imdb |>
+  filter(direcao != "Quentin Tarantino") |>
   View()
 
 ## Comparações lógicas -------------------------------
@@ -362,23 +362,23 @@ x %in% c(2, 3, 4)
 
 # O operador %in%
 
-imdb %>%
-  filter(direcao %in% c("Matt Reeves", "Christopher Nolan")) %>%
+imdb |>
+  filter(direcao %in% c("Matt Reeves", "Christopher Nolan")) |>
   View()
 
 # dá pra reescrever com o OU
-imdb %>%
+imdb |>
   filter(
     direcao == "Matt Reeves" | direcao == "Christopher Nolan"
   )
 
 
 # ISSO NAO FUNCIONA
-# imdb %>%
+# imdb |>
 #  filter(direcao == c("..", '...'))
 
 
-diretores_favoritos_do_will <- imdb %>%
+diretores_favoritos_do_will <- imdb |>
   filter(
     direcao %in% c(
       "Quentin Tarantino",
@@ -387,7 +387,7 @@ diretores_favoritos_do_will <- imdb %>%
       "Steven Spielberg",
       "Francis Ford Coppola"
     )
-  ) %>%
+  ) |>
   view()
 
 
@@ -410,13 +410,13 @@ x >= 3 & x <= 7 #
 x >= 3 & x <= 4
 
 # no filter, a virgula funciona como o &!
-imdb %>%
-  filter(ano > 2010, nota_imdb > 8.5) %>%
+imdb |>
+  filter(ano > 2010, nota_imdb > 8.5) |>
   View()
 
 
 # menos frequente de ser usado, mas funciona!
-imdb %>%
+imdb |>
   filter(ano > 2010 & nota_imdb > 8.5)
 
 
@@ -442,13 +442,13 @@ y >= 3 | y <= 0
 # Exemplo com filter
 
 ## Lucraram mais de 500 milhões OU têm nota muito alta
-imdb %>%
-  filter(receita - orcamento > 500000000 | nota_imdb > 9) %>%
+imdb |>
+  filter(receita - orcamento > 500000000 | nota_imdb > 9) |>
   View()
 
 # O que esse quer dizer?
-imdb %>%
-  filter(ano > 2010 | nota_imdb > 8.5) %>%
+imdb |>
+  filter(ano > 2010 | nota_imdb > 8.5) |>
   View()
 
 
@@ -467,14 +467,14 @@ imdb %>%
 
 # Exemplo com filter
 
-imdb %>%
+imdb |>
   filter(!direcao %in% c(
     "Quentin Tarantino",
     "Christopher Nolan",
     "Matt Reeves",
     "Steven Spielberg",
     "Francis Ford Coppola"
-  )) %>%
+  )) |>
   View()
 
 
@@ -482,31 +482,31 @@ imdb %>%
 is.na("bia")
 is.na(NA)
 
-imdb %>%
-  filter(!is.na(orcamento)) %>%
+imdb |>
+  filter(!is.na(orcamento)) |>
   View()
 
 
 
-imdb %>%
-  filter(!is.na(orcamento), !is.na(receita)) %>%
+imdb |>
+  filter(!is.na(orcamento), !is.na(receita)) |>
   View()
 
 
 #
 
-imdb %>%
-  mutate(descricao_minusculo = str_to_lower(descricao)) %>%
-  filter(str_detect(descricao_minusculo, "woman|hero|friend")) %>%
+imdb |>
+  mutate(descricao_minusculo = str_to_lower(descricao)) |>
+  filter(str_detect(descricao_minusculo, "woman|hero|friend")) |>
   View()
 
 
-imdb %>%
-  mutate(descricao_minusculo = str_to_lower(descricao)) %>%
+imdb |>
+  mutate(descricao_minusculo = str_to_lower(descricao)) |>
   filter(
     str_detect(descricao_minusculo, "woman"),
     str_detect(descricao_minusculo, "friend")
-  ) %>%
+  ) |>
   View()
 
 
@@ -515,15 +515,15 @@ imdb %>%
 # exemplo com NA
 is.na(imdb$orcamento)
 
-imdb %>%
+imdb |>
   filter(!is.na(orcamento))
 
 # tira toooodas as linhas que tenham algum NA
-imdb %>%
+imdb |>
   drop_na()
 
 # tira as linhas que tem NA nas colunas indicadas
-imdb %>%
+imdb |>
   drop_na(orcamento, receita)
 
 
@@ -552,13 +552,13 @@ filter(df, x > 1 | is.na(x))
 filter(imdb, orcamento == NA)
 
 # contar os NA quando a variavel é categórica/texto
-count(imdb, producao, sort = TRUE) %>% View()
+count(imdb, producao, sort = TRUE) |> View()
 
 # para numéricos, assim é mais fácil
-filter(imdb, is.na(orcamento)) %>%
+filter(imdb, is.na(orcamento)) |>
   nrow()
 # tambem funciona para texto
-filter(imdb, is.na(producao)) %>%
+filter(imdb, is.na(producao)) |>
   nrow()
 
 
@@ -589,18 +589,18 @@ str_detect(
 
 ## Pegando apenas os filmes que
 ## tenham o gênero ação
-imdb %>%
-  filter(str_detect(generos, "Action")) %>%
+imdb |>
+  filter(str_detect(generos, "Action")) |>
   View()
 
 
 # filtra generos que contenha filmes que tenha "Crime" no texto
-imdb %>%
-  filter(str_detect(generos, "Crime")) %>%
+imdb |>
+  filter(str_detect(generos, "Crime")) |>
   View()
 
 # filtra generos que seja IGUAL e APENAS "Crime"
-imdb %>% filter(generos == "Crime")
+imdb |> filter(generos == "Crime")
 
 # INTERVALO!
 
@@ -614,35 +614,35 @@ imdb %>% filter(generos == "Crime")
 # nome_da_coluna_para_criar_2 = operacao_que_tem_resultado)
 
 # Modificando uma coluna
-imdb %>%
-  mutate(duracao = duracao / 60) %>%
+imdb |>
+  mutate(duracao = duracao / 60) |>
   View()
 
 # Criando uma nova coluna
 
-imdb %>%
-  mutate(duracao_horas = duracao / 60) %>%
+imdb |>
+  mutate(duracao_horas = duracao / 60) |>
   View()
 
 # util pra criar colunas em uma posicao especifica
-imdb %>%
-  mutate(duracao_horas = duracao / 60, .after = duracao) %>%
+imdb |>
+  mutate(duracao_horas = duracao / 60, .after = duracao) |>
   View()
 
 
-imdb %>%
-  mutate(lucro = receita - orcamento, .after = receita) %>%
+imdb |>
+  mutate(lucro = receita - orcamento, .after = receita) |>
   View()
 
 
-lucro_filmes <- imdb %>%
-  drop_na(orcamento, receita) %>%
-  select(titulo, ano, receita, orcamento) %>%
+lucro_filmes <- imdb |>
+  drop_na(orcamento, receita) |>
+  select(titulo, ano, receita, orcamento) |>
   mutate(
     lucro = receita - orcamento,
     lucrou = lucro > 0,
     .after = orcamento
-  ) %>%
+  ) |>
   arrange(lucro)
 
 
@@ -654,16 +654,16 @@ lucro_filmes <- imdb %>%
 # SE NAO, FACA OUTRA COISA
 
 
-imdb %>%
+imdb |>
   mutate(
     lucro = receita - orcamento,
     houve_lucro = ifelse(lucro > 0, "Sim", "Não")
-  ) %>%
+  ) |>
   View()
 
 
-nota_categorizada <- imdb %>%
-  select(titulo, nota_imdb) %>%
+nota_categorizada <- imdb |>
+  select(titulo, nota_imdb) |>
   mutate(
     categoria_nota = case_when(
       # quando essa condicao for verdadeira ~ salve esse valor,
@@ -675,13 +675,13 @@ nota_categorizada <- imdb %>%
     )
   )
 
-nota_categorizada %>%
+nota_categorizada |>
   count(categoria_nota)
 
 # classificacao com mais de 2 categorias:
 # usar a função case_when()
 
-imdb %>%
+imdb |>
   mutate(
     categoria_nota = case_when(
       nota_imdb >= 8 ~ "Alta",
@@ -689,7 +689,7 @@ imdb %>%
       nota_imdb < 5 ~ "Baixa",
       TRUE ~ "Não classificado"
     )
-  ) %>%
+  ) |>
   View()
 
 
@@ -715,21 +715,21 @@ round(imdb$nota_imdb)
 
 # Sumarizando uma coluna
 
-imdb %>%
+imdb |>
   summarise(media_orcamento = mean(orcamento, na.rm = TRUE))
 
 # repare que a saída ainda é uma tibble
 
 
 # Sumarizando várias colunas
-imdb %>% summarise(
+imdb |> summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   media_receita = mean(receita, na.rm = TRUE),
   media_lucro = mean(receita - orcamento, na.rm = TRUE)
 )
 
 # Diversas sumarizações da mesma coluna
-imdb %>% summarise(
+imdb |> summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   mediana_orcamento = median(orcamento, na.rm = TRUE),
   variancia_orcamento = var(orcamento, na.rm = TRUE),
@@ -738,7 +738,7 @@ imdb %>% summarise(
 )
 
 # Tabela descritiva
-imdb %>% summarise(
+imdb |> summarise(
   media_orcamento = mean(orcamento, na.rm = TRUE),
   media_receita = mean(receita, na.rm = TRUE),
   qtd = n(),
@@ -747,8 +747,8 @@ imdb %>% summarise(
 
 
 # n_distinct() é similar à:
-imdb %>%
-  distinct(direcao) %>%
+imdb |>
+  distinct(direcao) |>
   nrow()
 
 
@@ -767,49 +767,49 @@ n_distinct()
 
 # Agrupando a base por uma variável.
 
-imdb %>% group_by(producao)
+imdb |> group_by(producao)
 
 # Agrupando e sumarizando
-imdb %>%
-  group_by(producao) %>%
+imdb |>
+  group_by(producao) |>
   summarise(
     media_orcamento = mean(orcamento, na.rm = TRUE),
     media_receita = mean(receita, na.rm = TRUE),
     qtd = n(),
     qtd_direcao = n_distinct(direcao)
-  ) %>%
+  ) |>
   arrange(desc(qtd))
 
 # Agrupando e sumarizando
-imdb %>%
-  group_by(direcao) %>%
+imdb |>
+  group_by(direcao) |>
   summarise(
     media_orcamento = mean(orcamento, na.rm = TRUE),
     media_receita = mean(receita, na.rm = TRUE),
     media_nota = mean(nota_imdb),
     qtd = n(),
     nome_filmes = paste(titulo, collapse = ", "),
-  ) %>%
+  ) |>
   arrange(desc(qtd))
 
 
 
-imdb %>%
-  separate_longer_delim(direcao, delim = ", ", ) %>%
-  group_by(direcao) %>%
+imdb |>
+  separate_longer_delim(direcao, delim = ", ", ) |>
+  group_by(direcao) |>
   summarise(
     media_orcamento = mean(orcamento, na.rm = TRUE),
     media_receita = mean(receita, na.rm = TRUE),
     media_nota = mean(nota_imdb),
     qtd = n(),
     nome_filmes = paste(titulo, collapse = "; "), # knitr::combine_words()
-  ) %>%
-  arrange(desc(qtd)) %>%
+  ) |>
+  arrange(desc(qtd)) |>
   View()
 
 
-imdb_tarantino <- imdb %>%
-  separate_longer_delim(direcao, delim = ", ", ) %>%
+imdb_tarantino <- imdb |>
+  separate_longer_delim(direcao, delim = ", ", ) |>
   filter(direcao == "Quentin Tarantino")
 
 imdb_tarantino$titulo
@@ -845,8 +845,8 @@ shape <- read_municipality("CE")
 glimpse(shape)
 
 
-dados_pnud_2010 <- dados_pnud %>%
-  filter(ano == 2010) %>%
+dados_pnud_2010 <- dados_pnud |>
+  filter(ano == 2010) |>
   mutate(
     code_muni = muni_id,
     abbrev_state = uf_sigla
@@ -855,8 +855,8 @@ dados_pnud_2010 <- dados_pnud %>%
 # queremos fazer uma base que tenha os dados do shape
 # junto com dados do pnud
 
-shape_ce_pnud <- shape %>%
-  mutate(code_muni = as.character(code_muni)) %>%
+shape_ce_pnud <- shape |>
+  mutate(code_muni = as.character(code_muni)) |>
   left_join(dados_pnud_2010, by = c("code_muni", "abbrev_state"))
 
 
@@ -872,7 +872,7 @@ shape_ce_pnud |>
 band_members
 band_instruments
 
-band_members %>%
+band_members |>
   left_join(band_instruments)
 
 # name | band | plays
@@ -881,7 +881,7 @@ band_members %>%
 # 3 Paul  Beatles | bass
 
 
-band_instruments %>%
+band_instruments |>
   left_join(band_members)
 
 # name | plays | band
@@ -890,30 +890,30 @@ band_instruments %>%
 
 
 # o argumento 'by'
-band_members %>%
+band_members |>
   left_join(band_instruments, by = "name")
 
 # OBS: existe uma família de joins
 
-band_instruments %>%
+band_instruments |>
   left_join(band_members)
 
-band_instruments %>%
+band_instruments |>
   full_join(band_members) # mantem todos os dados das duas tabelas
 
 
-band_instruments %>%
+band_instruments |>
   inner_join(band_members) # só vai aparecer o que tem em comum
 
 
-band_instruments %>%
+band_instruments 
   anti_join(band_members) # só vai aparecer o que NÃO tem em comum
 
 
-band_instruments %>%
+band_instruments |>
   right_join(band_members) # sao poucos casos onde é util!
 
-band_members %>%
+band_members |>
   left_join(band_instruments)
 
 
@@ -922,10 +922,10 @@ band_members %>%
 imdb <- read_rds("dados/imdb.rds")
 imdb_avaliacoes <- read_rds("dados/imdb_avaliacoes.rds")
 
-imdb %>%
-  left_join(imdb_avaliacoes, by = "id_filme") %>%
+imdb |>
+  left_join(imdb_avaliacoes, by = "id_filme") |>
   View()
 
-imdb %>%
-  full_join(imdb_avaliacoes, by = "id_filme") %>%
+imdb |>
+  full_join(imdb_avaliacoes, by = "id_filme") |>
   View()

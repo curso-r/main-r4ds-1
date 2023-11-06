@@ -82,11 +82,11 @@ drop_na(imdb) # tidyr
 
 # remove todas as linhas que contenha NA nas colunas que oferecemos para o
 # drop_na()
-imdb %>%
+imdb |>
   drop_na(orcamento, receita)
 
 
-imdb %>%
+imdb |>
   drop_na(ano)
 
 # funciona como o drop_na() que remove todas linhas que tem algum NA
