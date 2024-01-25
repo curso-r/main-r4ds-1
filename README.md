@@ -12,9 +12,9 @@ abaixo**.
 
 | Turma            | Material                                  | Github                                     |
 |:-----------------|:------------------------------------------|:-------------------------------------------|
+| Janeiro de 2024  | <https://curso-r.github.io/202401-r4ds-1> | <https://github.com/curso-r/202401-r4ds-1> |
 | Novembro de 2023 | <https://curso-r.github.io/202311-r4ds-1> | <https://github.com/curso-r/202311-r4ds-1> |
 | Julho de 2023    | <https://curso-r.github.io/202307-r4ds-1> | <https://github.com/curso-r/202307-r4ds-1> |
-| Janeiro de 2023  | <https://curso-r.github.io/202301-r4ds-1> | <https://github.com/curso-r/202301-r4ds-1> |
 
 ## Plano de aula atual
 
