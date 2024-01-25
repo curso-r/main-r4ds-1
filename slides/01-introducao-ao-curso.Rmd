@@ -124,12 +124,25 @@ link(
 ---
 ## Nossos cursos
 
-.smaller[
-```{r, echo = FALSE}
-templatesR6::criar_slide_nossos_cursos()
-```
-]
+<!-- .smaller[ -->
+<!-- ```{r, echo = FALSE} -->
+<!-- templatesR6::criar_slide_nossos_cursos() -->
+<!-- ``` -->
+<!-- ] -->
 
+- R para Ciência de Dados I
+
+- Introdução à Estatística com R
+
+- R para Ciência de Dados II
+
+- Visualização de dados
+
+- Relatórios e apresentações
+
+- Introdução ao Machine Learning
+
+- Deploy
 ---
 class: middle, center
 

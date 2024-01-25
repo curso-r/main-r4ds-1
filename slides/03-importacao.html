@@ -4,7 +4,7 @@
     <title>R para Ciência de Dados I</title>
     <meta charset="utf-8" />
     <meta name="author" content="" />
-    <script src="libs/header-attrs-2.14.2/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
     <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
@@ -15,9 +15,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # R para Ciência de Dados I
+]
+.subtitle[
 ## Importação de dados
+]
+.author[
 ### <img src = 'https://d33wubrfki0l68.cloudfront.net/9b0699f18268059bdd2e5c21538a29eade7cbd2b/67e5c/img/logo/cursor1-5.png' width = '20%'>
+]
 
 ---
 
@@ -70,7 +76,7 @@ A função `setwd()` pode ser utilizada para mudar o diretório de trabalho. Com
 
 Caminhos absolutos são aqueles que tem início na pasta raiz do seu computador/usuário. Por exemplo:
 
-`/Users/beatrizmilz/Documents/Curso-R/cursos/rds1/main-r4ds-1/slides`
+`/Users/beatrizmilz/Documents/Curso-R/cursos/main/main-r4ds-1/slides`
 
 Esse é o caminho absoluto para a pasta onde esses slides foram produzidos.
 
@@ -161,7 +167,7 @@ tibble::as_tibble(mtcars)
 ##  8  24.4     4  147.    62  3.69  3.19  20       1     0     4     2
 ##  9  22.8     4  141.    95  3.92  3.15  22.9     1     0     4     2
 ## 10  19.2     6  168.   123  3.92  3.44  18.3     1     0     4     4
-## # … with 22 more rows
+## # ℹ 22 more rows
 ```
 ]
 
@@ -225,11 +231,11 @@ imdb_csv
 ##  8 tt0049571 On the Thr…  1956 1956-04-30      Drama        98 USA   Engli…
 ##  9 tt3772198 Her Name W…  2014 2014-04-29      Horror       50 USA   &lt;NA&gt;  
 ## 10 tt6212020 It Lives i…  2016 2016-11-12      Thrill…      85 USA   Engli…
-## # … with 28,480 more rows, and 12 more variables: orcamento &lt;dbl&gt;,
-## #   receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;, nota_imdb &lt;dbl&gt;,
-## #   num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;, producao &lt;chr&gt;,
-## #   elenco &lt;chr&gt;, descricao &lt;chr&gt;, num_criticas_publico &lt;dbl&gt;,
-## #   num_criticas_critica &lt;dbl&gt;
+## # ℹ 28,480 more rows
+## # ℹ 12 more variables: orcamento &lt;dbl&gt;, receita &lt;dbl&gt;, receita_eua &lt;dbl&gt;,
+## #   nota_imdb &lt;dbl&gt;, num_avaliacoes &lt;dbl&gt;, direcao &lt;chr&gt;, roteiro &lt;chr&gt;,
+## #   producao &lt;chr&gt;, elenco &lt;chr&gt;, descricao &lt;chr&gt;,
+## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;
 ```
 ]
 
@@ -468,6 +474,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

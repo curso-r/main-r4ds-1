@@ -1,5 +1,6 @@
 scripts
 dados
+exercicios
 main-r4ds-1.Rproj
 slides/01-introducao-ao-curso.pdf
 slides/02-introducao-ao-r.pdf
